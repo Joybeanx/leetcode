@@ -1,11 +1,7 @@
 package com.joybean.oj.leetcode;
 
 /**
- * Add Two Numbers
- * <p>You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes
- * contain a single digit.Add the two numbers and return it as a linked list.
- * <p>Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
- * <p>Output: 7 -> 0 -> 8
+ * <a href="https://leetcode.com/problems/add-two-numbers/description/">Add Two Numbers</a>
  *
  * @author Jobean
  */
@@ -14,7 +10,7 @@ public class AddTwoNumbers {
         return add(l1, l2, false);
     }
 
-    public ListNode add(ListNode l1, ListNode l2, boolean carry) {
+    public static ListNode add(ListNode l1, ListNode l2, boolean carry) {
         int val1 = null != l1 ? l1.val : 0;
         int val2 = null != l2 ? l2.val : 0;
         int val = val1 + val2;
@@ -60,7 +56,7 @@ public class AddTwoNumbers {
         return l;
     }
 
-    public ListNode _addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode _addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
         ListNode p = l1, q = l2, curr = dummyHead;
         int carry = 0;
