@@ -6,11 +6,6 @@ package com.joybean.oj.leetcode;
  * @author Joybean
  */
 public class ReverseInteger {
-
-    public static void main(String[] args) {
-        System.out.println(reverse3(1534236469));
-    }
-
     /**
      * String concatenation，use exception to handle overflow
      *
@@ -74,5 +69,17 @@ public class ReverseInteger {
             x= x/10;
         }
         return (int)result;
+    }
+
+    public static int reverse4(int x) {
+        long result = 0;
+        while (x != 0){
+            result *= 10;
+            result += x % 10;
+            x /= 10;
+        }
+        int test = (int) result;
+        if (test == result) return test;
+        return 0;
     }
 }
