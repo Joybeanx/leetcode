@@ -6,7 +6,7 @@ package com.joybean.oj.leetcode;
  * @author Jobean
  */
 public class AddTwoNumbers {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
         return add(l1, l2, false);
     }
 
@@ -56,7 +56,7 @@ public class AddTwoNumbers {
         return l;
     }
 
-    public static ListNode _addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
         ListNode p = l1, q = l2, curr = dummyHead;
         int carry = 0;
