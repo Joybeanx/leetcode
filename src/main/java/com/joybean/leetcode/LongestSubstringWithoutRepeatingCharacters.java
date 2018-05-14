@@ -1,4 +1,4 @@
-package com.joybean.oj.leetcode;
+package com.joybean.leetcode;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.joybean.oj.leetcode;
+package com.joybean.leetcode;
 
 /**
  * <a href="https://leetcode.com/problems/reverse-integer/description/">Reverse Integer</a>
