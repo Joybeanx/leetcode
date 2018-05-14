@@ -56,7 +56,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return length;
     }
 
-    public int _lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring3(String s) {
         int n = s.length(), ans = 0;
         Map<Character, Integer> map = new HashMap<>(); // current index of character
         // try to extend the range [i, j]
