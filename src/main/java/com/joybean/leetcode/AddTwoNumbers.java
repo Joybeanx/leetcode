@@ -3,7 +3,7 @@ package com.joybean.leetcode;
 /**
  * <a href="https://leetcode.com/problems/add-two-numbers/description/">Add Two Numbers</a>
  *
- * @author Jobean
+ * @author Joybean
  */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {

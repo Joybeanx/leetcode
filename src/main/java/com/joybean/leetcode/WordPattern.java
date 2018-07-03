@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * <a href="https://leetcode.com/problems/word-pattern/description/">Word Pattern</a>
  *
- * @author Jobean
+ * @author Joybean
  */
 public class WordPattern {
 

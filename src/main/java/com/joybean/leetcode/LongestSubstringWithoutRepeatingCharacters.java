@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">Longest Substring Without Repeating Characters</a>
  *
- * @author Jobean
+ * @author Joybean
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 

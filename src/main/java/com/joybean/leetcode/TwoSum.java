@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * <a href="https://leetcode.com/problems/two-sum/description/">Two Sum</a>
  *
- * @author Jobean
+ * @author Joybean
  */
 public class TwoSum {
     public static int[] twoSum(int[] nums, int target) {

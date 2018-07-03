@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">Median of Two Sorted Arrays</a>
  *
- * @author Jobean
+ * @author Joybean
  */
 public class MedianOfTwoSortedArrays {
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
