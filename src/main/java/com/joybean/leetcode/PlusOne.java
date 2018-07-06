@@ -43,7 +43,7 @@ public class PlusOne {
     }
 
     /**
-     * Cool solution but it modifys original parameter
+     * Cool solution but it modifies original parameter
      *
      * @param digits
      * @return
