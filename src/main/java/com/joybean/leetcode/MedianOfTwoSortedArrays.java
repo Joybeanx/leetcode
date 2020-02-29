@@ -1,10 +1,5 @@
 package com.joybean.leetcode;
 
-import com.sun.nio.sctp.IllegalUnbindException;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/">Median of Two Sorted Arrays</a>
  *
