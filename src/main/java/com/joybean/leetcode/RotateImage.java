@@ -9,9 +9,13 @@ public class RotateImage {
     public static void rotate(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             int[] row = matrix[i];
+
+            //When start to rotate item of the ith row, the first i items and the last (i+1) items has
+            // been in the right position and the.
             int lenToSwap = row.length - i - 1;
             for (int j = i; j < lenToSwap; j++) {
                 int value = row[j];
+                //Swap until rotate back to (i,j) position
                 swap(i, j, value, matrix, i, j);
             }
         }

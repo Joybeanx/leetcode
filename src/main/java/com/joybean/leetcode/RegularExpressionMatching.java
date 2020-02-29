@@ -6,16 +6,18 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class RegularExpressionMatching {
-    public static boolean isMatch(String text, String pattern) {
-        if (pattern.isEmpty()) return text.isEmpty();
-        boolean first_match = (!text.isEmpty() &&
-                (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
+    public boolean isMatch(String s, String p) {
+        if (p.isEmpty()) {
+            return s.isEmpty();
+        }
+        boolean first_match = (!s.isEmpty() &&
+                (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.'));
 
-        if (pattern.length() >= 2 && pattern.charAt(1) == '*') {
-            return (isMatch(text, pattern.substring(2)) ||
-                    (first_match && isMatch(text.substring(1), pattern)));
+        if (p.length() >= 2 && p.charAt(1) == '*') {
+            return (isMatch(s, p.substring(2)) ||
+                    (first_match && isMatch(s.substring(1), p)));
         } else {
-            return first_match && isMatch(text.substring(1), pattern.substring(1));
+            return first_match && isMatch(s.substring(1), p.substring(1));
         }
     }
 }
