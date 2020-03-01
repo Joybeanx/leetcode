@@ -24,7 +24,15 @@ public class ContainerWithMostWater {
     }
 
     /**
-     * Two pointers: more code, less calculation
+     * Two pointers: more code, less calculation.
+     * <ul>
+     *     <li>
+     *         Moving pointer means we need recalculate the area and compare to current max area
+     *     </li>
+     *     <li>
+     *          Moving the shorter line's pointer to the index of a longer line could turn out to be beneficial
+     *     </li>
+     * </ul>
      *
      * @param height
      * @return
@@ -38,9 +46,11 @@ public class ContainerWithMostWater {
             int minHeight;
             if (height[left] <= height[right]) {
                 minHeight = height[left];
+                //Find next index which value greater than current minHeight
                 left = advance(height, left, true);
             } else {
                 minHeight = height[right];
+                // Find next index which value greater than current minHeight
                 right = advance(height, right, false);
             }
             maxArea = Math.max(maxArea, minHeight * length);
@@ -49,9 +59,9 @@ public class ContainerWithMostWater {
         return maxArea;
     }
 
-
     /**
      * Two pointers: more calculation, less code
+     *
      * @param height
      * @return
      */
@@ -63,10 +73,11 @@ public class ContainerWithMostWater {
                 l++;
             } else {
                 r--;
-             }
+            }
         }
         return maxarea;
     }
+
     private static int advance(int[] height, int start, boolean left) {
         int i = left ? start + 1 : start - 1;
         while (i < height.length && height[i] <= height[start]) {
