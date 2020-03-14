@@ -9,13 +9,16 @@ package com.joybean.leetcode;
 public class FindFirstAndLastPositionOfElementInSortedArray {
 
     public static int[] searchRange1(int[] nums, int target) {
+        //find any index that holds target
         int idx = getTargetIndex(nums, target, 0, nums.length - 1);
         int i = idx;
         int j = idx;
         if (idx != -1) {
+            //go backward from the index to find the smallest index that holds target
             while (i - 1 >= 0 && nums[i - 1] == target) {
                 i--;
             }
+            //go backward from the index to find the biggest index that holds target
             while (j + 1 < nums.length && nums[j + 1] == target) {
                 j++;
             }
