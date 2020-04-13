@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import java.util.Map;
  * @author Joybean
  */
 public class LetterCombinationsOfAPhoneNumber {
-    public List<String> letterCombinations(String digits) {
+    public List<String> letterCombinations1(String digits) {
         if (digits == null) {
             return Collections.emptyList();
         }
@@ -28,6 +29,25 @@ public class LetterCombinationsOfAPhoneNumber {
         digitMap.put(8, Arrays.asList("t", "u", "v"));
         digitMap.put(9, Arrays.asList("w", "x", "y", "z"));
         return doCombine(digits, digitMap);
+    }
+
+    private static final String[] KEYS = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+    public List<String> letterCombinations2(String digits) {
+        List<String> ret = new LinkedList<>();
+        combination("", digits, 0, ret);
+        return ret;
+    }
+
+    private void combination(String prefix, String digits, int offset, List<String> ret) {
+        if (offset >= digits.length()) {
+            ret.add(prefix);
+            return;
+        }
+        String letters = KEYS[(digits.charAt(offset) - '0')];
+        for (int i = 0; i < letters.length(); i++) {
+            combination(prefix + letters.charAt(i), digits, offset + 1, ret);
+        }
     }
 
     public List<String> doCombine(String digits, Map<Integer, List<String>> digitMap) {
