@@ -15,6 +15,12 @@ import java.util.Map;
  * @author Joybean
  */
 public class LetterCombinationsOfAPhoneNumber {
+    /**
+     * Recursive solution 1
+     *
+     * @param digits
+     * @return
+     */
     public List<String> letterCombinations1(String digits) {
         if (digits == null) {
             return Collections.emptyList();
@@ -31,12 +37,41 @@ public class LetterCombinationsOfAPhoneNumber {
         return doCombine(digits, digitMap);
     }
 
-    private static final String[] KEYS = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+    private static final String[] KEYS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
+    /**
+     * Recursive solution 2
+     *
+     * @param digits
+     * @return
+     */
     public List<String> letterCombinations2(String digits) {
         List<String> ret = new LinkedList<>();
         combination("", digits, 0, ret);
         return ret;
+    }
+
+    /**
+     * FIFO queue
+     *
+     * @param digits
+     * @return
+     */
+    public List<String> letterCombinations3(String digits) {
+        LinkedList<String> ans = new LinkedList<>();
+        if (digits.isEmpty()) {
+            return ans;
+        }
+        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        ans.add("");
+        while (ans.peek().length() != digits.length()) {
+            String remove = ans.remove();
+            String map = mapping[digits.charAt(remove.length()) - '0'];
+            for (char c : map.toCharArray()) {
+                ans.addLast(remove + c);
+            }
+        }
+        return ans;
     }
 
     private void combination(String prefix, String digits, int offset, List<String> ret) {
