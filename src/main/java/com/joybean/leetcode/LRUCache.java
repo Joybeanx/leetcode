@@ -18,7 +18,7 @@ public class LRUCache {
             super(capacity, 0.75f, true);
             this.capacity = capacity;
         }
-
+        @Override
         protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
             return this.size() > capacity;
         }
