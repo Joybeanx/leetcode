@@ -9,10 +9,6 @@ import java.util.Stack;
  * @author Joybean
  */
 public class NextGreaterElement {
-    public static void main(String[] args) {
-        int[] items = {6, 1, 3, 2, 0, 9, 5, 10, 8, 4, 7};
-        int[] result = nextGreaterElement(items);
-    }
 
     public static int[] nextGreaterElement(int[] nums) {
         Stack<Element> stack = new Stack<>();
