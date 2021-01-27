@@ -19,7 +19,7 @@ public class OpenTheLock {
      * @param target
      * @return
      */
-    public int openLock1(String[] deadends, String target) {
+    public static int openLock1(String[] deadends, String target) {
         LinkedList<String> queue = new LinkedList<>();
         Set<String> visited = new HashSet<>();
         List<String> deadendList = Arrays.asList(deadends);
@@ -48,7 +48,7 @@ public class OpenTheLock {
         return -1;
     }
 
-    public List<String> adjacent(String digits, List<String> deadendList, Set<String> visited) {
+    public static List<String> adjacent(String digits, List<String> deadendList, Set<String> visited) {
         List<String> adjacents = new ArrayList<>();
         for (int i = 0; i < digits.length(); i++) {
             char[] slots = digits.toCharArray();

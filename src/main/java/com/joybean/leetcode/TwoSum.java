@@ -11,8 +11,8 @@ import java.util.function.Function;
  * @author Joybean
  */
 public class TwoSum {
-    public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public static int[] twoSum1(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             map.put(nums[i], i);
         }
@@ -22,10 +22,10 @@ public class TwoSum {
                 return new int[]{i, map.get(another)};
             }
         }
-        throw new RuntimeException("no solution.");
+        throw new RuntimeException("No solution");
     }
 
-    public static int[] _twoSum(int[] nums, int target) {
+    public static int[] twoSum2(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
@@ -34,6 +34,6 @@ public class TwoSum {
             }
             map.put(nums[i], i);
         }
-        throw new IllegalArgumentException("No two sum solution");
+        throw new RuntimeException("No solution");
     }
 }

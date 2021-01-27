@@ -15,7 +15,7 @@ public class NextGreaterElement {
      * @param nums
      * @return
      */
-    public int[] nextGreaterElements1(int[] nums) {
+    public static int[] nextGreaterElements1(int[] nums) {
         int[] res = new int[nums.length];
         for (int i = 0; i < nums.length; i++) {
             res[i] = -1;
@@ -35,7 +35,7 @@ public class NextGreaterElement {
      * @param nums
      * @return
      */
-    public int[] nextGreaterElements2(int[] nums) {
+    public static int[] nextGreaterElements2(int[] nums) {
         Stack<Element> stack = new Stack<>();
         int[] result = new int[nums.length];
         Arrays.fill(result, -1);
@@ -75,7 +75,7 @@ public class NextGreaterElement {
      * @param nums
      * @return
      */
-    public int[] nextGreaterElements3(int[] nums) {
+    public static int[] nextGreaterElements3(int[] nums) {
         //index stack
         Stack<Integer> stack = new Stack<>();
         int[] result = new int[nums.length];
@@ -104,7 +104,7 @@ public class NextGreaterElement {
      * @param nums
      * @return
      */
-    public int[] nextGreaterElements4(int[] nums) {
+    public static int[] nextGreaterElements4(int[] nums) {
         int[] res = new int[nums.length];
         Stack<Integer> stack = new Stack<>();
         for (int i = 2 * nums.length - 1; i >= 0; --i) {
