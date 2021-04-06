@@ -1,6 +1,9 @@
 package com.joybean.leetcode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">Longest Substring Without Repeating Characters</a>
@@ -8,6 +11,9 @@ import java.util.*;
  * @author Joybean
  */
 public class LongestSubstringWithoutRepeatingCharacters {
+    public static void main(String[] args) {
+        System.out.println(lengthOfLongestSubstring4("abccbabxc"));
+    }
 
     /**
      * Time Limit Exceeded
@@ -69,6 +75,36 @@ public class LongestSubstringWithoutRepeatingCharacters {
             map.put(s.charAt(j), j + 1);
         }
         return ans;
+    }
+
+    /**
+     * Sliding window
+     *
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring4(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int result = 0;
+        int left = 0;
+        int right = 0;
+        while (right < s.length()) {
+            Character current = s.charAt(right);
+            /**
+             *  equivalent to:
+             *  if (map.containsKey(current)) {
+             *    left = Math.max(map.get(current)+1, left);
+             *  }
+             */
+            while (map.containsKey(current)) {
+                map.remove(s.charAt(left));
+                left++;
+            }
+            result = Math.max(right - left + 1, result);
+            map.put(current, right);
+            right++;
+        }
+        return result;
     }
 
 }
