@@ -11,10 +11,6 @@ import java.util.Map;
  * @author Joybean
  */
 public class LongestSubstringWithoutRepeatingCharacters {
-    public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring4("abccbabxc"));
-    }
-
     /**
      * Time Limit Exceeded
      *
@@ -39,43 +35,6 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return length;
     }
 
-    /**
-     * @param s
-     * @return
-     */
-    public static int lengthOfLongestSubstring2(String s) {
-        char[] arr = s.toCharArray();
-        int length = 0;
-        int start = 0;
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
-        for (int i = 0; i < arr.length; i++) {
-            Character c = arr[i];
-            if (map.containsKey(c) && map.get(c) >= start) {
-                length = Math.max(i - start, length);
-                start = map.get(c) + 1;
-            }
-            map.put(c, i);
-            if (i == arr.length - 1) {
-                length = Math.max(i - start + 1, length);
-            }
-        }
-        return length;
-    }
-
-    public static int lengthOfLongestSubstring3(String s) {
-        int n = s.length(), ans = 0;
-        // current index of character
-        Map<Character, Integer> map = new HashMap<>();
-        // try to extend the range [i, j]
-        for (int j = 0, i = 0; j < n; j++) {
-            if (map.containsKey(s.charAt(j))) {
-                i = Math.max(map.get(s.charAt(j)), i);
-            }
-            ans = Math.max(ans, j - i + 1);
-            map.put(s.charAt(j), j + 1);
-        }
-        return ans;
-    }
 
     /**
      * Sliding window
@@ -83,7 +42,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @param s
      * @return
      */
-    public static int lengthOfLongestSubstring4(String s) {
+    public static int lengthOfLongestSubstring2(String s) {
         Map<Character, Integer> map = new HashMap<>();
         int result = 0;
         int left = 0;
@@ -105,6 +64,23 @@ public class LongestSubstringWithoutRepeatingCharacters {
             right++;
         }
         return result;
+    }
+
+    public static int lengthOfLongestSubstring3(String s) {
+        int n = s.length(), ans = 0;
+        // current index of character
+        Map<Character, Integer> map = new HashMap<>();
+        // try to extend the range [i, j]
+        for (int right = 0, left = 0; right < n; right++) {
+            if (map.containsKey(s.charAt(right))) {
+                //An example is abba, if we do not do this, at the end a was already in map and will update i, but it
+                // should not update it. aka left pointer should always move forward.
+                left = Math.max(map.get(s.charAt(right)), left);
+            }
+            ans = Math.max(ans, right - left + 1);
+            map.put(s.charAt(right), right + 1);
+        }
+        return ans;
     }
 
 }
