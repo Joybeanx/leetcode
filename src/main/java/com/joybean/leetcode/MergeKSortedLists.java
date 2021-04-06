@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
-
+        return null;
     }
 
     public class ListNode {
