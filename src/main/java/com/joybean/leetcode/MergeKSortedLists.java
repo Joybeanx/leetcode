@@ -122,29 +122,5 @@ public class MergeKSortedLists {
             this.val = val;
             this.next = next;
         }
-
-        ListNode(int[] nums) {
-            ListNode prev = null;
-            ListNode current = null;
-            for (int i = nums.length - 1; i >= 0; i--) {
-                current = new ListNode(nums[i]);
-                if (prev != null) {
-                    current.next = prev;
-                }
-                prev = current;
-            }
-            this.val = current.val;
-            this.next = current.next;
-        }
-    }
-
-    public static void main(String[] args) {
-        ListNode l1 = new ListNode(new int[] {1, 3, 5, 7, 9, 11});
-        ListNode l2 = new ListNode(new int[] {2, 4, 6, 8, 10, 12});
-        ListNode l3 = new ListNode(new int[] {1, 8, 13, 16, 20, 28, 31});
-        ListNode l4 = new ListNode(new int[] {11, 18, 23, 26, 30, 38, 41});
-        ListNode l5 = new ListNode(new int[] {7, 15, 21, 31, 33, 41, 43});
-        ListNode r = mergeKLists2(new ListNode[] {l1, l2, l3, l4, l5});
-        System.out.println(r);
     }
 }
