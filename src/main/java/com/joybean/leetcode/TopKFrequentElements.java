@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class TopKFrequentElements {
     /**
-     * MinHeap
+     * Max Heap
      *
      * @param nums
      * @param k
@@ -26,22 +26,25 @@ public class TopKFrequentElements {
         for (int i = 1; i < distinctNums.length; i++) {
             shiftUp1(i, distinctNums, map);
         }
-        for (int i = distinctNums.length - 1; i > 0; i--) {
-            swap(0, i, distinctNums);
-            shiftDown1(i, distinctNums, map);
+        int[] result = new int[k];
+        for (int i = 1; i <= k; i++) {
+            result[i - 1] = distinctNums[0];
+            distinctNums[0] = distinctNums[distinctNums.length - i];
+            shiftDown1(distinctNums.length - i, distinctNums, map);
+
         }
-        return Arrays.copyOfRange(distinctNums, 0, k);
+        return result;
     }
 
     private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> map) {
         int p = 0;
         int c;
         while ((c = 2 * p + 1) < i) {
-            //Swap with the less child
-            if (c + 1 < i && map.get(nums[c]) > map.get(nums[c + 1])) {
+            //Swap with the bigger child
+            if (c + 1 < i && map.get(nums[c]) < map.get(nums[c + 1])) {
                 c++;
             }
-            if (map.get(nums[c]) <= map.get(nums[p])) {
+            if (map.get(nums[c]) > map.get(nums[p])) {
                 swap(c, p, nums);
                 p = c;
                 continue;
@@ -54,7 +57,7 @@ public class TopKFrequentElements {
         int p = i;
         while (p != 0) {
             p = (i - 1) / 2;
-            if (map.get(nums[p]) > map.get(nums[i])) {
+            if (map.get(nums[p]) < map.get(nums[i])) {
                 swap(p, i, nums);
                 i = p;
                 continue;
@@ -67,5 +70,10 @@ public class TopKFrequentElements {
         int temp = nums[p];
         nums[p] = nums[i];
         nums[i] = temp;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(
+            topKFrequent1(new int[] {1,2}, 2)));
     }
 }
