@@ -79,7 +79,7 @@ public class MergeKSortedLists {
             if (c + 1 < heapSize && heapNodes[c].val > heapNodes[c + 1].val) {
                 c++;
             }
-            if (heapNodes[c].val <= heapNodes[p].val) {
+            if (heapNodes[c].val < heapNodes[p].val) {
                 swap(c, p, heapNodes);
                 p = c;
                 continue;
