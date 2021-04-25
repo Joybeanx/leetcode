@@ -31,4 +31,14 @@ public class LongestIncreasingSubsequence {
         }
         return max;
     }
+
+    /**
+     * Binary search
+     * TODO
+     * @param nums
+     * @return
+     */
+    public static int lengthOfLIS2(int[] nums) {
+        return 0;
+    }
 }
