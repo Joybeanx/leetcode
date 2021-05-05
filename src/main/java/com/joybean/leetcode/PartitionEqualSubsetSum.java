@@ -8,6 +8,12 @@ import java.util.Arrays;
  * @author Joybean
  */
 public class PartitionEqualSubsetSum {
+    /**
+     * DP
+     *
+     * @param nums
+     * @return
+     */
     public static boolean canPartition1(int[] nums) {
         int sum = Arrays.stream(nums).sum();
         if (sum % 2 != 0) {
@@ -32,6 +38,33 @@ public class PartitionEqualSubsetSum {
             }
         }
         return dp[nums.length][target];
+    }
+
+    /**
+     * DP with state compression
+     * @param nums
+     * @return
+     */
+    public static boolean canPartition2(int[] nums) {
+        int sum = Arrays.stream(nums).sum();
+        if (sum % 2 != 0) {
+            return false;
+        }
+        int target = sum / 2;
+        boolean[] dp = new boolean[sum + 1];
+        dp[0] = true;
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = target; j >= 1; j--) {
+                if (j >= nums[i - 1]) {
+                    dp[j] = dp[j - nums[i - 1]] || dp[j];
+                }
+            }
+        }
+        return dp[target];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(canPartition2(new int[] {1, 5, 11, 5}));
     }
 
 }
