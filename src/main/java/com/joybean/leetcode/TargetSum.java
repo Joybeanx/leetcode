@@ -1,6 +1,9 @@
 package com.joybean.leetcode;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <a href="https://leetcode.com/problems/target-sum/">Target Sum</a>
@@ -26,7 +29,7 @@ public class TargetSum {
         for (int i = 0; i <= nums.length; i++) {
             dp[i][0] = 1;
         }
-        for (int i = 1; i <= nums.length ; i++) {
+        for (int i = 1; i <= nums.length; i++) {
             //must from 0, case: [0,0,0,0,0,0,0,0,1], 1
             for (int j = 0; j <= target; j++) {
                 int k = j - nums[i - 1];
@@ -65,5 +68,72 @@ public class TargetSum {
             }
         }
         return dp[target];
+    }
+
+    /**
+     * Back tracking
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int findTargetSumWays3(int[] nums, int target) {
+        return backTrack(nums, target, 0);
+
+    }
+
+    private static int backTrack(int[] nums, int target, int from) {
+        //base case,urgly
+        //if (from == nums.length - 1) {
+        //    if (target == 0 && nums[from] == 0) {
+        //        return 2;
+        //    }
+        //    if (target == nums[from] || target == -nums[from]) {
+        //          return 1;
+        //     }
+        //     return 0;
+        //  }
+        //base case,more elegant
+        if (from == nums.length) {
+            if (target == 0) {
+                return 1;
+            }
+            return 0;
+        }
+        int cnt = 0;
+        cnt += backTrack(nums, target + nums[from], from + 1);
+        cnt += backTrack(nums, target - nums[from], from + 1);
+        return cnt;
+    }
+
+    /**
+     * Back tracking with memo
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int findTargetSumWays4(int[] nums, int target) {
+        return backTrack(nums, target, 0, new HashMap<>());
+
+    }
+
+    private static int backTrack(int[] nums, int target, int from, Map<List<Integer>, Integer> memo) {
+        //base case
+        if (from == nums.length) {
+            if (target == 0) {
+                return 1;
+            }
+            return 0;
+        }
+        List<Integer> key = Arrays.asList(target, from);
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+        int cnt = 0;
+        cnt += backTrack(nums, target + nums[from], from + 1, memo);
+        cnt += backTrack(nums, target - nums[from], from + 1, memo);
+        memo.put(Arrays.asList(target, from), cnt);
+        return cnt;
     }
 }
