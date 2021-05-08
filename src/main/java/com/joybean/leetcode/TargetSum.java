@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class TargetSum {
     /**
-     * DP:two dimension array
+     * DP using two dimension array
      *
      * @param nums
      * @param target
@@ -41,7 +41,7 @@ public class TargetSum {
     }
 
     /**
-     * DP:state compression
+     * DP with state compression
      *
      * @param nums
      * @param target
