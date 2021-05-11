@@ -40,7 +40,7 @@ public class RussianDollEnvelopes {
                 }
             }
         }
-        return Arrays.stream(dp).max().orElse(1);
+        return Arrays.stream(dp).max().orElse(0);
     }
 
     private static boolean greaterThan(int i, int j, int[][] envelopes) {
