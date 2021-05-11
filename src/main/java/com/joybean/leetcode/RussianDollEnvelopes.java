@@ -46,4 +46,13 @@ public class RussianDollEnvelopes {
     private static boolean greaterThan(int i, int j, int[][] envelopes) {
         return envelopes[i][1] > envelopes[j][1] && envelopes[i][0] > envelopes[j][0];
     }
+
+    /**
+     * TODO
+     * @param envelopes
+     * @return
+     */
+    public static int maxEnvelopes3(int[][] envelopes) {
+        return 0;
+    }
 }
