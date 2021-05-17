@@ -14,12 +14,11 @@ public class LongestPalindromicSubsequence {
      */
     public static int longestPalindromeSubseq1(String s) {
         int n = s.length();
-        //dp[i][i] represents longest palindromic sequence's length of s[i..j]
+        //dp[i][j] represents longest palindromic sequence's length of s[i..j]
         int[][] dp = new int[n][n];
+        //base case
         for (int i = n - 1; i >= 0; i--) {
-            for (int j = i; j < n; j++) {
-                dp[i][j] = 1;
-            }
+            dp[i][i] = 1;
         }
         for (int i = n - 2; i >= 0; i--) {
             for (int j = i + 1; j < n; j++) {
@@ -35,12 +34,32 @@ public class LongestPalindromicSubsequence {
 
     /**
      * DP with state compression
-     * TODO
+     *
      * @param s
      * @return
      */
     public static int longestPalindromeSubseq2(String s) {
-        return 1;
+        int n = s.length();
+        //dp[j] represents longest palindromic sequence's length of s[0..j]
+        int[] dp = new int[n];
+        //base case: create a projection by the base case of two dimension array
+        for (int j = n - 1; j >= 0; j--) {
+            dp[j] = 1;
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            int pre = 0;
+            for (int j = i + 1; j < n; j++) {
+                //before update dp[j], dp[j] presents the result of the outer loop
+                int tmp = dp[j];
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[j] = pre + 2;
+                } else {
+                    dp[j] = Math.max(dp[j], dp[j - 1]);
+                }
+                pre = tmp;
+            }
+        }
+        return dp[n - 1];
     }
 
 }
