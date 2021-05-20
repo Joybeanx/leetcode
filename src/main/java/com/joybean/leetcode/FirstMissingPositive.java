@@ -8,9 +8,6 @@ import java.util.Arrays;
  * @author Joybean
  */
 public class FirstMissingPositive {
-    public static void main(String[] args) {
-        System.out.println(firstMissingPositive(new int[] {7, 9, -1, 1, 2}));
-    }
 
     /**
      * The first missing positive number must be within [1, n+1].

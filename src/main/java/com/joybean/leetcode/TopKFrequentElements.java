@@ -71,9 +71,4 @@ public class TopKFrequentElements {
         nums[p] = nums[i];
         nums[i] = temp;
     }
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(
-            topKFrequent1(new int[] {1,2}, 2)));
-    }
 }
