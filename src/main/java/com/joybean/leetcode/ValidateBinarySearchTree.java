@@ -6,11 +6,11 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ValidateBinarySearchTree {
-    public boolean isValidBST(TreeNode root) {
+    public static boolean isValidBST(TreeNode root) {
         return isValid(root, null, null);
     }
 
-    private boolean isValid(TreeNode root, TreeNode min, TreeNode max) {
+    private static boolean isValid(TreeNode root, TreeNode min, TreeNode max) {
         if (root == null) {
             return true;
         }
