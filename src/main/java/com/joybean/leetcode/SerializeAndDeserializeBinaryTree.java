@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class SerializeAndDeserializeBinaryTree {
     /**
-     * Memory Limit Exceeded
+     * Fill perfect binary tree:Memory Limit Exceeded
      *
      * @param root
      * @return
@@ -64,6 +64,50 @@ public class SerializeAndDeserializeBinaryTree {
             return 0;
         }
         return 1 + Math.max(getHeight(root.left), getHeight(root.right));
+    }
+
+    /**
+     * Preorder traversal
+     * TODO
+     * @param root
+     * @return
+     */
+    public static String serialize2(TreeNode root) {
+        return null;
+
+    }
+
+    public static TreeNode deserialize2(String data) {
+        return null;
+    }
+
+    /**
+     * Postorder traversal
+     *
+     * @param root
+     * @return
+     */
+    public static String serialize3(TreeNode root) {
+        return null;
+
+    }
+
+    public static TreeNode deserialize3(String data) {
+        return null;
+    }
+
+    /**
+     * Level order traversal
+     * @param root
+     * @return
+     */
+    public static String serialize4(TreeNode root) {
+        return null;
+
+    }
+
+    public static TreeNode deserialize4(String data) {
+        return null;
     }
 
     public static class TreeNode {
