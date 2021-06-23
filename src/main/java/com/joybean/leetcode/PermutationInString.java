@@ -28,7 +28,7 @@ public class PermutationInString {
                     valid++;
                 }
             }
-            while (right - left + 1 == s1.length()) {
+            if (right - left + 1 == s1.length()) {
                 if (valid == required) {
                     return true;
                 }
