@@ -26,15 +26,16 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         return buildTree(preorder, new AtomicInteger(0), 0, preorder.length - 1, inorderMap);
     }
 
-    private TreeNode buildTree(int[] preorder, AtomicInteger preorderIndex, int left, int right, Map<Integer,
+    private TreeNode buildTree(int[] preorder, AtomicInteger preorderIndex, int inorderLeft, int inorderRight, Map<Integer,
         Integer> inorderMap) {
-        if (left > right) {
+        if (inorderLeft > inorderRight) {
             return null;
         }
         int parentVal = preorder[preorderIndex.getAndIncrement()];
         TreeNode parent = new TreeNode(parentVal);
-        parent.left = buildTree(preorder, preorderIndex,left, inorderMap.get(parentVal) - 1, inorderMap);
-        parent.right = buildTree(preorder, preorderIndex,inorderMap.get(parentVal) + 1, right, inorderMap);
+        int inorderParentIdx = inorderMap.get(parentVal);
+        parent.left = buildTree(preorder, preorderIndex, inorderLeft, inorderParentIdx - 1, inorderMap);
+        parent.right = buildTree(preorder, preorderIndex, inorderParentIdx + 1, inorderRight, inorderMap);
         return parent;
     }
 
