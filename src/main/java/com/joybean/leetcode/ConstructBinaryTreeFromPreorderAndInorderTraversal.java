@@ -23,7 +23,7 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
-        return buildTree(preorder, new AtomicInteger(0), 0, preorder.length - 1, inorderMap);
+        return buildTree(preorder, new AtomicInteger(0), 0, inorder.length - 1, inorderMap);
     }
 
     private TreeNode buildTree(int[] preorder, AtomicInteger preorderIndex, int inorderLeft, int inorderRight, Map<Integer,
