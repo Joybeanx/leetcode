@@ -12,13 +12,31 @@ import java.util.Map;
 public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
     private static int postorderIdx;
 
-    public static TreeNode buildTree(int[] inorder, int[] postorder) {
+    /**
+     * Recursion solution
+     *
+     * @param inorder
+     * @param postorder
+     * @return
+     */
+    public static TreeNode buildTree1(int[] inorder, int[] postorder) {
         postorderIdx = postorder.length - 1;
         Map<Integer, Integer> inorderMap = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
-        return buildTree(inorderMap, postorder, 0, postorder.length - 1);
+        return buildTree(inorderMap, postorder, 0, inorder.length - 1);
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     * @param inorder
+     * @param postorder
+     * @return
+     */
+    public static TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return null;
     }
 
     private static TreeNode buildTree(Map<Integer, Integer> inorderMap, int[] postorder, int inorderFrom,
