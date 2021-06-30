@@ -107,6 +107,15 @@ public class RecoverBinarySearchTree {
         inorderTraverse(root.right);
     }
 
+    /**
+     * Morris traversal
+     * TODO
+     * @param root
+     */
+    public static void recoverTree4(TreeNode root) {
+
+    }
+
     private static void swap(TreeNode one, TreeNode another) {
         int tmp = one.val;
         one.val = another.val;
