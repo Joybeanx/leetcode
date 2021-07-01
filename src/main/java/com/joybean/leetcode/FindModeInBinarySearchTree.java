@@ -62,8 +62,4 @@ public class FindModeInBinarySearchTree {
             this.right = right;
         }
     }
-
-    public static void main(String[] args) {
-        findMode1(new TreeNode(1, null, new TreeNode(2, new TreeNode(2), null)));
-    }
 }
