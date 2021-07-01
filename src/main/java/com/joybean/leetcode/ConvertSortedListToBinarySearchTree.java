@@ -9,12 +9,74 @@ import com.joybean.leetcode.ConvertSortedListToBinarySearchTree.ListNode.TreeNod
  * @author Joybean
  */
 public class ConvertSortedListToBinarySearchTree {
-    //TODO
-    public TreeNode sortedListToBST(ListNode head) {
-        return null;
+    private static ListNode listNode;
+
+    /**
+     * Divide and conquer, time complexity O(nlogn)
+     *
+     * @param head
+     * @return
+     */
+    public static TreeNode sortedListToBST1(ListNode head) {
+        return buildTree(head, null);
     }
 
-    public class ListNode {
+    public static TreeNode buildTree(ListNode left, ListNode right) {
+        if (left == right) {
+            return null;
+        }
+        ListNode mid = getMedian(left, right);
+        TreeNode root = new TreeNode(mid.val);
+        root.left = buildTree(left, mid);
+        root.right = buildTree(mid.next, right);
+        return root;
+    }
+
+    public static ListNode getMedian(ListNode left, ListNode right) {
+        ListNode fast = left;
+        ListNode slow = left;
+        while (fast != right && fast.next != right) {
+            fast = fast.next;
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    /**
+     * Inorder traversal
+     *
+     * @param head
+     * @return
+     */
+    public static TreeNode sortedListToBST2(ListNode head) {
+        listNode = head;
+        ListNode runner = head;
+        int size = 0;
+        while (runner != null) {
+            runner = runner.next;
+            size++;
+        }
+        return inorderHelper(1, size);
+    }
+
+    private static TreeNode inorderHelper(int from, int to) {
+        if (from > to) {
+            return null;
+        }
+        int middle = from + (to - from) / 2;
+        TreeNode leftTree = inorderHelper(from, middle - 1);
+        TreeNode parent = new TreeNode(listNode.val);
+        parent.left = leftTree;
+        //ListNode is the result of inorder traversal
+        listNode = listNode.next;
+        TreeNode rightTree = inorderHelper(middle + 1, to);
+        parent.right = rightTree;
+        return parent;
+
+    }
+
+    public static class ListNode {
         int val;
         ListNode next;
 
@@ -27,7 +89,7 @@ public class ConvertSortedListToBinarySearchTree {
             this.next = next;
         }
 
-        public class TreeNode {
+        public static class TreeNode {
             int val;
             TreeNode left;
             TreeNode right;
