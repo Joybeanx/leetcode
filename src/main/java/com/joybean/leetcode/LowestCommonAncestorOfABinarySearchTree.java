@@ -7,8 +7,36 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class LowestCommonAncestorOfABinarySearchTree {
-    //TODO
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    /**
+     * Recursive solution
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public static TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        int rv = root.val;
+        int pv = p.val;
+        int qv = q.val;
+        if (rv > pv && rv > qv) {
+            return lowestCommonAncestor1(root.left, p, q);
+        } else if (rv < pv && rv < qv) {
+            return lowestCommonAncestor1(root.right, p, q);
+        } else {
+            return root;
+        }
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public static TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
         return null;
     }
 
