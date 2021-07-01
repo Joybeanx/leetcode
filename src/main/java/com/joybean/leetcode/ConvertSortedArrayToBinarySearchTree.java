@@ -7,12 +7,23 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ConvertSortedArrayToBinarySearchTree {
-    //TODO
-    public TreeNode sortedArrayToBST(int[] nums) {
-        return null;
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return buildBST(0, nums.length - 1, nums);
     }
 
-    public class TreeNode {
+    public static TreeNode buildBST(int from, int to, int[] nums) {
+        if (from > to) {
+            return null;
+        }
+        //avoids integer overflow
+        int middle = from + (to - from) / 2;
+        TreeNode parent = new TreeNode(nums[middle]);
+        parent.left = buildBST(from, middle - 1, nums);
+        parent.right = buildBST(middle + 1, to, nums);
+        return parent;
+    }
+
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
