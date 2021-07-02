@@ -19,11 +19,13 @@ public class LowestCommonAncestorOfABinaryTree {
         if (root == null) {
             return null;
         }
+        //Found target
         if (root == p || root == q) {
             return root;
         }
         TreeNode leftLca = lowestCommonAncestor1(root.left, p, q);
         TreeNode rightLca = lowestCommonAncestor1(root.right, p, q);
+        //Root is the lca when targets were found both in the left tree and right tree
         if (leftLca != null && rightLca != null) {
             return root;
         }
@@ -33,6 +35,7 @@ public class LowestCommonAncestorOfABinaryTree {
     /**
      * Iterative using parent pointers
      * TODO
+     *
      * @param root
      * @param p
      * @param q
