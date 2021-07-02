@@ -18,16 +18,16 @@ public class BSTIterator1 {
      */
     public BSTIterator1(TreeNode root) {
         queue = new LinkedList<>();
-        inorderPushStack(root, queue);
+        inorderStoreQueue(root, queue);
     }
 
-    private void inorderPushStack(TreeNode root, Queue<Integer> queue) {
+    private void inorderStoreQueue(TreeNode root, Queue<Integer> queue) {
         if (root == null) {
             return;
         }
-        inorderPushStack(root.left, queue);
+        inorderStoreQueue(root.left, queue);
         queue.offer(root.val);
-        inorderPushStack(root.right, queue);
+        inorderStoreQueue(root.right, queue);
     }
 
     public int next() {
