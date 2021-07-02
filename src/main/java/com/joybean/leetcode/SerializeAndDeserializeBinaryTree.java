@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
  * @author Joybean
  */
 public class SerializeAndDeserializeBinaryTree {
+    private static int index;
+
     /**
      * Fill perfect binary tree:Memory Limit Exceeded
      *
@@ -68,17 +70,49 @@ public class SerializeAndDeserializeBinaryTree {
 
     /**
      * Preorder traversal
-     * TODO
+     *
      * @param root
      * @return
      */
     public static String serialize2(TreeNode root) {
-        return null;
+        if (root == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        inorderSerialize(root, sb);
+        return sb.toString();
 
     }
 
+    private static void inorderSerialize(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("#,");
+            return;
+        }
+        sb.append(root.val);
+        sb.append(",");
+        inorderSerialize(root.left, sb);
+        inorderSerialize(root.right, sb);
+    }
+
     public static TreeNode deserialize2(String data) {
-        return null;
+        String[] values = data.split(",");
+        return inorderDeserialize(values);
+    }
+
+    private static TreeNode inorderDeserialize(String[] values) {
+        if (index > values.length - 1) {
+            return null;
+        }
+        String val = values[index];
+        index++;
+        if (val.equals("#")) {
+            return null;
+        }
+        TreeNode parent = new TreeNode(Integer.parseInt(val));
+        parent.left = inorderDeserialize(values);
+        parent.right = inorderDeserialize(values);
+        return parent;
     }
 
     /**
@@ -98,6 +132,7 @@ public class SerializeAndDeserializeBinaryTree {
 
     /**
      * Level order traversal
+     *
      * @param root
      * @return
      */
