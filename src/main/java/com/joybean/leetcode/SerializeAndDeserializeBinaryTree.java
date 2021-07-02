@@ -41,7 +41,7 @@ public class SerializeAndDeserializeBinaryTree {
     }
 
     public static TreeNode deserialize1(String data) {
-        if (data == "") {
+        if (data.isEmpty()) {
             return null;
         }
         String[] arr = data.split(",");
