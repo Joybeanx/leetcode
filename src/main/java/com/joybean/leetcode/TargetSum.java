@@ -24,7 +24,7 @@ public class TargetSum {
             return 0;
         }
         target = (sum + target) / 2;
-        //dp[i][j] presents ways that make the sum of nums[0...i-1] be j
+        //dp[i][j] represents ways that make the sum of nums[0...i-1] be j
         int[][] dp = new int[nums.length + 1][target + 1];
         for (int i = 0; i <= nums.length; i++) {
             dp[i][0] = 1;
@@ -56,7 +56,7 @@ public class TargetSum {
             return 0;
         }
         target = (sum + target) / 2;
-        //dp[j] presents ways that make the sum of nums be j
+        //dp[j] represents ways that make the sum of nums be j
         int[] dp = new int[target + 1];
         dp[0] = 1;
         for (int i = 1; i <= nums.length; i++) {
