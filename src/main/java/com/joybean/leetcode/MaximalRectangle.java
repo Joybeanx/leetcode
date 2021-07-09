@@ -28,25 +28,25 @@ public class MaximalRectangle {
         int[] height = new int[n];
         Arrays.fill(right, n - 1);
         for (int i = 0; i < m; i++) {
-            int rB = n - 1;
+            int rb = n - 1;
             for (int j = n - 1; j >= 0; j--) {
                 if (matrix[i][j] == '1') {
-                    right[j] = Math.min(right[j], rB);
+                    right[j] = Math.min(right[j], rb);
                 } else {
                     right[j] = n - 1;
-                    rB = j - 1;
+                    rb = j - 1;
                 }
             }
-            int lB = 0;
+            int lb = 0;
             for (int j = 0; j < n; j++) {
                 if (matrix[i][j] == '1') {
-                    left[j] = Math.max(left[j], lB);
+                    left[j] = Math.max(left[j], lb);
                     height[j]++;
                     maxArea = Math.max(maxArea, height[j] * (right[j] - left[j] + 1));
                 } else {
                     height[j] = 0;
                     left[j] = 0;
-                    lB = j + 1;
+                    lb = j + 1;
                 }
             }
         }
