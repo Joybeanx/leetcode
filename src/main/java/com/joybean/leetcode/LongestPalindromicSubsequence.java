@@ -42,7 +42,7 @@ public class LongestPalindromicSubsequence {
         int n = s.length();
         //dp[j] represents longest palindromic sequence's length of s[0..j]
         int[] dp = new int[n];
-        //base case: create a projection by the base case of two dimension array
+        //base case: create a projection by the base case of two-dimensional array
         for (int j = n - 1; j >= 0; j--) {
             dp[j] = 1;
         }

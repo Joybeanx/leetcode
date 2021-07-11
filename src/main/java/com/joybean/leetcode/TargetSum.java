@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class TargetSum {
     /**
-     * DP using two dimension array
+     * DP using two-dimensional array
      *
      * @param nums
      * @param target

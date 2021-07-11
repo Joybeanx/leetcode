@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class UniquePaths {
     /**
-     * DP using two dimension array
+     * DP using two-dimensional array
      *
      * @param m
      * @param n

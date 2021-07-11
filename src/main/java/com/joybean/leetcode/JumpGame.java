@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class JumpGame {
     /**
-     * DP using two dimension array:time Limit Exceeded
+     * DP using two-dimensional array:time Limit Exceeded
      *
      * @param nums
      * @return
@@ -36,7 +36,7 @@ public class JumpGame {
     }
 
     /**
-     * DP using one dimension array
+     * DP using one-dimensional array
      *
      * @param nums
      * @return
