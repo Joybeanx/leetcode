@@ -19,10 +19,9 @@ public class MaximalRectangle {
             return 0;
         }
         int m = matrix.length, n = matrix[0].length, maxArea = 0;
-        //left[i] record the left most index j which satisfies that for any index k from j to  i, height[k] >= height[i]
+        //left[i] record the left most index j which satisfies that for any index k from j to i,height[k] >= height[i]
         int[] left = new int[n];
-        //right[i] record the right most index j which satisfies that for any index k from i to  j, height[k]
-        // >=height[i]
+        //right[i] record the right most index j which satisfies that for any index k from i to j,height[k] >= height[i]
         int[] right = new int[n];
         //height[i] record the current number of continuous '1' in column i
         int[] height = new int[n];
