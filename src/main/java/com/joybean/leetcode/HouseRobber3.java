@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class HouseRobber3 {
     /**
-     * DP
+     * recursive(top-down) DP
      *
      * @param root
      * @return

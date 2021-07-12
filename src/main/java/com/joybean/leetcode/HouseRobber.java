@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class HouseRobber {
     /**
-     * DP
+     * iterative(bottom-up) DP
      *
      * @param nums
      * @return
@@ -21,7 +21,7 @@ public class HouseRobber {
     }
 
     /**
-     * DP with state compression
+     * iterative(bottom-up) DP with state compression
      *
      * @param nums
      * @return

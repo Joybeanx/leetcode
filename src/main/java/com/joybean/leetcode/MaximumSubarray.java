@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class MaximumSubarray {
     /**
-     * DP
+     * iterative(bottom-up) DP
      *
      * @param nums
      * @return

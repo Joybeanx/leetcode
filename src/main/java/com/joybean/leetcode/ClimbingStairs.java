@@ -23,7 +23,7 @@ public class ClimbingStairs {
     }
 
     /**
-     * bottom-up DP with state compression
+     * iterative(bottom-up) DP with state compression
      *
      * @param n
      * @return
@@ -41,7 +41,7 @@ public class ClimbingStairs {
     }
 
     /**
-     * top-down DP with memo
+     * recursive(top-down) DP with memo
      *
      * @param n
      * @return

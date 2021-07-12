@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class CoinChange2 {
     /**
-     * DP iterative(bottom-up) solution
+     * iterative(bottom-up) DP
      *
      * @param coins
      * @param amount
@@ -31,7 +31,7 @@ public class CoinChange2 {
     }
 
     /**
-     * DP iterative(bottom-up) solution with state compression
+     * iterative(bottom-up) DP with state compression
      *
      * @param coins
      * @param amount
@@ -54,7 +54,7 @@ public class CoinChange2 {
     }
 
     /**
-     * DP recursive(top-down) solution with memo
+     * recursive(top-down) DP with memo
      * TODO
      * @param coins
      * @param amount

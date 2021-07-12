@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class LongestIncreasingSubsequence {
     /**
-     * DP with memo
+     * iterative(bottom-up) DP
      *
      * @param nums
      * @return

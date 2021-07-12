@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class CountingBits {
     /**
-     * DP
+     * iterative(bottom-up) DP
      *
      * @param n
      * @return
@@ -31,7 +31,7 @@ public class CountingBits {
     }
 
     /**
-     * More concise DP solution
+     * More cleaner iterative(bottom-up) DP
      *
      * @param n
      * @return

@@ -41,7 +41,7 @@ public class PartitionEqualSubsetSum {
     }
 
     /**
-     * DP with state compression
+     * iterative(bottom-up) DP with state compression
      * @param nums
      * @return
      */

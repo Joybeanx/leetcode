@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class SuperEggDrop {
     /**
-     * DP with memo
+     * recursive(top-down) DP with memo
      * @param k
      * @param n
      * @return

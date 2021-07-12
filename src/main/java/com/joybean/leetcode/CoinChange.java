@@ -35,7 +35,7 @@ public class CoinChange {
     }
 
     /**
-     * Better DP iterative solution
+     * Better iterative(bottom-up) DP
      *
      * @param coins
      * @param amount
@@ -58,7 +58,7 @@ public class CoinChange {
     }
 
     /**
-     * Best DP iterative solution
+     * Best iterative(bottom-up) DP
      *
      * @param coins
      * @param amount
@@ -81,7 +81,7 @@ public class CoinChange {
     }
 
     /**
-     * DP recursive solution
+     * recursive(top-down) DP
      * TODO
      *
      * @param coins
