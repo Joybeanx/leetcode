@@ -57,4 +57,15 @@ public class MaximumSubarray {
         }
         return ans;
     }
+
+    /**
+     * Divide and conquer
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray4(int[] nums) {
+        return 0;
+    }
 }
