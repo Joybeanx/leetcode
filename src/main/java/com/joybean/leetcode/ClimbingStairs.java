@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class ClimbingStairs {
     /**
-     * bottom-up DP
+     * Iterative(bottom-up) DP
      *
      * @param n
      * @return
@@ -23,7 +23,7 @@ public class ClimbingStairs {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param n
      * @return
@@ -41,7 +41,7 @@ public class ClimbingStairs {
     }
 
     /**
-     * recursive(top-down) DP with memo
+     * Recursive(top-down) DP with memo
      *
      * @param n
      * @return

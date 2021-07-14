@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PalindromicSubstrings {
     /**
-     * iterative(bottom-up) DP using one-dimensional array
+     * Iterative(bottom-up) DP using one-dimensional array
      *
      * @param s
      * @return
@@ -40,7 +40,7 @@ public class PalindromicSubstrings {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param s
      * @return
@@ -94,7 +94,7 @@ public class PalindromicSubstrings {
     }
 
     /**
-     * recursive expand solution
+     * Recursive expand solution
      * TODO
      *
      * @param s

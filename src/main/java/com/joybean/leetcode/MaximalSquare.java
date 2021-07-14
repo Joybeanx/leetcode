@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class MaximalSquare {
     /**
-     * iterative(bottom-up) DP
+     * Iterative(bottom-up) DP
      *
      * @param matrix
      * @return
@@ -32,7 +32,7 @@ public class MaximalSquare {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param matrix
      * @return

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class EditDistance {
     /**
-     * recursive(top-down) DP
+     * Recursive(top-down) DP
      *
      * @param word1
      * @param word2
@@ -57,7 +57,7 @@ public class EditDistance {
     }
 
     /**
-     * recursive(top-down) DP using two pointers
+     * Recursive(top-down) DP using two pointers
      *
      * @param word1
      * @param word2
@@ -92,7 +92,7 @@ public class EditDistance {
     }
 
     /**
-     * iterative(bottom-up) DP
+     * Iterative(bottom-up) DP
      *
      * @param word1
      * @param word2

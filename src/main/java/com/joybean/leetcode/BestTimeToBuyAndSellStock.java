@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class BestTimeToBuyAndSellStock {
     /**
-     * iterative(bottom-up) DP using two-dimensional array
+     * Iterative(bottom-up) DP using two-dimensional array
      *
      * @param prices
      * @return
@@ -24,7 +24,7 @@ public class BestTimeToBuyAndSellStock {
     }
 
     /**
-     * iterative(bottom-up) DP using one-dimensional array
+     * Iterative(bottom-up) DP using one-dimensional array
      *
      * @param prices
      * @return
@@ -41,7 +41,7 @@ public class BestTimeToBuyAndSellStock {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param prices
      * @return

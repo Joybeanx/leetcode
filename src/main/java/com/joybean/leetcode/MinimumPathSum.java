@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class MinimumPathSum {
     /**
-     * iterative(bottom-up) DP
+     * Iterative(bottom-up) DP
      *
      * @param grid
      * @return
@@ -30,7 +30,7 @@ public class MinimumPathSum {
     }
 
     /**
-     * recursive(top-down) DP
+     * Recursive(top-down) DP
      * TODO
      *
      * @param grid

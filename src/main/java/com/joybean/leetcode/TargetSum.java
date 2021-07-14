@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class TargetSum {
     /**
-     * iterative(bottom-up) DP using two-dimensional array
+     * Iterative(bottom-up) DP using two-dimensional array
      *
      * @param nums
      * @param target
@@ -44,7 +44,7 @@ public class TargetSum {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param nums
      * @param target

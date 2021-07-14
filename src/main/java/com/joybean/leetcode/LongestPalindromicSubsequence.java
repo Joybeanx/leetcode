@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class LongestPalindromicSubsequence {
     /**
-     * iterative(bottom-up) DP
+     * Iterative(bottom-up) DP
      *
      * @param s
      * @return
@@ -33,7 +33,7 @@ public class LongestPalindromicSubsequence {
     }
 
     /**
-     * iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP with state compression
      *
      * @param s
      * @return

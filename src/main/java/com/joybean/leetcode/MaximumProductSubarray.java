@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class MaximumProductSubarray {
     /**
-     * Terriable solution:partition and compact original array,and then compute maximum product
+     * Terrible solution:partition and compact original array,and then compute maximum product
      *
      * @param nums
      * @return

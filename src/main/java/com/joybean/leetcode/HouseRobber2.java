@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class HouseRobber2 {
     /**
-     * recursive(top-down) DP
+     * Recursive(top-down) DP
      *
      * @param nums
      * @return
