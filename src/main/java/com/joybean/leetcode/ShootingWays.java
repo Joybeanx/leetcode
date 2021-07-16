@@ -39,13 +39,41 @@ public class ShootingWays {
     }
 
     /**
-     * Recursive(top-down) DP with memo
+     * Iterative(bottom-up) DP with state compression
      *
      * @param shots
      * @param totalRings
      * @return
      */
     public static int countShootingWays2(int shots, int totalRings) {
+        if (totalRings > shots * 10) {
+            return 0;
+        }
+        //dp[j] represents how many ways to hit to get j rings in total
+        int[] dp = new int[totalRings + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= shots; i++) {
+            int maxRingsSoFar = Math.min(shots * 10, totalRings);
+            for (int j = maxRingsSoFar; j >= 1; j--) {
+                for (int n = 0; n <= 10; n++) {
+                    if (j < n) {
+                        break;
+                    }
+                    dp[j] += dp[j - n];
+                }
+            }
+        }
+        return dp[totalRings];
+    }
+
+    /**
+     * Recursive(top-down) DP with memo
+     *
+     * @param shots
+     * @param totalRings
+     * @return
+     */
+    public static int countShootingWays3(int shots, int totalRings) {
         return countShootingWaysInternal(shots, totalRings, new HashMap<>());
     }
 
