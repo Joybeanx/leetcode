@@ -1,5 +1,10 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * There are 10 rings in the target. How many ways are there to hit to get m rings in total with n shots?
  *
@@ -34,14 +39,33 @@ public class ShootingWays {
     }
 
     /**
-     * Recursive(top-down) DP
-     * TODO
+     * Recursive(top-down) DP with memo
      *
      * @param shots
-     * @param rings
+     * @param totalRings
      * @return
      */
-    public static int countShootingWays2(int shots, int rings) {
-        return 0;
+    public static int countShootingWays2(int shots, int totalRings) {
+        return countShootingWaysInternal(shots, totalRings, new HashMap<>());
+    }
+
+    private static int countShootingWaysInternal(int shots, int totalRings, Map<List<Integer>, Integer> memo) {
+        if (totalRings < 0 || shots < 0) {
+            return 0;
+        }
+
+        if (shots == 1 && totalRings <= 10) {
+            return 1;
+        }
+        List<Integer> memoKey = Arrays.asList(shots, totalRings);
+        if (memo.containsKey(memoKey)) {
+            return memo.get(memoKey);
+        }
+        int res = 0;
+        for (int i = 0; i <= 10; i++) {
+            res += countShootingWays1(shots - 1, totalRings - i);
+        }
+        memo.put(memoKey, res);
+        return res;
     }
 }
