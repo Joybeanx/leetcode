@@ -1,6 +1,7 @@
 package com.joybean.leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 public class GenerateParentheses {
     /**
-     * DP
+     * Ugly DP
      *
      * @param n
      * @return
@@ -41,13 +42,36 @@ public class GenerateParentheses {
     }
 
     /**
+     * <a href="https://leetcode.com/problems/generate-parentheses/discuss/10127/An-iterative-method.">Better DP</a>
+     *
+     * @param n
+     * @return
+     */
+    public static List<String> generateParenthesis2(int n) {
+        List<List<String>> lists = new ArrayList<>();
+        lists.add(Collections.singletonList(""));
+        for (int i = 1; i <= n; ++i) {
+            final List<String> list = new ArrayList<>();
+            for (int j = 0; j < i; ++j) {
+                for (final String first : lists.get(j)) {
+                    for (final String second : lists.get(i - 1 - j)) {
+                        list.add("(" + first + ")" + second);
+                    }
+                }
+            }
+            lists.add(list);
+        }
+        return lists.get(lists.size() - 1);
+    }
+
+    /**
      * Backtracking
      * TODO
      *
      * @param n
      * @return
      */
-    public static List<String> generateParenthesis2(int n) {
+    public static List<String> generateParenthesis3(int n) {
         return null;
     }
 }
