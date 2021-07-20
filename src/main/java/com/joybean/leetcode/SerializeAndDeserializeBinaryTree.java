@@ -1,6 +1,7 @@
 package com.joybean.leetcode;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class SerializeAndDeserializeBinaryTree {
 
         int height = getHeight(root);
         String[] arr = new String[(int)Math.pow(2, height) - 1];
-        List<String> list = Arrays.asList(arr);
+        List<String> list = Collections.singletonList(arr);
         serialize(root, 0, Arrays.asList(arr));
         return list.stream().collect(Collectors.joining(","));
     }

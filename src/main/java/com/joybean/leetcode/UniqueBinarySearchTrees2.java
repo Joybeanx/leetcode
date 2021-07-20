@@ -2,6 +2,7 @@ package com.joybean.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class UniqueBinarySearchTrees2 {
             return new ArrayList<>();
         }
         if (from == to) {
-            return Arrays.asList(new TreeNode(from));
+            return Collections.singletonList(new TreeNode(from));
         }
         List<TreeNode> list = new ArrayList<>();
         for (int i = from; i <= to; i++) {

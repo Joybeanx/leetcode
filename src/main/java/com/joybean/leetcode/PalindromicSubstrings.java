@@ -2,6 +2,7 @@ package com.joybean.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class PalindromicSubstrings {
     public static int countSubstrings1(String s) {
         //dp[i] represents palindromic substrings length array ends with s[i]
         List<Integer>[] dp = new List[s.length()];
-        dp[0] = Arrays.asList(1);
+        dp[0] = Collections.singletonList(1);
         int ans = 1;
         for (int i = 1; i < s.length(); i++) {
             List<Integer> pldSubstrLenList = Arrays.asList(1);
@@ -47,7 +48,7 @@ public class PalindromicSubstrings {
      */
     public static int countSubstrings2(String s) {
         int ans = 1;
-        List<Integer> prev = Arrays.asList(1);
+        List<Integer> prev = Collections.singletonList(1);
         for (int i = 1; i < s.length(); i++) {
             List<Integer> cur = new ArrayList<>();
             cur.add(1);
