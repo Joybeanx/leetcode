@@ -12,7 +12,7 @@ public class BinaryTreePruning {
      * @param root
      * @return
      */
-    public TreeNode pruneTree(TreeNode root) {
+    public static TreeNode pruneTree(TreeNode root) {
         if (root == null) {
             return null;
         }
