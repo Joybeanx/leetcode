@@ -1,5 +1,9 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,9 +12,89 @@ import java.util.List;
  * @author Joybean
  */
 public class BinaryTreeRightSideView {
-    //TODO
-    public List<Integer> rightSideView(TreeNode root) {
-        return null;
+    /**
+     * Level order traversal
+     *
+     * @param root
+     * @return
+     */
+    public static List<Integer> rightSideView1(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode rightMostNode = queue.peekLast();
+            ans.add(rightMostNode.val);
+            Deque<TreeNode> nextLevelQueue = new LinkedList<>();
+            TreeNode nextLevelNode;
+            while ((nextLevelNode = queue.poll()) != null) {
+                if (nextLevelNode.left != null) {
+                    nextLevelQueue.offer(nextLevelNode.left);
+                }
+                if (nextLevelNode.right != null) {
+                    nextLevelQueue.offer(nextLevelNode.right);
+                }
+            }
+            queue = nextLevelQueue;
+        }
+        return ans;
+    }
+
+    /**
+     * Reverse level order traversal
+     *
+     * @param root
+     * @return
+     */
+    public static List<Integer> rightSideView2(TreeNode root) {
+        if (root == null) {
+            return Collections.EMPTY_LIST;
+        }
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < queue.size(); i++) {
+                TreeNode node = queue.poll();
+                if (i == 0) {
+                    ans.add(node.val);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * https://leetcode.com/problems/binary-tree-right-side-view/discuss/56012/My-simple-accepted-solution(JAVA)
+     *
+     * @param root
+     * @return
+     */
+    public static List<Integer> rightSideView3(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        rightView(root, result, 0);
+        return result;
+    }
+
+    public static void rightView(TreeNode curr, List<Integer> result, int currDepth) {
+        if (curr == null) {
+            return;
+        }
+        //Make sure the right most element of that level will be added the the result list
+        if (currDepth == result.size()) {
+            result.add(curr.val);
+        }
+        rightView(curr.right, result, currDepth + 1);
+        rightView(curr.left, result, currDepth + 1);
     }
 
     public static class TreeNode {
