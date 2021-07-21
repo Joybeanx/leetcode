@@ -74,7 +74,8 @@ public class BinaryTreeRightSideView {
     }
 
     /**
-     * https://leetcode.com/problems/binary-tree-right-side-view/discuss/56012/My-simple-accepted-solution(JAVA)
+     * <a href="https://leetcode.com/problems/binary-tree-right-side-view/discuss/56012/My-simple-accepted-solution(JAVA)">
+     * Reverse preorder traversal</a>
      *
      * @param root
      * @return
