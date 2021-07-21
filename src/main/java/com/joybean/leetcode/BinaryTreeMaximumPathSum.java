@@ -26,7 +26,7 @@ public class BinaryTreeMaximumPathSum {
         //We don't use negative value
         int left = Math.max(0, singleSideMaxPathSum(root.left));
         int right = Math.max(0, singleSideMaxPathSum(root.right));
-        //post-order traversal
+        //postorder traversal
         ans = Math.max(ans, left + right + root.val);
         return Math.max(left + root.val, right + root.val);
     }
