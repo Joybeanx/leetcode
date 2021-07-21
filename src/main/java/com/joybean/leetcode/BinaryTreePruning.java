@@ -6,9 +6,22 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class BinaryTreePruning {
-    //TODO
+    /**
+     * Postorder traversal
+     *
+     * @param root
+     * @return
+     */
     public TreeNode pruneTree(TreeNode root) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+        if (root.val == 0 && root.left == null && root.right == null) {
+            return null;
+        }
+        return root;
     }
 
     public static class TreeNode {
