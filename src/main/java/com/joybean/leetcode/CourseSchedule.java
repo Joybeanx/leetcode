@@ -1,7 +1,9 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,13 +60,46 @@ public class CourseSchedule {
     }
 
     /**
-     * Topological Sort via DFS
+     * Topological sort via DFS
      *
      * @param numCourses
      * @param prerequisites
      * @return
      */
     public static boolean canFinish2(int numCourses, int[][] prerequisites) {
-        return false;
+        List<List<Integer>> graph = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+        boolean[] visited = new boolean[numCourses];
+        //Use memo array to avoid repeating checking one course
+        boolean[] marked = new boolean[numCourses];
+        for (int course = 0; course < numCourses; course++) {
+            if (!dfs(course, graph, visited, marked)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean dfs(int course, List<List<Integer>> graph, boolean[] visited, boolean[] marked) {
+        if (visited[course]) {
+            return false;
+        }
+        if (marked[course]) {
+            return true;
+        }
+        visited[course] = true;
+        for (int nextCourse : graph.get(course)) {
+            if (!dfs(nextCourse, graph, visited, marked)) {
+                return false;
+            }
+        }
+        visited[course] = false;
+        marked[course] = true;
+        return true;
     }
 }
