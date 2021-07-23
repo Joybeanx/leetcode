@@ -102,4 +102,15 @@ public class CourseSchedule {
         marked[course] = true;
         return true;
     }
+
+    /**
+     * BFS
+     * TODO
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public static boolean canFinish3(int numCourses, int[][] prerequisites) {
+        return false;
+    }
 }
