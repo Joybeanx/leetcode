@@ -6,9 +6,11 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class MaximumDepthOfBinaryTree {
-    //TODO
-    public int maxDepth(TreeNode root) {
-        return 0;
+    public static int maxDepth1(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return 1 + Math.max(maxDepth1(root.left), maxDepth1(root.right));
     }
 
     public static class TreeNode {
