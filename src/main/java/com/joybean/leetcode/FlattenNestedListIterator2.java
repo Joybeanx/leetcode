@@ -8,9 +8,14 @@ import java.util.List;
  *
  * @author Joybean
  */
-public class FlattenNestedListIterator implements Iterator<Integer> {
-    //TODO
-    public FlattenNestedListIterator(List<NestedInteger> nestedList) {
+public class FlattenNestedListIterator2 implements Iterator<Integer> {
+    /**
+     * Lazy iterator
+     * TODO
+     *
+     * @param nestedList
+     */
+    public FlattenNestedListIterator2(List<NestedInteger> nestedList) {
 
     }
 
