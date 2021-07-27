@@ -6,8 +6,31 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class InvertBinaryTree {
-    //TODO
-    public TreeNode invertTree(TreeNode root) {
+    /**
+     * DFS
+     *
+     * @param root
+     * @return
+     */
+    public static TreeNode invertTree1(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode left = invertTree1(root.left);
+        TreeNode right = invertTree1(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param root
+     * @return
+     */
+    public static TreeNode invertTree2(TreeNode root) {
         return null;
     }
 
