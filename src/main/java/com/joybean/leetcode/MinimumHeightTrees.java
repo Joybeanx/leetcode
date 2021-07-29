@@ -25,7 +25,7 @@ public class MinimumHeightTrees {
         if (n == 1) {
             return Arrays.asList(0);
         }
-        Map<Integer, Set<Integer>> edgesMap = new HashMap<>();
+        Map<Integer, Set<Integer>> edgesMap = new HashMap<>(n);
         for (int[] edge : edges) {
             Set<Integer> adjacent1 = edgesMap.getOrDefault(edge[0], new HashSet<>());
             adjacent1.add(edge[1]);
