@@ -64,4 +64,16 @@ public class MinimumHeightTrees {
         }
         return 1 + maxHeight;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Topological sort via DFS</a>
+     * TODO
+     *
+     * @param n
+     * @param edges
+     * @return
+     */
+    public static List<Integer> findMinHeightTrees2(int n, int[][] edges) {
+        return null;
+    }
 }
