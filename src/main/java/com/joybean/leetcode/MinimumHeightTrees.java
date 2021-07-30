@@ -2,8 +2,10 @@ package com.joybean.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,14 +68,43 @@ public class MinimumHeightTrees {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Topological sort via DFS</a>
-     * TODO
+     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Topological sort via BFS</a>
      *
      * @param n
      * @param edges
      * @return
      */
     public static List<Integer> findMinHeightTrees2(int n, int[][] edges) {
-        return null;
+        if (n < 2) {
+            return Arrays.asList(0);
+        }
+        List<Set<Integer>> neighbors = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            neighbors.add(new HashSet<>());
+        }
+        for (int[] edge : edges) {
+            neighbors.get(edge[0]).add(edge[1]);
+            neighbors.get(edge[1]).add(edge[0]);
+        }
+        Deque<Integer> leaves = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (neighbors.get(i).size() == 1) {
+                leaves.offer(i);
+            }
+        }
+        int remainingNodes = n;
+        while (remainingNodes > 2) {
+            remainingNodes -= leaves.size();
+            int leaveCnt = leaves.size();
+            for (int i = 0; i < leaveCnt; i++) {
+                Integer leave = leaves.poll();
+                Integer adjacent = neighbors.get(leave).iterator().next();
+                neighbors.get(adjacent).remove(leave);
+                if (neighbors.get(adjacent).size() == 1) {
+                    leaves.offer(adjacent);
+                }
+            }
+        }
+        return new ArrayList<>(leaves);
     }
 }
