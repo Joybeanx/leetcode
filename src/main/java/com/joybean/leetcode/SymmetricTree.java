@@ -25,7 +25,7 @@ public class SymmetricTree {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Both side DFS</a>
+     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Better DFS</a>
      *
      * @param root
      * @return
