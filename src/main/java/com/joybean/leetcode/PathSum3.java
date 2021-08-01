@@ -90,29 +90,29 @@ public class PathSum3 {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/path-sum-iii/discuss/91878/17-ms-O(n)-java-Prefix-sum-method">DFS using
-     * prefix sum</a><br/>
+     * <a href="https://leetcode.com/problems/path-sum-iii/discuss/91878/17-ms-O(n)-java-Prefix-sum-method">DFS with
+     * backtracking</a><br/>
      *
      * @param root
      * @param targetSum
      * @return
      */
     public static int pathSum3(TreeNode root, int targetSum) {
-        Map<Integer, Integer> preSum = new HashMap();
-        preSum.put(0, 1);
-        return helper(root, 0, targetSum, preSum);
+        Map<Integer, Integer> prefixSum = new HashMap();
+        prefixSum.put(0, 1);
+        return helper(root, 0, targetSum, prefixSum);
     }
 
-    public static int helper(TreeNode root, int currSum, int target, Map<Integer, Integer> preSum) {
+    public static int helper(TreeNode root, int currSum, int target, Map<Integer, Integer> prefixSum) {
         if (root == null) {
             return 0;
         }
         currSum += root.val;
-        int res = preSum.getOrDefault(currSum - target, 0);
-        preSum.put(currSum, preSum.getOrDefault(currSum, 0) + 1);
-        res += helper(root.left, currSum, target, preSum) + helper(root.right, currSum, target, preSum);
+        int res = prefixSum.getOrDefault(currSum - target, 0);
+        prefixSum.put(currSum, prefixSum.getOrDefault(currSum, 0) + 1);
+        res += helper(root.left, currSum, target, prefixSum) + helper(root.right, currSum, target, prefixSum);
         //Restore the map, as the recursion goes from the bottom to the top
-        preSum.put(currSum, preSum.get(currSum) - 1);
+        prefixSum.put(currSum, prefixSum.get(currSum) - 1);
         return res;
     }
 
