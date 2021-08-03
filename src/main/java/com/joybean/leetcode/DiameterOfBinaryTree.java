@@ -8,6 +8,12 @@ package com.joybean.leetcode;
 public class DiameterOfBinaryTree {
     private static int ans;
 
+    /**
+     * DFS
+     *
+     * @param root
+     * @return
+     */
     public static int diameterOfBinaryTree1(TreeNode root) {
         longestPathNodes(root);
         return ans;
@@ -23,6 +29,13 @@ public class DiameterOfBinaryTree {
         return Math.max(leftLongestPathNodes, rightLongestPathNodes);
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/diameter-of-binary-tree/discuss/101132/Java-Solution-MaxDepth">More
+     * concise DFS solution</a>
+     *
+     * @param root
+     * @return
+     */
     public static int diameterOfBinaryTree2(TreeNode root) {
         maxDepth(root);
         return ans;
