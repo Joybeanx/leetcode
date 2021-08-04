@@ -12,26 +12,26 @@ public class KthSmallestElementInABST {
     private static int ans;
 
     public static int kthSmallest1(TreeNode root, int k) {
-        inorderTraversal(root, k);
+        helper(root, k);
         return ans;
     }
 
     /**
-     * Recursive solution
+     * DFS
      *
      * @param root
      * @param k
      */
-    private static void inorderTraversal(TreeNode root, int k) {
+    private static void helper(TreeNode root, int k) {
         if (root == null) {
             return;
         }
-        inorderTraversal(root.left, k);
+        helper(root.left, k);
         if (++traversed == k) {
             ans = root.val;
             return;
         }
-        inorderTraversal(root.right, k);
+        helper(root.right, k);
     }
 
     /**

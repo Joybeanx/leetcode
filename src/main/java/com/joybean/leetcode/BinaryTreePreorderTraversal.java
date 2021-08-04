@@ -22,6 +22,15 @@ public class BinaryTreePreorderTraversal {
         return ans;
     }
 
+    private static void helper(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        ans.add(root.val);
+        helper(root.left, ans);
+        helper(root.right, ans);
+    }
+
     /**
      * Iterating method
      *
@@ -66,15 +75,6 @@ public class BinaryTreePreorderTraversal {
             }
         }
         return res;
-    }
-
-    private static void helper(TreeNode root, List<Integer> ans) {
-        if (root == null) {
-            return;
-        }
-        ans.add(root.val);
-        helper(root.left, ans);
-        helper(root.right, ans);
     }
 
     public class TreeNode {

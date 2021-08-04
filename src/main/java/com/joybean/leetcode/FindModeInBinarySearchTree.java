@@ -15,18 +15,18 @@ public class FindModeInBinarySearchTree {
     private static int maxCount;
 
     public static int[] findMode1(TreeNode root) {
-        inorderTraversal(root);
+        helper(root);
         //Because tail nodes doesn't have a chance to update answer so we should do it again after traversal
         //For example: [1,null,2,2]
         updAns();
         return ans.stream().mapToInt(Integer::intValue).toArray();
     }
 
-    private static void inorderTraversal(TreeNode root) {
+    private static void helper(TreeNode root) {
         if (root == null) {
             return;
         }
-        inorderTraversal(root.left);
+        helper(root.left);
         if (prev == root.val) {
             count++;
         } else {
@@ -34,7 +34,7 @@ public class FindModeInBinarySearchTree {
             count = 1;
         }
         prev = root.val;
-        inorderTraversal(root.right);
+        helper(root.right);
     }
 
     private static void updAns() {

@@ -44,7 +44,7 @@ public class ConvertSortedListToBinarySearchTree {
     }
 
     /**
-     * Inorder traversal
+     * DFS
      *
      * @param head
      * @return
@@ -57,20 +57,20 @@ public class ConvertSortedListToBinarySearchTree {
             runner = runner.next;
             size++;
         }
-        return inorderHelper(1, size);
+        return helper(1, size);
     }
 
-    private static TreeNode inorderHelper(int from, int to) {
+    private static TreeNode helper(int from, int to) {
         if (from > to) {
             return null;
         }
         int middle = from + (to - from) / 2;
-        TreeNode leftTree = inorderHelper(from, middle - 1);
+        TreeNode leftTree = helper(from, middle - 1);
         TreeNode parent = new TreeNode(listNode.val);
         parent.left = leftTree;
         //ListNode is the result of inorder traversal
         listNode = listNode.next;
-        TreeNode rightTree = inorderHelper(middle + 1, to);
+        TreeNode rightTree = helper(middle + 1, to);
         parent.right = rightTree;
         return parent;
 

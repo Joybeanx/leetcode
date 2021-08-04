@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class BinaryTreePruning {
     /**
-     * Postorder traversal
+     * DFS
      *
      * @param root
      * @return

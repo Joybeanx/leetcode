@@ -21,6 +21,15 @@ public class BinaryTreeInorderTraversal {
         return ans;
     }
 
+    private static void helper(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        helper(root.left, ans);
+        ans.add(root.val);
+        helper(root.right, ans);
+    }
+
     /**
      * Iterating method using Stack
      *
@@ -50,16 +59,6 @@ public class BinaryTreeInorderTraversal {
      */
     public static List<Integer> inorderTraversal3(TreeNode root) {
         return null;
-    }
-
-
-    private static void helper(TreeNode root, List<Integer> ans) {
-        if (root == null) {
-            return;
-        }
-        helper(root.left, ans);
-        ans.add(root.val);
-        helper(root.right, ans);
     }
 
     public class TreeNode {
