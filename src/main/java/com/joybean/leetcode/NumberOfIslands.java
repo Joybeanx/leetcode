@@ -34,6 +34,17 @@ public class NumberOfIslands {
         return uf.count();
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/number-of-islands/discuss/1284203/C%2B%2BPython-DFS-Solution">Flood
+     * Filling</a>
+     * TODO
+     * @param grid
+     * @return
+     */
+    public static int numIslands2(char[][] grid) {
+        return 0;
+    }
+
     public static class UnionFind {
         private int[] parents;
         private int[] sizes;
