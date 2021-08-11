@@ -17,7 +17,8 @@ import java.util.Stack;
  */
 public class BinaryTreeZigzagLevelOrderTraversal {
     /**
-     * Stack
+     * BFS using Stack
+     *
      * @param root
      * @return
      */
@@ -56,7 +57,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
     }
 
     /**
-     * Deque
+     * BFS using Deque
      *
      * @param root
      * @return
@@ -91,6 +92,17 @@ public class BinaryTreeZigzagLevelOrderTraversal {
             isOrderLeft = !isOrderLeft;
         }
         return ans;
+    }
+
+    /**
+     * DFS
+     * TODO
+     *
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> zigzagLevelOrder3(TreeNode root) {
+        return null;
     }
 
     public class TreeNode {
