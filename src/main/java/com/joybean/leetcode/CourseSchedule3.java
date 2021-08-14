@@ -10,7 +10,8 @@ import java.util.Comparator;
  */
 public class CourseSchedule3 {
     /**
-     * <a href="https://leetcode.com/problems/course-schedule-iii/discuss/308492/Java-bottom-up-DP-solution-O(n*e)">Iterative(bottom-up)
+     * <a href="https://leetcode.com/problems/course-schedule-iii/discuss/363735/Recursive-or-DP-Top-Down-or-Dp
+     * -Bottom-Up-or-Greedy-or-Greedy-Optimised-or-Explanations">Iterative(bottom-up)
      * DP:Time Limit Exceeded</a>
      *
      * @param courses
@@ -19,7 +20,8 @@ public class CourseSchedule3 {
     public static int scheduleCourse1(int[][] courses) {
         Arrays.sort(courses, Comparator.comparingInt(course -> course[1]));
         int maxLastDay = courses[courses.length - 1][1];
-        //dp[i][j] represents till ith course, the maximum number of courses I can take on the jst day
+        //dp[i][j] represents the maximum number of courses can be take till including ith course of time jst day
+        //Think this problem as Knapsack0/1 problem
         int[][] dp = new int[courses.length + 1][maxLastDay + 1];
         int m = dp.length;
         int n = dp[0].length;
