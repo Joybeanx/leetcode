@@ -19,7 +19,7 @@ public class CourseSchedule3 {
     public static int scheduleCourse1(int[][] courses) {
         Arrays.sort(courses, Comparator.comparingInt(course -> course[1]));
         int maxLastDay = courses[courses.length - 1][1];
-        //dp[i][j] means till ith course, it's j day, the maximum course I can take
+        //dp[i][j] represents till ith course, the maximum number of courses I can take on the jst day
         int[][] dp = new int[courses.length + 1][maxLastDay + 1];
         int m = dp.length;
         int n = dp[0].length;
