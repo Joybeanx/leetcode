@@ -33,6 +33,9 @@ public class CourseSchedule3 {
                 if (j <= lastDay && j >= duration) {
                     dp[i][j] = dp[i - 1][j - duration] + 1;
                 }
+                //Don't take this course：Max ( a, b )
+                //a:maximum number of course can be taken without this course of time j : dp[i-1][j]
+                //b:maximum number of course can be take including this course but less time :or dp[ i][j - 1]
                 dp[i][j] = Math.max(dp[i][j], Math.max(dp[i][j - 1], dp[i - 1][j]));
             }
         }
