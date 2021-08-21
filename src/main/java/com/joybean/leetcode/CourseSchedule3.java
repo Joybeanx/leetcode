@@ -2,6 +2,7 @@ package com.joybean.leetcode;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * <a href="https://leetcode.com/problems/course-schedule-iii/">Course Schedule III</a>
@@ -35,7 +36,7 @@ public class CourseSchedule3 {
                 }
                 //Don't take this course：Max ( a, b )
                 //a:maximum number of course can be taken without this course of time j : dp[i-1][j]
-                //b:maximum number of course can be take including this course but less time :or dp[ i][j - 1]
+                //b:maximum number of course can be take including this course but less time : dp[ i][j - 1]
                 dp[i][j] = Math.max(dp[i][j], Math.max(dp[i][j - 1], dp[i - 1][j]));
             }
         }
@@ -51,5 +52,56 @@ public class CourseSchedule3 {
      */
     public static int scheduleCourse2(int[][] courses) {
         return 0;
+    }
+
+    /**
+     * Priority Queue
+     *
+     * @param courses
+     * @return
+     */
+    public static int scheduleCourse3(int[][] courses) {
+        Arrays.sort(courses, Comparator.comparingInt(course -> course[1]));
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(
+            Comparator.comparing((Integer idx) -> courses[idx][0]).reversed());
+        int daysSoFar = 0;
+        for (int idx = 0; idx < courses.length; idx++) {
+            int[] course = courses[idx];
+            if (daysSoFar + course[0] <= course[1]) {
+                priorityQueue.offer(idx);
+                daysSoFar += course[0];
+            } else {
+                Integer maxDurationIdx = priorityQueue.peek();
+                if (maxDurationIdx != null && courses[maxDurationIdx][0] > course[0]) {
+                    priorityQueue.poll();
+                    daysSoFar -= courses[maxDurationIdx][0];
+                    priorityQueue.offer(idx);
+                    daysSoFar += course[0];
+                }
+            }
+        }
+        return priorityQueue.size();
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/course-schedule-iii/solution/">Optimized Priority Queue</a>
+     *
+     * @param courses
+     * @return
+     */
+    public static int scheduleCourse4(int[][] courses) {
+        Arrays.sort(courses, Comparator.comparingInt(c -> c[1]));
+        PriorityQueue<Integer> queue = new PriorityQueue<>((a, b) -> b - a);
+        int time = 0;
+        for (int[] c : courses) {
+            if (time + c[0] <= c[1]) {
+                queue.offer(c[0]);
+                time += c[0];
+            } else if (!queue.isEmpty() && queue.peek() > c[0]) {
+                time += c[0] - queue.poll();
+                queue.offer(c[0]);
+            }
+        }
+        return queue.size();
     }
 }
