@@ -77,7 +77,7 @@ public class CountSubIslands {
                     if (grid[i][j] == 1) {
                         int id = i * n + j;
                         parents[id] = id;
-                        sizes[i] = 1;
+                        sizes[id] = 1;
                         count++;
                     }
                 }
