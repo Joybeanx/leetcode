@@ -7,8 +7,8 @@ package com.joybean.leetcode;
  */
 public class NumberOfIslands {
     /**
-     * <a href="https://leetcode.com/problems/number-ofa-islands/discuss/56354/1D-Union-Find-Java-solution-easily-generalized
-     * -to-other-problems">Union Find</a>
+     * <a href="https://leetcode.com/problems/number-of-islands/discuss/56354/1D-Union-Find-Java-solution-easily
+     * -generalized-to-other-problems">Union Find</a>
      *
      * @param grid
      * @return
@@ -32,43 +32,6 @@ public class NumberOfIslands {
             }
         }
         return uf.count();
-    }
-
-    /**
-     * <a href="https://leetcode.com/problems/number-of-islands/discuss/1284203/C%2B%2BPython-DFS-Solution">Flood
-     * Filling</a>
-     *
-     * @param grid
-     * @return
-     */
-    public static int numIslands2(char[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int ans = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                ans += helper(i, j, grid);
-            }
-        }
-        return ans;
-    }
-
-    private static int helper(int i, int j, char[][] grid) {
-        if (i >= grid.length || i < 0 || j >= grid[0].length || j < 0 || grid[i][j] == '0') {
-            return 0;
-        }
-        grid[i][j] = '0';
-        helper(i + 1, j, grid);
-        helper(i - 1, j, grid);
-        helper(i, j + 1, grid);
-        helper(i, j - 1, grid);
-        return 1;
-    }
-
-    public static void main(String[] args) {
-        char[][] grid1 = {{'1', '1', '1', '0', '0'}, {'0', '1', '1', '1', '1'}, {'0', '0', '0', '0', '0'},
-            {'1', '0', '0', '0', '0'}, {'1', '1', '0', '1', '1'}};
-        System.out.println(numIslands2(grid1));
     }
 
     public static class UnionFind {
@@ -122,4 +85,36 @@ public class NumberOfIslands {
             return count;
         }
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/number-of-islands/discuss/1284203/C%2B%2BPython-DFS-Solution">Flood
+     * Filling</a>
+     *
+     * @param grid
+     * @return
+     */
+    public static int numIslands2(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans += helper(i, j, grid);
+            }
+        }
+        return ans;
+    }
+
+    private static int helper(int i, int j, char[][] grid) {
+        if (i >= grid.length || i < 0 || j >= grid[0].length || j < 0 || grid[i][j] == '0') {
+            return 0;
+        }
+        grid[i][j] = '0';
+        helper(i + 1, j, grid);
+        helper(i - 1, j, grid);
+        helper(i, j + 1, grid);
+        helper(i, j - 1, grid);
+        return 1;
+    }
+
 }
