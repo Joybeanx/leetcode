@@ -98,4 +98,15 @@ public class DetectCyclesIn2DGrid {
             return x;
         }
     }
+
+    /**
+     * DFS
+     * TODO
+     *
+     * @param grid
+     * @return
+     */
+    public static boolean containsCycle2(char[][] grid) {
+        return false;
+    }
 }
