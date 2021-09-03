@@ -9,9 +9,18 @@ import java.util.PriorityQueue;
  * @author Joybean
  */
 public class FindMedianFromDataStream {
+    /**
+     * larger half of the data stream
+     */
     private PriorityQueue<Integer> minHeap;
+    /**
+     * smaller half of the data stream
+     */
     private PriorityQueue<Integer> maxHeap;
-    private boolean odd;
+    /**
+     * Better than to declare odd
+     */
+    private boolean even = true;
 
     /**
      * <a href="https://leetcode.com/problems/find-median-from-data-stream/discuss/74047/JavaPython-two-heap-solution-O(log-n)
@@ -22,22 +31,49 @@ public class FindMedianFromDataStream {
         maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
     }
 
-    public void addNum(int num) {
-        if (odd) {
-            minHeap.offer(num);
-            maxHeap.offer(minHeap.poll());
-        } else {
+    public void addNum1(int num) {
+        if (even) {
+            //minHeap always holds at most 1 number more than maxHeap
             maxHeap.offer(num);
             minHeap.offer(maxHeap.poll());
+        } else {
+            minHeap.offer(num);
+            maxHeap.offer(minHeap.poll());
         }
-        odd = !odd;
+        even = !even;
+    }
+
+    /**
+     * <a href="https://www.programcreek.com/2015/01/leetcode-find-median-from-data-stream-java/">Another heap balancing
+     * approach</a>
+     *
+     * @param num
+     */
+    public void addNum2(int num) {
+        minHeap.offer(num);
+        maxHeap.offer(minHeap.poll());
+        //Balance minHeap and maxHeap.
+        //This assures minHeap always holds at most 1 number more than maxHeap and all numbers in minHeap are
+        //greater than maxHeap
+        if (minHeap.size() < maxHeap.size()) {
+            minHeap.offer(maxHeap.poll());
+        }
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/find-median-from-data-stream/discuss/275207/Solutions-to-follow-ups">Follow
+     * up</a>
+     *
+     * @param num
+     */
+    public void addNum3(int num) {
+
     }
 
     public double findMedian() {
-        if (odd) {
-            return minHeap.peek();
-        } else {
+        if (even) {
             return (minHeap.peek() + maxHeap.peek()) / 2.0;
         }
+        return minHeap.peek();
     }
 }
