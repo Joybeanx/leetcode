@@ -25,30 +25,67 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Recursive solution
+     * Iterative solution 2
      *
      * @param head
      * @return
      */
     public static ListNode reverseList2(ListNode head) {
+        ListNode cur = head;
+        ListNode next = null;
+        while (cur != null) {
+            head = head.next;
+            cur.next = next;
+            next = cur;
+            cur = head;
+        }
+        return next;
+    }
+
+    /**
+     * Recursive solution
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList3(ListNode head) {
+        return helper(null, head);
+    }
+
+    private static ListNode helper(ListNode prev, ListNode cur) {
+        if (cur == null) {
+            return prev;
+        }
+        ListNode next = cur.next;
+        cur.next = prev;
+        return helper(cur, next);
+    }
+
+    /**
+     * Recursive solution 2
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList4(ListNode head) {
         if (head == null) {
             return null;
         }
-        ListNode ans = helper(head, head.next);
+        ListNode ans = helper2(head, head.next);
         head.next = null;
         return ans;
     }
 
-    private static ListNode helper(ListNode prev, ListNode cur) {
+    private static ListNode helper2(ListNode prev, ListNode cur) {
         if (cur != null) {
             ListNode next = cur.next;
             cur.next = prev;
-            return helper(cur, next);
+            return helper2(cur, next);
         }
         return prev;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
