@@ -6,8 +6,45 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class LinkedListCycle {
-    //TODO
-    public boolean hasCycle(ListNode head) {
+    /**
+     * Two pointer solution
+     *
+     * @param head
+     * @return
+     */
+    public static boolean hasCycle1(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && slow != null) {
+            fast = fast.next;
+            if (fast != null) {
+                fast = fast.next;
+            }
+            slow = slow.next;
+            if (fast != null && fast == slow) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/linked-list-cycle/discuss/44694/Accepted-clean-Java-solution>Clean two
+     * pointer solution</a>
+     *
+     * @param head
+     * @return
+     */
+    public static boolean hasCycle2(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
+        }
         return false;
     }
 
