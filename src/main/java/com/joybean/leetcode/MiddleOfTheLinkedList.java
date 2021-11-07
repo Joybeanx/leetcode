@@ -6,7 +6,6 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class MiddleOfTheLinkedList {
-    //TODO
     public ListNode middleNode(ListNode head) {
         return null;
     }

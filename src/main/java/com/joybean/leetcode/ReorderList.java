@@ -9,6 +9,11 @@ import java.util.Map;
  * @author Joybean
  */
 public class ReorderList {
+    /**
+     * HashMap solution
+     *
+     * @param head
+     */
     public static void reorderList1(ListNode head) {
         Map<Integer, ListNode> map = new HashMap<>();
         ListNode node = head;
@@ -34,13 +39,41 @@ public class ReorderList {
     }
 
     /**
+     * <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps">Better HashMap
+     * solution,from davidluoyes</a>
+     *
+     * @param head
+     */
+    public static void reorderList2(ListNode head) {
+        HashMap<Integer, ListNode> map = new HashMap<>();
+        for (int i = 1; head != null; head = head.next, i++) {
+            map.put(i, head);
+        }
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        //1,2,3,4
+        for (int i = 1, j = map.size(); i <= j; i++, j--) {
+            //curr->1
+            curr.next = map.get(i);
+            if (i != j) {
+                //1->4
+                map.get(i).next = map.get(j);
+            }
+            //4->null
+            map.get(j).next = null;
+            //curr = 4,then 1->4
+            curr = map.get(j);
+        }
+    }
+
+    /**
      * <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps">Find middle +
      * Reverse range + Merge </a>
      *
      * @param head
      * @see <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps"></a>
      */
-    public static void reorderList2(ListNode head) {
+    public static void reorderList3(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
         //1:Find the second middle node
