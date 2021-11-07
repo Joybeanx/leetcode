@@ -33,6 +33,47 @@ public class ReorderList {
         }
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps">Find middle +
+     * Reverse range + Merge </a>
+     *
+     * @param head
+     * @see <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps"></a>
+     */
+    public static void reorderList2(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        //1:Find the second middle node
+        //1->2->3->4
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode middle = slow;
+        //2:Reverse list from the middle node
+        //1->2->3<-4
+        ListNode next = null;
+        ListNode cur1 = middle;
+        while (cur1 != null) {
+            ListNode tmp = cur1.next;
+            cur1.next = next;
+            next = cur1;
+            cur1 = tmp;
+        }
+        //3:Merge two halves
+        cur1 = head;
+        ListNode cur2 = next;
+        //[head,middle) of the second half
+        while (cur2 != middle) {
+            ListNode tmp1 = cur1.next;
+            ListNode tmp2 = cur2.next;
+            cur1.next = cur2;
+            cur2.next = tmp1;
+            cur1 = tmp1;
+            cur2 = tmp2;
+        }
+    }
+
     public static class ListNode {
         int val;
         ListNode next;
