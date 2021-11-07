@@ -6,9 +6,20 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class MiddleOfTheLinkedList {
-    //TODO
+    /**
+     * Fast and Slow Pointer
+     *
+     * @param head
+     * @return
+     */
     public ListNode middleNode(ListNode head) {
-        return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 
     public class ListNode {
