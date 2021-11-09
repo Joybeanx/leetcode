@@ -6,26 +6,55 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ReverseFirstKNodesOfLinkedList {
+    private static ListNode successor;
+
     /**
-     * Recursive solution 1
+     * Recursive solution
      *
      * @param head
      * @param k
      * @return
      */
     public static ListNode reverseKNodes1(ListNode head, int k) {
-        return helper(head, 1, k);
-    }
-
-    private static ListNode helper(ListNode head, int pos, int k) {
-        if (pos == k) {
+        if (k == 1) {
             return head;
         }
-        ListNode last = helper(head.next, ++pos, k);
-        ListNode tmp = head.next.next;
+        ListNode newHead = reverseKNodes1(head.next, --k);
+        //The (k+1)th node
+        ListNode unchanged = head.next.next;
         head.next.next = head;
-        head.next = tmp;
-        return last;
+        head.next = unchanged;
+        return newHead;
+    }
+
+    /**
+     * Recursive solution 2 from labuladong
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKNodes2(ListNode head, int k) {
+        if (k == 1) {
+            successor = head.next;
+            return head;
+        }
+        ListNode newHead = reverseKNodes2(head.next, --k);
+        head.next.next = head;
+        head.next = successor;
+        return newHead;
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKNodes3(ListNode head, int k) {
+        return null;
     }
 
     public static class ListNode {
