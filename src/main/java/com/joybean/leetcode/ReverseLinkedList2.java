@@ -70,7 +70,7 @@ public class ReverseLinkedList2 {
     }
 
     /**
-     * Recursive solution 2 (from labuladong)
+     * Recursive solution 2 (by labuladong)
      *
      * @param head
      * @param left

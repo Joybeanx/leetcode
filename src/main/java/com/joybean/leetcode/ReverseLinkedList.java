@@ -86,7 +86,7 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Recursive solution 3 (from labuladong)
+     * Recursive solution 3 (by labuladong)
      *
      * @param head
      * @return
