@@ -86,7 +86,7 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Recursive solution 3
+     * Recursive solution 3 (from labuladong)
      *
      * @param head
      * @return
@@ -95,10 +95,11 @@ public class ReverseLinkedList {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode last = reverseList5(head.next);
+        //head.next will become the last node of reversed list after each recursion
+        ListNode newHead = reverseList5(head.next);
         head.next.next = head;
         head.next = null;
-        return last;
+        return newHead;
     }
 
     public static class ListNode {
