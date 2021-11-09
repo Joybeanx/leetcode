@@ -6,31 +6,101 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ReverseLinkedList2 {
-    public static ListNode reverseBetween(ListNode head, int left, int right) {
-        int index = 1;
+    /**
+     * Iterative solution
+     *
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
+    public static ListNode reverseBetween1(ListNode head, int left, int right) {
+        int curPos = 1;
         ListNode reversedTail = head;
-        ListNode prefix = null;
-        while (index < left) {
-            prefix = reversedTail;
+        ListNode predecessor = null;
+        while (curPos < left) {
+            predecessor = reversedTail;
             reversedTail = reversedTail.next;
-            index++;
+            curPos++;
         }
         ListNode cur = reversedTail;
         ListNode reversedHead = null;
         ListNode suffix = reversedTail.next;
-        while (index <= right) {
+        while (curPos <= right) {
             suffix = cur.next;
             cur.next = reversedHead;
             reversedHead = cur;
             cur = suffix;
-            index++;
+            curPos++;
         }
         reversedTail.next = suffix;
-        if (prefix == null) {
+        if (predecessor == null) {
             return reversedHead;
         }
-        prefix.next = reversedHead;
+        predecessor.next = reversedHead;
         return head;
+    }
+
+    /**
+     * Recursive solution
+     *
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
+    public static ListNode reverseBetween2(ListNode head, int left, int right) {
+        int curPos = 1;
+        ListNode predecessor = null;
+        ListNode cur = head;
+        while (curPos++ < left) {
+            predecessor = cur;
+            cur = cur.next;
+        }
+        ListNode reverseStart = head;
+        if (predecessor != null) {
+            reverseStart = predecessor.next;
+        }
+        ListNode reversed = reverseFirstKNodes(reverseStart, right - left + 1);
+        if (predecessor == null) {
+            return reversed;
+        }
+        predecessor.next = reversed;
+        return head;
+    }
+
+    /**
+     * Recursive solution 2 (from labuladong)
+     *
+     * @param head
+     * @param left
+     * @param right
+     * @return
+     */
+    public static ListNode reverseBetween3(ListNode head, int left, int right) {
+        if (left == 1) {
+            return reverseFirstKNodes(head, right);
+        }
+        head.next = reverseBetween3(head.next, left - 1, right - 1);
+        return head;
+    }
+
+    /**
+     * @param head
+     * @param k
+     * @return
+     * @see ReverseFirstKNodesOfLinkedList#reverseKNodes1
+     */
+    private static ListNode reverseFirstKNodes(ListNode head, int k) {
+        if (k == 1) {
+            return head;
+        }
+        ListNode newHead = reverseFirstKNodes(head.next, --k);
+        //The (k+1)th node
+        ListNode unchanged = head.next.next;
+        head.next.next = head;
+        head.next = unchanged;
+        return newHead;
     }
 
     public static class ListNode {
