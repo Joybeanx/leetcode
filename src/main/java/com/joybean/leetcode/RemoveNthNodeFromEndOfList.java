@@ -6,12 +6,35 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class RemoveNthNodeFromEndOfList {
-    //TODO
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        return null;
+    /**
+     * Fast and Slow Pointer
+     *
+     * @param head
+     * @param n
+     * @return
+     */
+    public static ListNode removeNthFromEnd1(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode fast = head;
+        int step = n;
+        while (fast != null) {
+            fast = fast.next;
+            if (--step == 0) {
+                break;
+            }
+        }
+        ListNode slow = head;
+        ListNode prev = dummy;
+        while (fast != null) {
+            fast = fast.next;
+            prev = slow;
+            slow = slow.next;
+        }
+        prev.next = slow.next;
+        return dummy.next;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
