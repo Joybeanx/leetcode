@@ -1,17 +1,72 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * <a href="https://leetcode.com/problems/next-greater-node-in-linked-list/">Next Greater Node In Linked List</a>
  *
  * @author Joybean
  */
 public class NextGreaterNodeInLinkedList {
-    //TODO
-    public int[] nextLargerNodes(ListNode head) {
-        return null;
+    /**
+     * PriorityQueue solution
+     *
+     * @param head
+     * @return
+     */
+    public static int[] nextLargerNodes1(ListNode head) {
+        List<Integer> list = new ArrayList<>();
+        ListNode cur = head;
+        while (cur != null) {
+            list.add(cur.val);
+            cur = cur.next;
+        }
+        int[] ans = new int[list.size()];
+        Queue<Integer> queue = new PriorityQueue<>(Comparator.comparing(i -> list.get(i)));
+        cur = head;
+        int idx = 0;
+        while (cur != null) {
+            while (!queue.isEmpty() && cur.val > list.get(queue.peek())) {
+                ans[queue.poll()] = cur.val;
+            }
+            queue.offer(idx++);
+            cur = cur.next;
+        }
+        return ans;
     }
 
-    public class ListNode {
+    /**
+     * Monotonically increasing stack
+     *
+     * @param head
+     * @return
+     * @see NextGreaterElement#nextGreaterElements3(int[])
+     */
+    public static int[] nextLargerNodes2(ListNode head) {
+        Stack<Integer> stack = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        ListNode cur = head;
+        while (cur != null) {
+            list.add(cur.val);
+            cur = cur.next;
+        }
+        int[] ans = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            int curVal = list.get(i);
+            while (!stack.isEmpty() && list.get(stack.peek()) < curVal) {
+                ans[stack.pop()] = curVal;
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+
+    public static class ListNode {
         int val;
         ListNode next;
 
