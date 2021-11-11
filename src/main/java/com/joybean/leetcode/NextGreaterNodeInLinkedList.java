@@ -46,7 +46,7 @@ public class NextGreaterNodeInLinkedList {
      *
      * @param head
      * @return
-     * @see NextGreaterElement#nextGreaterElements3(int[])
+     * @see NextGreaterElement2#nextGreaterElements3(int[])
      */
     public static int[] nextLargerNodes2(ListNode head) {
         //Deque is much better than stack

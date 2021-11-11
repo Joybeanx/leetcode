@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @author Joybean
  */
-public class NextGreaterElement {
+public class NextGreaterElement2 {
     /**
      * Brute Force
      *
