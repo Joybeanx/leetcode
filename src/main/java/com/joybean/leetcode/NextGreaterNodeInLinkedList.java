@@ -52,10 +52,8 @@ public class NextGreaterNodeInLinkedList {
         //Deque is much better than stack
         Deque<Integer> stack = new ArrayDeque<>();
         List<Integer> list = new ArrayList<>();
-        ListNode cur = head;
-        while (cur != null) {
-            list.add(cur.val);
-            cur = cur.next;
+        for (ListNode node = head; node != null; node = node.next) {
+            list.add(node.val);
         }
         int[] ans = new int[list.size()];
         for (int i = 0; i < list.size(); i++) {
