@@ -1,11 +1,12 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Stack;
 
 /**
  * <a href="https://leetcode.com/problems/next-greater-node-in-linked-list/">Next Greater Node In Linked List</a>
@@ -48,7 +49,8 @@ public class NextGreaterNodeInLinkedList {
      * @see NextGreaterElement#nextGreaterElements3(int[])
      */
     public static int[] nextLargerNodes2(ListNode head) {
-        Stack<Integer> stack = new Stack<>();
+        //Deque is much better than stack
+        Deque<Integer> stack = new ArrayDeque<>();
         List<Integer> list = new ArrayList<>();
         ListNode cur = head;
         while (cur != null) {
