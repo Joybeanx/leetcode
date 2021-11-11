@@ -62,7 +62,7 @@ public class BinaryTreeLevelOrderTraversal2 {
         ans.get(ans.size() - level - 1).add(root.val);
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

@@ -37,7 +37,7 @@ public class BSTIterator2 {
         return !stack.isEmpty();
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

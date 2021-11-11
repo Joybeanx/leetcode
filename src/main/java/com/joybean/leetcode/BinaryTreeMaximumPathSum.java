@@ -31,7 +31,7 @@ public class BinaryTreeMaximumPathSum {
         return Math.max(left + root.val, right + root.val);
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

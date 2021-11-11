@@ -11,7 +11,7 @@ public class LinkedListCycle2 {
         return null;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 

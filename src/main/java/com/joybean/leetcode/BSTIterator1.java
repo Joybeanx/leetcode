@@ -38,7 +38,7 @@ public class BSTIterator1 {
         return !queue.isEmpty();
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

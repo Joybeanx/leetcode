@@ -23,7 +23,7 @@ public class ValidateBinarySearchTree {
         return isValid(root.left, min, root) && isValid(root.right, root, max);
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

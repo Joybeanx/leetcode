@@ -12,7 +12,7 @@ public class ConstructBinarySearchTreeFromPreorderTraversal {
         return null;
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         BinaryTreeInorderTraversal.TreeNode left;
         BinaryTreeInorderTraversal.TreeNode right;

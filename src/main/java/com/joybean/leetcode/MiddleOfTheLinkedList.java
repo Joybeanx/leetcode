@@ -22,7 +22,7 @@ public class MiddleOfTheLinkedList {
         return slow;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 

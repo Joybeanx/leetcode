@@ -64,7 +64,7 @@ public class BinaryTreeLevelOrderTraversal {
         helper(root.right, level + 1, ans);
     }
 
-    public class TreeNode {
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

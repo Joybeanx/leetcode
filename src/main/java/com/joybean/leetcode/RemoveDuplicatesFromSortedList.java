@@ -11,7 +11,7 @@ public class RemoveDuplicatesFromSortedList {
         return null;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 

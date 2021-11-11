@@ -11,7 +11,7 @@ public class PalindromeLinkedList {
         return false;
     }
 
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
 
