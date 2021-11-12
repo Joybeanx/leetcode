@@ -6,8 +6,26 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class LinkedListCycle2 {
-    //TODO
-    public ListNode detectCycle(ListNode head) {
+    /**
+     * Floyd's cycle-finding algorithm
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode detectCycle1(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                while (head != slow) {
+                    head = head.next;
+                    slow = slow.next;
+                }
+                return slow;
+            }
+        }
         return null;
     }
 
