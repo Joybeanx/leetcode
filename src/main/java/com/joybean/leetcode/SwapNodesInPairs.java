@@ -6,9 +6,31 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class SwapNodesInPairs {
-    //TODO
-    public boolean swapPairs(ListNode head) {
-        return false;
+    /**
+     * Recursive solution
+     *
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode second = head.next;
+        head.next = swapPairs1(second.next);
+        second.next = head;
+        return second;
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs2(ListNode head) {
+        return null;
     }
 
     public static class ListNode {
