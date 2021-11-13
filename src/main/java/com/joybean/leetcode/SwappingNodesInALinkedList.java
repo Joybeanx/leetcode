@@ -6,9 +6,22 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class SwappingNodesInALinkedList {
-    //TODO
-    public ListNode swapNodes(ListNode head, int k) {
-        return null;
+    public static ListNode swapNodes1(ListNode head, int k) {
+        ListNode fast = head;
+        ListNode slow = head;
+        for (int i = 1; i < k; i++) {
+            fast = fast.next;
+        }
+        ListNode first = fast;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        ListNode second = slow;
+        int val1 = first.val;
+        first.val = second.val;
+        second.val = val1;
+        return head;
     }
 
     public static class ListNode {
