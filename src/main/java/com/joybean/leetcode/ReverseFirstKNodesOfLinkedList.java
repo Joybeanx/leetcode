@@ -47,14 +47,22 @@ public class ReverseFirstKNodesOfLinkedList {
 
     /**
      * Iterative solution
-     * TODO
      *
      * @param head
      * @param k
      * @return
      */
     public static ListNode reverseKNodes3(ListNode head, int k) {
-        return null;
+        ListNode cur = head;
+        ListNode newHead = null;
+        while (cur != null && k-- > 0) {
+            ListNode next = cur.next;
+            cur.next = newHead;
+            newHead = cur;
+            cur = next;
+        }
+        head.next = cur;
+        return newHead;
     }
 
     public static class ListNode {
