@@ -6,8 +6,51 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ReverseNodesInKGroup {
-    //TODO
-    public ListNode reverseKGroup(ListNode head, int k) {
+    /**
+     * Recursive solution (by labuladong)
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKGroup1(ListNode head, int k) {
+        if (head == null) {
+            return null;
+        }
+        ListNode left = head;
+        ListNode right = head;
+        for (int i = 1; i <= k; i++) {
+            if (right == null) {
+                return head;
+            }
+            right = right.next;
+        }
+        ListNode newHead = reverseBetween(left, right);
+        left.next = reverseKGroup1(right, k);
+        return newHead;
+    }
+
+    private static ListNode reverseBetween(ListNode left, ListNode right) {
+        ListNode cur = left;
+        ListNode newHead = null;
+        while (cur != right) {
+            ListNode tmp = cur.next;
+            cur.next = newHead;
+            newHead = cur;
+            cur = tmp;
+        }
+        return newHead;
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKGroup2(ListNode head, int k) {
         return null;
     }
 
