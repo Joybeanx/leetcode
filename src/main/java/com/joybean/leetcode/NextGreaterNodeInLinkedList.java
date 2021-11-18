@@ -42,7 +42,7 @@ public class NextGreaterNodeInLinkedList {
     }
 
     /**
-     * Monotonically increasing stack
+     * Monotonic stack
      *
      * @param head
      * @return

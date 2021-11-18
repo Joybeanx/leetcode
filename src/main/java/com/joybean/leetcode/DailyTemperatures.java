@@ -10,7 +10,7 @@ import java.util.Deque;
  */
 public class DailyTemperatures {
     /**
-     * Monotonically increasing stack
+     * Monotonic stack
      *
      * @param temperatures
      * @return

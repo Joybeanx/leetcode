@@ -30,7 +30,7 @@ public class NextGreaterElement2 {
     }
 
     /**
-     * Monotonically increasing stack(from top to bottom),extra stack element model
+     * Monotonic stack,extra stack element model
      *
      * @param nums
      * @return
@@ -43,7 +43,7 @@ public class NextGreaterElement2 {
         for (int i = 0; i < loopCnt; i++) {
             int index = i % nums.length;
             Integer current = nums[index];
-            //Every time after pushing an element,the stack remain monotonically increasing,remaining elements are
+            //Every time after pushing an element,the stack remain monotonically decreasing,remaining elements are
             //those whose greater element are not found so far.
             while (!stack.isEmpty()) {
                 Element top = stack.peek();
@@ -70,7 +70,7 @@ public class NextGreaterElement2 {
     }
 
     /**
-     * Monotonically increasing stack,only store index in stack
+     * Monotonic stack,only store index in stack
      *
      * @param nums
      * @return
@@ -99,7 +99,7 @@ public class NextGreaterElement2 {
     }
 
     /**
-     * Monotonically increasing stack,traverse from right to left
+     * Monotonic stack,traverse from right to left
      *
      * @param nums
      * @return
