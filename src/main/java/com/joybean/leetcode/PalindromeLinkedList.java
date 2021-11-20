@@ -14,7 +14,8 @@ public class PalindromeLinkedList {
             slow = slow.next;
         }
         ListNode leftHead = reverseLeftHalf(head, slow);
-        //Make two halves have same length, for example [1,3,1], slow pointer will stop at 3
+        //When linked list has odd nodes,let right half smaller so that the two halves have same length
+        //for example [1,3,1], slow pointer will stop at 3
         ListNode rightHead = slow;
         if (fast != null) {
             rightHead = slow.next;
