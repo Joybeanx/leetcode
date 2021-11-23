@@ -18,19 +18,19 @@ public class RemoveDuplicateLetters {
      */
     public static String removeDuplicateLetters1(String s) {
         char[] chars = s.toCharArray();
-        int[] remainingFreq = new int[26];
+        int[] remainingCnt = new int[26];
         for (char ch : chars) {
-            remainingFreq[ch - 'a']++;
+            remainingCnt[ch - 'a']++;
         }
         Deque<Character> stack = new ArrayDeque<>();
         boolean[] inStack = new boolean[26];
         for (char ch : chars) {
             int index = ch - 'a';
-            remainingFreq[index]--;
+            remainingCnt[index]--;
             if (inStack[index]) {
                 continue;
             }
-            while (!stack.isEmpty() && stack.peek() > ch && remainingFreq[stack.peek() - 'a'] > 0) {
+            while (!stack.isEmpty() && stack.peek() > ch && remainingCnt[stack.peek() - 'a'] > 0) {
                 inStack[stack.pop() - 'a'] = false;
             }
             stack.push(ch);
