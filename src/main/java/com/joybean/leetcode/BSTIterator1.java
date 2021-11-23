@@ -2,6 +2,7 @@ package com.joybean.leetcode;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * <a href="https://leetcode.com/problems/binary-search-tree-iterator/">Binary Search Tree Iterator</a>
@@ -11,14 +12,21 @@ import java.util.Queue;
 public class BSTIterator1 {
     private Queue<Integer> queue;
 
-    /**
-     * Queue solution
-     *
-     * @param root
-     */
+    private Stack<TreeNode> stack;
+
     public BSTIterator1(TreeNode root) {
         queue = new LinkedList<>();
         inorderStoreQueue(root, queue);
+
+        stack = new Stack<>();
+        putLeftMostToStack(root);
+    }
+
+    private void putLeftMostToStack(TreeNode root) {
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
+        }
     }
 
     private void inorderStoreQueue(TreeNode root, Queue<Integer> queue) {
@@ -30,12 +38,32 @@ public class BSTIterator1 {
         inorderStoreQueue(root.right, queue);
     }
 
-    public int next() {
+    /**
+     * Queue solution
+     *
+     * @return
+     */
+    public int next1() {
         return queue.poll();
     }
 
-    public boolean hasNext() {
+    public boolean hasNext1() {
         return !queue.isEmpty();
+    }
+
+    /**
+     * Stack solution
+     *
+     * @return
+     */
+    public int next2() {
+        int next = stack.peek().val;
+        putLeftMostToStack(stack.pop().right);
+        return next;
+    }
+
+    public boolean hasNext2() {
+        return !stack.isEmpty();
     }
 
     public static class TreeNode {
