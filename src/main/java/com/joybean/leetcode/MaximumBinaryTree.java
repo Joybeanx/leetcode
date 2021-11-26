@@ -1,5 +1,8 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * <a href="https://leetcode.com/problems/maximum-binary-tree/">Maximum Binary Tree</a>
  *
@@ -40,22 +43,23 @@ public class MaximumBinaryTree {
     /**
      * <a href="https://leetcode.com/problems/maximum-binary-tree/discuss/106156/Java-worst-case-O(N)-solution">Stack
      * solution</a>
-     * TODO
      *
      * @param nums
      * @return
      */
     public static TreeNode constructMaximumBinaryTree2(int[] nums) {
-        return null;
-    }
-
-    public static void main(String[] args) {
-        int[] s1 = {1, 3, 2, 4, 6, 0, 5};
-        int[] s2 = {1};
-        int[] s3 = {1, 5, 2, 3, 6};
-        TreeNode tree1 = constructMaximumBinaryTree1(s1);
-        TreeNode tree2 = constructMaximumBinaryTree1(s2);
-        TreeNode tree3 = constructMaximumBinaryTree1(s3);
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        for (int num : nums) {
+            TreeNode cur = new TreeNode(num);
+            while (!stack.isEmpty() && num > stack.peek().val) {
+                cur.left = stack.pop();
+            }
+            if (!stack.isEmpty()) {
+                stack.peek().right = cur;
+            }
+            stack.push(cur);
+        }
+        return stack.removeLast();
     }
 
     public static class TreeNode {
