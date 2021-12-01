@@ -10,7 +10,7 @@ import java.util.Deque;
  */
 public class OneThreeTwoPattern {
     /**
-     * Time complexity：O(n^2)，TLE
+     * Time complexity：O(n^2),TLE
      *
      * @param nums
      * @return
