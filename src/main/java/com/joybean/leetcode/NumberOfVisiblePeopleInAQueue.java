@@ -6,8 +6,25 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class NumberOfVisiblePeopleInAQueue {
-    //TODO
-    public int[] canSeePersonsCount(int[] heights) {
-        return null;
+    /**
+     * Brute force,TLE
+     *
+     * @param heights
+     * @return
+     */
+    public static int[] canSeePersonsCount1(int[] heights) {
+        int[] ans = new int[heights.length];
+        for (int i = 0; i < heights.length; i++) {
+            int max = 0;
+            int cnt = 0;
+            for (int j = i + 1; j < heights.length; j++) {
+                if (Math.min(heights[i], heights[j]) > max) {
+                    cnt++;
+                }
+                max = Math.max(max, heights[j]);
+            }
+            ans[i] = cnt;
+        }
+        return ans;
     }
 }
