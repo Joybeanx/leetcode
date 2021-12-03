@@ -29,6 +29,7 @@ public class ConstructBinarySearchTreeFromPreorderTraversal {
                 stack.peek().left = node;
             } else {
                 TreeNode parent = stack.pop();
+                //Keep popping until find the parent of current num
                 while (!stack.isEmpty() && preorder[i] > stack.peek().val) {
                     parent = stack.pop();
                 }
