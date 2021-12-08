@@ -46,4 +46,15 @@ public class TrappingRainWater {
     public static int trap2(int[] height) {
         return 0;
     }
+
+    /**
+     * Monotonic stack
+     * TODO
+     *
+     * @param height
+     * @return
+     */
+    public static int trap3(int[] height) {
+        return 0;
+    }
 }
