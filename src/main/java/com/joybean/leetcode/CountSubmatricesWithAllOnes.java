@@ -1,5 +1,7 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.com/problems/count-submatrices-with-all-ones/">Count Submatrices With All Ones</a>
  *
@@ -45,19 +47,45 @@ public class CountSubmatricesWithAllOnes {
 
     /**
      * <a href="https://leetcode.com/problems/count-submatrices-with-all-ones/discuss/720265/Java-Detailed
-     * -Explanation-From-O(MNM)-to-O(MN)-by-using-Stack"">Brute force</a>
-     * TODO
+     * -Explanation-From-O(MNM)-to-O(MN)-by-using-Stack">Brute force 2</a>
      *
      * @param mat
      * @return
      */
     public static int numSubmat2(int[][] mat) {
-        return 0;
+        int m = mat.length;
+        int n = mat[0].length;
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            //heights[k] == 1 means all values in column k from row i to j are 1
+            int[] heights = new int[n];
+            Arrays.fill(heights, 1);
+            for (int j = i; j < m; j++) {
+                for (int k = 0; k < n; k++) {
+                    heights[k] &= mat[j][k];
+                }
+                ans += count(heights);
+            }
+        }
+        return ans;
+    }
+
+    private static int count(int[] heights) {
+        int res = 0;
+        int length = 0;
+        for (int height : heights) {
+            if (height == 1) {
+                res += ++length;
+            } else {
+                length = 0;
+            }
+        }
+        return res;
     }
 
     /**
      * <a href="https://leetcode.com/problems/count-submatrices-with-all-ones/discuss/720265/Java-Detailed
-     * -Explanation-From-O(MNM)-to-O(MN)-by-using-Stack"">Monotonic stack</a>
+     * -Explanation-From-O(MNM)-to-O(MN)-by-using-Stack">Monotonic stack</a>
      * TODO
      *
      * @param mat
