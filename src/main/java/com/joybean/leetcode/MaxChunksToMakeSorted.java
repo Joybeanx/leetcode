@@ -11,7 +11,7 @@ import java.util.Deque;
 public class MaxChunksToMakeSorted {
     /**
      * <a href="https://leetcode.com/problems/max-chunks-to-make-sorted/discuss/113528/Simple-Java-O(n)
-     * -Solution-with-detailed-explanation">Check</a>
+     * -Solution-with-detailed-explanation">Simple O(n) solution</a>
      *
      * @param arr
      * @return
