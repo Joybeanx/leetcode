@@ -10,7 +10,7 @@ import java.util.Deque;
  */
 public class NumberOfVisiblePeopleInAQueue {
     /**
-     * Brute force,TLE
+     * Brute force:TLE
      *
      * @param heights
      * @return
