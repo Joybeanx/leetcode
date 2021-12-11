@@ -14,6 +14,7 @@ public class ConstrainedSubsequenceSum {
      * @return
      */
     public static int constrainedSubsetSum1(int[] nums, int k) {
+        //dp[i] represents max subset sum ending with ith num
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -25,8 +26,8 @@ public class ConstrainedSubsequenceSum {
             }
         }
         int max = Integer.MIN_VALUE;
-        for (int n : dp) {
-            max = Math.max(n, max);
+        for (int s : dp) {
+            max = Math.max(s, max);
         }
         return max;
     }
