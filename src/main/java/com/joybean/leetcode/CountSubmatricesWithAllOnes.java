@@ -1,6 +1,8 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * <a href="https://leetcode.com/problems/count-submatrices-with-all-ones/">Count Submatrices With All Ones</a>
@@ -86,12 +88,59 @@ public class CountSubmatricesWithAllOnes {
     /**
      * <a href="https://leetcode.com/problems/count-submatrices-with-all-ones/discuss/720265/Java-Detailed
      * -Explanation-From-O(MNM)-to-O(MN)-by-using-Stack">Monotonic stack</a>
-     * TODO
      *
      * @param mat
      * @return
      */
     public static int numSubmat3(int[][] mat) {
-        return 0;
+        int ans = 0;
+        int m = mat.length;
+        int n = mat[0].length;
+        int[] heights = new int[n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
+                    heights[j] += 1;
+                } else {
+                    heights[j] = 0;
+                }
+            }
+            ans += helper(heights);
+        }
+        return ans;
+    }
+
+    /**
+     * Sum of Subarray Minimums
+     *
+     * @param heights
+     * @return
+     * @see SumOfSubarrayMinimums
+     */
+    private static int helper(int[] heights) {
+        //nled[i] = distance from the ith element to next less element
+        int[] nled = new int[heights.length];
+        //pled[i] = distance from the ith element to previous less element
+        int[] pled = new int[heights.length];
+        Deque<Integer> stack1 = new ArrayDeque<>();
+        Deque<Integer> stack2 = new ArrayDeque<>();
+        for (int i = 0; i < heights.length; i++) {
+            nled[i] = heights.length - i;
+            while (!stack1.isEmpty() && heights[stack1.peek()] > heights[i]) {
+                nled[stack1.peek()] = i - stack1.pop();
+            }
+            stack1.push(i);
+            pled[i] = i + 1;
+            while (!stack2.isEmpty() && heights[stack2.peek()] > heights[i]) {
+                stack2.pop();
+            }
+            pled[i] = i - (stack2.isEmpty() ? -1 : stack2.peek());
+            stack2.push(i);
+        }
+        int ans = 0;
+        for (int i = 0; i < heights.length; i++) {
+            ans = ans + nled[i] * pled[i] * heights[i];
+        }
+        return ans;
     }
 }
