@@ -6,8 +6,24 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class MinimumCostTreeFromLeafValues {
-    //TODO
-    public int mctFromLeafValues(int[] arr) {
+    /**
+     * Stack solution
+     * TODO
+     *
+     * @param arr
+     * @return
+     */
+    public static int mctFromLeafValues1(int[] arr) {
+        return 0;
+    }
+
+    /**
+     * DP solution
+     *
+     * @param arr
+     * @return
+     */
+    public static int mctFromLeafValues2(int[] arr) {
         return 0;
     }
 }
