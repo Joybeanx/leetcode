@@ -59,14 +59,6 @@ public class LargestRectangleInHistogram {
         return ans;
     }
 
-    public static void main(String[] args) {
-        System.out.println(largestRectangleArea1(new int[] {4, 2, 0, 3, 2, 5}));
-        System.out.println(largestRectangleArea1(new int[] {2, 1, 2}));
-        System.out.println(largestRectangleArea1(new int[] {4, 2, 1, 5}));
-        System.out.println(largestRectangleArea1(new int[] {2}));
-        System.out.println(largestRectangleArea1(new int[] {2, 1, 5, 6, 2, 3}));
-    }
-
     /**
      * Segment tree
      * TODO
