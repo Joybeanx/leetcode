@@ -7,8 +7,26 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ShortestSubarrayToBeRemovedToMakeArraySorted {
-    //TODO
-    public int findLengthOfShortestSubarray(int[] arr) {
+    /**
+     * Sliding window
+     * //TODO
+     *
+     * @param arr
+     * @return
+     */
+    public static int findLengthOfShortestSubarray1(int[] arr) {
+        return 0;
+    }
+
+    /**
+     * Two pointers
+     *
+     * TODO
+     *
+     * @param arr
+     * @return
+     */
+    public static int findLengthOfShortestSubarray2(int[] arr) {
         return 0;
     }
 }
