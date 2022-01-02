@@ -17,8 +17,8 @@ public class BinarySearch {
         int left = 0;
         int right = nums.length - 1;
         while (left <= right) {
-            //avoid integer overflow
-            int mid = left + (right - left) / 2;
+            //avoid overflow
+            int mid = (left + right) >>> 1;
             if (target == nums[mid]) {
                 return mid;
             }
