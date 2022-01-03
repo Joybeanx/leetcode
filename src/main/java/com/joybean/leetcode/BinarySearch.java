@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class BinarySearch {
     /**
-     * Binary search
+     * Binary search 1
      *
      * @param nums
      * @param target
@@ -16,6 +16,7 @@ public class BinarySearch {
     public static int search1(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
+        //search range [left,right]
         while (left <= right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
@@ -29,5 +30,31 @@ public class BinarySearch {
             }
         }
         return -1;
+    }
+
+    /**
+     * Binary search 2
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int search2(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        //search range [left,right)
+        while (left < right) {
+            //avoid overflow
+            int mid = (left + right) >>> 1;
+            if (target == nums[mid]) {
+                return mid;
+            }
+            if (target > nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return nums[left] == target ? left : -1;
     }
 }
