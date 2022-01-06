@@ -20,7 +20,7 @@ public class FindSmallestLetterGreaterThanTarget {
         //search range [left,right]
         while (left <= right) {
             int mid = (left + right) >>> 1;
-            if (target >= letters[mid]) {
+            if (letters[mid] <= target) {
                 left = mid + 1;
             } else {
                 right = mid - 1;

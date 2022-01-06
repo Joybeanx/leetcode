@@ -18,7 +18,7 @@ public class KthMissingPositiveNumber {
         int right = arr.length - 1;
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (k <= arr[mid] - mid - 1) {
+            if (arr[mid] - mid - 1 >= k) {
                 right = mid;
             } else {
                 left = mid + 1;
@@ -44,7 +44,7 @@ public class KthMissingPositiveNumber {
         int right = arr.length;
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (k <= arr[mid] - mid - 1) {
+            if (arr[mid] - mid - 1 >= k) {
                 right = mid;
             } else {
                 left = mid + 1;

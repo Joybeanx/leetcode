@@ -23,7 +23,7 @@ public class SearchInsertPosition {
             if (target == nums[mid]) {
                 return mid;
             }
-            if (target > nums[mid]) {
+            if (nums[mid] < target) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
@@ -49,7 +49,7 @@ public class SearchInsertPosition {
             if (target == nums[mid]) {
                 return mid;
             }
-            if (target > nums[mid]) {
+            if (nums[mid] < target) {
                 left = mid + 1;
             } else {
                 right = mid;

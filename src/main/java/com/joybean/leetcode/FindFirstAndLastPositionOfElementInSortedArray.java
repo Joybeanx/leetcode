@@ -25,7 +25,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 t = mid;
                 break;
             }
-            if (target > nums[mid]) {
+            if (nums[mid] < target) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
@@ -39,7 +39,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         //Search the starting position of target in range[left,t]
         while (i <= j) {
             int mid = (i + j) >>> 1;
-            if (target <= nums[mid]) {
+            if (nums[mid] >= target) {
                 j = mid - 1;
             } else {
                 i = mid + 1;
@@ -51,7 +51,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         //Search the starting position of target in range[t,right]
         while (p <= q) {
             int mid = (p + q) >>> 1;
-            if (target >= nums[mid]) {
+            if (nums[mid] <= target) {
                 p = mid + 1;
             } else {
                 q = mid - 1;
@@ -74,7 +74,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         //Search the starting position of target in range[0,nums.length - 1)
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (target <= nums[mid]) {
+            if (nums[mid] >= target) {
                 right = mid;
             } else {
                 left = mid + 1;
@@ -89,7 +89,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         while (left < right) {
             //Make mid biased to the right,so that this won't make the search range stuck
             int mid = (left + right + 1) >>> 1;
-            if (target >= nums[mid]) {
+            if (nums[mid] <= target) {
                 left = mid;
             } else {
                 right = mid - 1;
