@@ -27,10 +27,13 @@ public class FindSmallestLetterGreaterThanTarget {
                 right = mid - 1;
             }
         }
+       /*
         if (left == letters.length) {
-            return letters[0];
+           return letters[0];
         }
         return letters[left];
+        */
+        return letters[left % letters.length];
     }
 
     /**
@@ -53,9 +56,6 @@ public class FindSmallestLetterGreaterThanTarget {
                 right = mid;
             }
         }
-        if (left == letters.length) {
-            return letters[0];
-        }
-        return letters[left];
+        return letters[left % letters.length];
     }
 }
