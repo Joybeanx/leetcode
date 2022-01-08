@@ -20,7 +20,7 @@ public class SearchInsertPosition {
         while (left <= right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
-            if (target == nums[mid]) {
+            if (nums[mid] == target) {
                 return mid;
             }
             if (nums[mid] < target) {
@@ -46,7 +46,7 @@ public class SearchInsertPosition {
         while (left < right) {
             //Always gives the lower mid,so that this won't make the search range stuck
             int mid = (left + right - 1) >>> 1;
-            if (target == nums[mid]) {
+            if (nums[mid] == target) {
                 return mid;
             }
             if (nums[mid] < target) {
