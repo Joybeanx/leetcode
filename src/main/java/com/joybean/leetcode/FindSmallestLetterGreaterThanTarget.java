@@ -21,19 +21,15 @@ public class FindSmallestLetterGreaterThanTarget {
         while (left <= right) {
             int mid = (left + right) >>> 1;
             if (letters[mid] <= target) {
-                //Increase the left boundary of search range to locate next possible greater letter
                 left = mid + 1;
             } else {
                 right = mid - 1;
             }
         }
-       /*
         if (left == letters.length) {
-           return letters[0];
+            return letters[0];
         }
         return letters[left];
-        */
-        return letters[left % letters.length];
     }
 
     /**
@@ -51,8 +47,10 @@ public class FindSmallestLetterGreaterThanTarget {
             //Make mid biased to the left,so that this won't make the search range stuck
             int mid = (left + right - 1) >>> 1;
             if (letters[mid] <= target) {
+                //mid must not be insert position
                 left = mid + 1;
             } else {
+                //mid may be a possible insert position
                 right = mid;
             }
         }

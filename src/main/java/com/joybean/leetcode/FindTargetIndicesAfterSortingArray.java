@@ -41,7 +41,7 @@ public class FindTargetIndicesAfterSortingArray {
         }
         List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < targetCnt; i++) {
-            //or ans.add(lessCnt++);
+            //ans.add(lessCnt++);
             ans.add(lessCnt + i);
         }
         return ans;

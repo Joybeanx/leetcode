@@ -50,6 +50,7 @@ public class SearchInsertPosition {
                 return mid;
             }
             if (nums[mid] < target) {
+                //mid must not be insert position
                 left = mid + 1;
             } else {
                 //mid may be a possible insert position
@@ -76,7 +77,7 @@ public class SearchInsertPosition {
             } else if (nums[mid] < target) {
                 left = mid + 1;
             } else {
-                //right could be the result
+                //mid may be a possible insert position
                 right = mid;
             }
         }
