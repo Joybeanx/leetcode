@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class FirstBadVersion {
     /**
-     * Binary search
+     * Binary search 1
      *
      * @param n
      * @return
@@ -15,6 +15,7 @@ public class FirstBadVersion {
     public static int firstBadVersion1(int n) {
         int left = 1;
         int right = n;
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (isBadVersion(mid)) {
