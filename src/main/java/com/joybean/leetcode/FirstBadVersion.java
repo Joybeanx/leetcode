@@ -27,6 +27,27 @@ public class FirstBadVersion {
         return left;
     }
 
+    /**
+     * Binary search 2
+     *
+     * @param n
+     * @return
+     */
+    public static int firstBadVersion2(int n) {
+        int left = 1;
+        int right = n;
+        //search range [left,right]
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (isBadVersion(mid)) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
     private static boolean isBadVersion(int version) {
         return false;
     }
