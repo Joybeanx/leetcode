@@ -1,13 +1,63 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.com/problems/koko-eating-bananas/">Koko Eating Bananas</a>
  *
  * @author Joybean
  */
 public class KokoEatingBananas {
-    //TODO
-    public int minEatingSpeed(int[] piles, int h) {
-        return 0;
+    /**
+     * Binary search 1
+     *
+     * @param piles
+     * @param h
+     * @return
+     */
+    public static int minEatingSpeed1(int[] piles, int h) {
+        int left = 1;
+        int right = (int)1e9;
+        //search range [left,right)
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            int requiredHours = 0;
+            for (int pile : piles) {
+                requiredHours += (pile + mid - 1) / mid;
+            }
+            if (requiredHours > h) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/koko-eating-bananas/discuss/152506/Binary-Search-Java-Python-with
+     * -Explanations">Binary search 2</a>
+     *
+     * @param piles
+     * @param h
+     * @return
+     */
+    public static int minEatingSpeed2(int[] piles, int h) {
+        int left = 1;
+        int right = Arrays.stream(piles).max().orElse(0);
+        //search range [left,right]
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            int requiredHours = 0;
+            for (int pile : piles) {
+                requiredHours += (pile + mid - 1) / mid;
+            }
+            if (requiredHours > h) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
     }
 }
