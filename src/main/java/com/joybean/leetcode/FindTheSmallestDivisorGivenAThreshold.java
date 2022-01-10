@@ -19,6 +19,7 @@ public class FindTheSmallestDivisorGivenAThreshold {
     public static int smallestDivisor1(int[] nums, int threshold) {
         int left = 1;
         int right = Arrays.stream(nums).max().orElse(0);
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             int sum = Arrays.stream(nums).map(n -> (int)Math.ceil((double)n / mid)).sum();
@@ -43,6 +44,7 @@ public class FindTheSmallestDivisorGivenAThreshold {
         int left = 1;
         //int right = (int)1e6
         int right = Arrays.stream(nums).max().orElse(0);
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             int sum = 0;
