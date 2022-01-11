@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class DivideChocolate {
     /**
-     * <a href="https://coordinate.blog.csdn.net/article/details/102646247">Binary search</a>
+     * <a href="https://www.lintcode.com/problem/divide-chocolate/description">Binary search</a>
      */
     public static int maximizeSweetness1(int[] sweetness, int k) {
         int left = Integer.MAX_VALUE;
@@ -16,19 +16,22 @@ public class DivideChocolate {
             left = Math.min(s, left);
             right += s;
         }
+        //answer must be less than or equal to average
+        right = right / (k + 1);
         //search range[left,right)
         while (left < right) {
             int mid = (left + right + 1) >>> 1;
-            int cuts = 0;
+            int pieces = 0;
             int cur = 0;
+            //count number of pieces whose sweetness is greater than mid
             for (int s : sweetness) {
                 cur += s;
                 if (cur >= mid) {
-                    cuts++;
+                    pieces++;
                     cur = 0;
                 }
             }
-            if (cuts <= k) {
+            if (pieces < k + 1) {
                 right = mid - 1;
             } else {
                 left = mid;
