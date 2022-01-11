@@ -40,13 +40,4 @@ public class MinimizeMaxDistanceToGasStation {
         }
         return left;
     }
-
-    public static void main(String[] args) {
-        int[] stations1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int[] stations2 = {1, 5, 6, 9, 10, 15, 20, 21, 22, 30};
-        int[] stations3 = {1, 2, 5, 9, 13, 18, 22, 30, 50, 52};
-        System.out.println(minmaxGasDist1(stations1, 9));
-        System.out.println(minmaxGasDist1(stations2, 3));
-        System.out.println(minmaxGasDist1(stations3, 3));
-    }
 }
