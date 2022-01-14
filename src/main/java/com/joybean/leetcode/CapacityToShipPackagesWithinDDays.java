@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class CapacityToShipPackagesWithinDDays {
     /**
-     * Binary search
+     * Binary search 1
      *
      * @param weights
      * @param days
@@ -19,12 +19,17 @@ public class CapacityToShipPackagesWithinDDays {
     public static int shipWithinDays1(int[] weights, int days) {
         int left = 1;
         int right = Arrays.stream(weights).sum();
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             int requiredDays = getRequiredDays(mid, weights);
             if (requiredDays > days) {
                 left = mid + 1;
+                //input: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],10
+                //requiredDays=7,mid=10
             } else {
+                //mid may be a possible answer
+                //for example:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],10 requiredDays=7,mid=10
                 right = mid;
             }
         }
