@@ -32,6 +32,32 @@ public class SplitArrayLargestSum {
         return left;
     }
 
+    /**
+     * Binary search 2
+     *
+     * @param nums
+     * @param m
+     * @return
+     */
+    public static int splitArray2(int[] nums, int m) {
+        int left = Integer.MIN_VALUE;
+        int right = 0;
+        for (int num : nums) {
+            left = Math.max(left, num);
+            right += num;
+        }
+        //search range [left,right]
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (canSplit(nums, mid, m)) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
     private static boolean canSplit(int[] nums, int upperBound, int m) {
         int cnt = 1;
         int cur = 0;
@@ -46,17 +72,6 @@ public class SplitArrayLargestSum {
             }
         }
         return true;
-    }
-
-    /**
-     * Binary search 2
-     *
-     * @param nums
-     * @param m
-     * @return
-     */
-    public static int splitArray2(int[] nums, int m) {
-        return 0;
     }
 
     /**
