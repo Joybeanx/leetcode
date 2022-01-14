@@ -21,11 +21,7 @@ public class KokoEatingBananas {
         //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
-            int requiredHours = 0;
-            for (int pile : piles) {
-                requiredHours += (pile + mid - 1) / mid;
-            }
-            if (requiredHours > h) {
+            if (isOverHours(piles, mid, h)) {
                 left = mid + 1;
             } else {
                 right = mid;
@@ -48,16 +44,23 @@ public class KokoEatingBananas {
         //search range [left,right]
         while (left <= right) {
             int mid = (left + right) >>> 1;
-            int requiredHours = 0;
-            for (int pile : piles) {
-                requiredHours += (pile + mid - 1) / mid;
-            }
-            if (requiredHours > h) {
+            if (isOverHours(piles, mid, h)) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
             }
         }
         return left;
+    }
+
+    private static boolean isOverHours(int[] piles, int mid, int h) {
+        int hours = 0;
+        for (int pile : piles) {
+            hours += (pile + mid - 1) / mid;
+            if (hours > h) {
+                return true;
+            }
+        }
+        return false;
     }
 }

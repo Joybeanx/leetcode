@@ -3,7 +3,8 @@ package com.joybean.leetcode;
 import java.util.Arrays;
 
 /**
- * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity To Ship Packages Within D Days</a>
+ * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity To Ship Packages Within D
+ * Days</a>
  *
  * @author Joybean
  */
@@ -47,7 +48,8 @@ public class CapacityToShipPackagesWithinDDays {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/256729/JavaC%2B%2BPython-Binary-Search">Better binary search</a>
+     * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/256729/JavaC%2B%2BPython-Binary-Search">Better
+     * binary search</a>
      *
      * @param weights
      * @param days
@@ -63,22 +65,29 @@ public class CapacityToShipPackagesWithinDDays {
         }
         while (left < right) {
             int mid = (left + right) >>> 1;
-            int requiredDays = 1;
-            int cur = 0;
-            for (int w : weights) {
-                if (cur + w > mid) {
-                    requiredDays++;
-                    cur = 0;
-                }
-                cur += w;
-            }
-            if (requiredDays > days) {
+            if (isOverDays(weights, mid, days)) {
                 left = mid + 1;
             } else {
                 right = mid;
             }
         }
         return left;
+    }
+
+    private static boolean isOverDays(int[] weights, int mid, int days) {
+        int requiredDays = 1;
+        int cur = 0;
+        for (int w : weights) {
+            if (cur + w > mid) {
+                requiredDays++;
+                cur = 0;
+            }
+            cur += w;
+            if (requiredDays > days) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

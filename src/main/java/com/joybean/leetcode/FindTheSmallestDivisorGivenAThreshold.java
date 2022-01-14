@@ -47,16 +47,23 @@ public class FindTheSmallestDivisorGivenAThreshold {
         //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
-            int sum = 0;
-            for (int num : nums) {
-                sum += (num + mid - 1) / mid;
-            }
-            if (sum > threshold) {
+            if (isOverThreshold(nums, mid, threshold)) {
                 left = mid + 1;
             } else {
                 right = mid;
             }
         }
         return left;
+    }
+
+    private static boolean isOverThreshold(int[] nums, int mid, int threshold) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += (num + mid - 1) / mid;
+            if (sum > threshold) {
+                return true;
+            }
+        }
+        return false;
     }
 }

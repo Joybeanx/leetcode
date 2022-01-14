@@ -26,18 +26,25 @@ public class MinimizeMaxDistanceToGasStation {
         //left + 1e-6 <= right
         while (left + 1e-6 < right) {
             double mid = left + (right - left) / 2;
-            int cnt = 0;
-            for (int distance : distances) {
-                if (distance > mid) {
-                    cnt += Math.ceil(distance / mid) - 1;
-                }
-            }
-            if (cnt > k) {
+            if (isOverStations(distances, mid, k)) {
                 left = mid;
             } else {
                 right = mid;
             }
         }
         return left;
+    }
+
+    private static boolean isOverStations(int[] distances, double mid, int k) {
+        int cnt = 0;
+        for (int distance : distances) {
+            if (distance > mid) {
+                cnt += Math.ceil(distance / mid) - 1;
+                if (cnt > k) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

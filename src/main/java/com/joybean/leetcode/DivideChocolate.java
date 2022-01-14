@@ -21,22 +21,29 @@ public class DivideChocolate {
         //search range[left,right)
         while (left < right) {
             int mid = (left + right + 1) >>> 1;
-            int pieces = 0;
-            int cur = 0;
-            //count number of pieces whose sweetness is greater than mid
-            for (int s : sweetness) {
-                cur += s;
-                if (cur >= mid) {
-                    pieces++;
-                    cur = 0;
-                }
-            }
-            if (pieces < k + 1) {
-                right = mid - 1;
-            } else {
+            if (isFeasible(sweetness, mid, k + 1)) {
                 left = mid;
+            } else {
+                right = mid - 1;
             }
         }
         return left;
+    }
+
+    private static boolean isFeasible(int[] sweetness, int mid, int target) {
+        int pieces = 0;
+        int cur = 0;
+        //count number of pieces whose sweetness is greater than mid
+        for (int s : sweetness) {
+            cur += s;
+            if (cur >= mid) {
+                pieces++;
+                cur = 0;
+                if (pieces >= target) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
