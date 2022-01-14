@@ -26,7 +26,7 @@ public class MinimizeMaxDistanceToGasStation {
         //left + 1e-6 <= right
         while (left + 1e-6 < right) {
             double mid = left + (right - left) / 2;
-            if (isOverStations(distances, mid, k)) {
+            if (helper(distances, mid, k)) {
                 left = mid;
             } else {
                 right = mid;
@@ -35,7 +35,7 @@ public class MinimizeMaxDistanceToGasStation {
         return left;
     }
 
-    private static boolean isOverStations(int[] distances, double mid, int k) {
+    private static boolean helper(int[] distances, double mid, int k) {
         int cnt = 0;
         for (int distance : distances) {
             if (distance > mid) {

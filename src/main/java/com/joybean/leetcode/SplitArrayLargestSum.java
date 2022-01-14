@@ -23,7 +23,7 @@ public class SplitArrayLargestSum {
         //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (canSplit(nums, m, mid)) {
+            if (canSplit(nums, mid, m)) {
                 right = mid;
             } else {
                 left = mid + 1;
@@ -32,7 +32,7 @@ public class SplitArrayLargestSum {
         return left;
     }
 
-    private static boolean canSplit(int[] nums, int m, int upperBound) {
+    private static boolean canSplit(int[] nums, int upperBound, int m) {
         int cnt = 1;
         int cur = 0;
         for (int num : nums) {
