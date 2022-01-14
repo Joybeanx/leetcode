@@ -53,8 +53,8 @@ public class CapacityToShipPackagesWithinDDays {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/256729/JavaC%2B%2BPython-Binary-Search">Better
-     * binary search</a>
+     * <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/256729/JavaC%2B%2BPython-Binary-Search">
+     * Binary search 2</a>
      *
      * @param weights
      * @param days
@@ -68,12 +68,40 @@ public class CapacityToShipPackagesWithinDDays {
             left = Math.max(left, w);
             right += w;
         }
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (isOverDays(weights, mid, days)) {
                 left = mid + 1;
             } else {
                 right = mid;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * Binary search 3
+     *
+     * @param weights
+     * @param days
+     * @return
+     */
+    public static int shipWithinDays3(int[] weights, int days) {
+        int left = 0;
+        int right = 0;
+        //Shrink initial search range as small as possible
+        for (int w : weights) {
+            left = Math.max(left, w);
+            right += w;
+        }
+        //search range [left,right]
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (isOverDays(weights, mid, days)) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
         return left;
