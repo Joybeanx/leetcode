@@ -6,6 +6,7 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class LongestRepeatingSubstring {
+    //TODO
     public int maxRepeating(String sequence, String word) {
         return 0;
     }
