@@ -88,6 +88,7 @@ public class SplitArrayLargestSum {
         //search range [left,right]
         while (left <= right) {
             int mid = (left + right) >>> 1;
+            //Can array be split into m subarrays when max subarray sum is mid?
             if (canSplit(nums, mid, m)) {
                 right = mid - 1;
             } else {
@@ -97,12 +98,12 @@ public class SplitArrayLargestSum {
         return left;
     }
 
-    private static boolean canSplit(int[] nums, int upperBound, int m) {
+    private static boolean canSplit(int[] nums, int maxSubarraySum, int m) {
         int cnt = 1;
         int cur = 0;
         for (int num : nums) {
             cur += num;
-            if (cur > upperBound) {
+            if (cur > maxSubarraySum) {
                 cur = num;
                 cnt++;
                 if (cnt > m) {
