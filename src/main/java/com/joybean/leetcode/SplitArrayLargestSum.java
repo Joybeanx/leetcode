@@ -71,7 +71,8 @@ public class SplitArrayLargestSum {
     }
 
     /**
-     * Binary search 3
+     * <a href="https://leetcode.com/problems/split-array-largest-sum/discuss/89817/Clear-Explanation%3A-8ms-Binary
+     * -Search-Java">Binary search 3</a>
      *
      * @param nums
      * @param m
