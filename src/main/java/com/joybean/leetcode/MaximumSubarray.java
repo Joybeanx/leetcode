@@ -59,13 +59,24 @@ public class MaximumSubarray {
     }
 
     /**
-     * Divide and conquer
+     * Kadane's algorithm
      * TODO
      *
      * @param nums
      * @return
      */
     public static int maxSubArray4(int[] nums) {
+        return 0;
+    }
+
+    /**
+     * Divide and conquer
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray5(int[] nums) {
         return 0;
     }
 }
