@@ -1,6 +1,8 @@
 package com.joybean.leetcode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <a href="https://leetcode.com/problems/maximum-product-subarray/description/">Maximum Product Subarray</a>
@@ -132,5 +134,16 @@ public class MaximumProductSubarray {
             }
             return maxResult;
         }
+    }
+
+    /**
+     * Kadane's algorithm
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int maxProduct4(int nums[]) {
+        return 0;
     }
 }

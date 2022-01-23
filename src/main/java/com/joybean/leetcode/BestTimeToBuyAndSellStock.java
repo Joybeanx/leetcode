@@ -74,4 +74,15 @@ public class BestTimeToBuyAndSellStock {
         }
         return ans;
     }
+
+    /**
+     * Kadane's algorithm
+     * TODO
+     *
+     * @param prices
+     * @return
+     */
+    public static int maxProfit5(int[] prices) {
+        return 0;
+    }
 }
