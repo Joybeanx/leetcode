@@ -1,6 +1,5 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -9,24 +8,29 @@ import java.util.Random;
  * @author Joybean
  */
 public class RandomPickWithWeight {
-    private static double[] prefixSum;
-    private static Random random = new Random();
+    private static int[] prefixSum;
+    private static Random random;
 
+    /**
+     * Prefix sum + Binary search
+     *
+     * @param w
+     */
     public RandomPickWithWeight(int[] w) {
-        prefixSum = new double[w.length];
-        double total = Arrays.stream(w).sum();
-        prefixSum[0] = w[0] / total;
-        int curSum = w[0];
+        random = new Random();
+        prefixSum = new int[w.length];
+        prefixSum[0] = w[0];
         for (int i = 1; i < prefixSum.length; i++) {
-            curSum += w[i];
-            prefixSum[i] = curSum / total;
+            prefixSum[i] = prefixSum[i - 1] + w[i];
         }
     }
 
     public static int pickIndex() {
-        double target = random.nextDouble();
+        int length = prefixSum.length;
+        int target = random.nextInt(prefixSum[length - 1]) + 1;
         int left = 0;
-        int right = prefixSum.length - 1;
+        int right = length - 1;
+        //search range [left,right)
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (prefixSum[mid] == target) {
