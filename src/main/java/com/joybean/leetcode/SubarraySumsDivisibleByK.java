@@ -4,6 +4,7 @@ package com.joybean.leetcode;
  * <a href="https://leetcode.com/problems/subarray-sums-divisible-by-k/">Subarray Sums Divisible by K</a>
  *
  * @author Joybean
+ * @see ContinuousSubarraySum
  */
 public class SubarraySumsDivisibleByK {
     /**
@@ -30,8 +31,8 @@ public class SubarraySumsDivisibleByK {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/subarray-sums-divisible-by-k/discuss/217985/JavaC%2B%2BPython-Prefix-Sum">Optimized
-     * prefix sum</a>
+     * <a href="https://leetcode.com/problems/subarray-sums-divisible-by-k/discuss/217985/JavaC%2B%2BPython-Prefix-Sum">Congruence
+     * modulo</a>
      *
      * @param nums
      * @param k
