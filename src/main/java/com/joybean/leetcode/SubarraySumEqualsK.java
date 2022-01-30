@@ -34,6 +34,14 @@ public class SubarraySumEqualsK {
         return cnt;
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/subarray-sum-equals-k/discuss/102106/Java-Solution-PreSum-%2B-HashMap">One-pass
+     * prefix sum</a>
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
     public static int subarraySum2(int[] nums, int k) {
         int cnt = 0;
         int sum = 0;
