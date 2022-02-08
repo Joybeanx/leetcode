@@ -6,8 +6,25 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class BinarySubarraysWithSum {
-    //TODO
-    public int numSubarraysWithSum(int[] nums, int goal) {
-        return 0;
+    /**
+     * Prefix sum
+     *
+     * @param nums
+     * @param goal
+     * @return
+     */
+    public static int numSubarraysWithSum1(int[] nums, int goal) {
+        int ans = 0;
+        int[] count = new int[nums.length + 1];
+        count[0] = 1;
+        int prefixSum = 0;
+        for (int num : nums) {
+            prefixSum += num;
+            if (prefixSum >= goal) {
+                ans += count[prefixSum - goal];
+            }
+            count[prefixSum]++;
+        }
+        return ans;
     }
 }
