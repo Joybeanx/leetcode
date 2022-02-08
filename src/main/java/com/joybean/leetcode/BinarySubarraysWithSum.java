@@ -17,6 +17,7 @@ public class BinarySubarraysWithSum {
     public static int numSubarraysWithSum1(int[] nums, int goal) {
         int ans = 0;
         int[] count = new int[nums.length + 1];
+        //base case
         count[0] = 1;
         int prefixSum = 0;
         for (int num : nums) {
