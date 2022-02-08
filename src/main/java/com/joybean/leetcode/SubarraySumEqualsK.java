@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class SubarraySumEqualsK {
     /**
-     * Prefix sum array
+     * Two-pass prefix sum
      *
      * @param nums
      * @param k
@@ -35,21 +35,42 @@ public class SubarraySumEqualsK {
     }
 
     /**
-     * One-pass prefix sum
+     * <a href="https://leetcode.com/problems/binary-subarrays-with-sum/solution/">Two-pass prefix sum</a>
      *
      * @param nums
      * @param k
      * @return
      */
     public static int subarraySum2(int[] nums, int k) {
+        int n = nums.length;
+        int[] prefixSum = new int[n + 1];
+        for (int i = 0; i < n; ++i) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+        }
+        Map<Integer, Integer> count = new HashMap();
+        int ans = 0;
+        //For each j, let's count the number of i with prefixSum[j] = prefixSum[i] + k
+        for (int s : prefixSum) {
+            ans += count.getOrDefault(s, 0);
+            count.put(s + k, count.getOrDefault(s + k, 0) + 1);
+        }
+        return ans;
+    }
+
+    /**
+     * One-pass prefix sum
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int subarraySum3(int[] nums, int k) {
         int cnt = 0;
         int sum = 0;
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
             sum += num;
-            if (map.containsKey(sum - k)) {
-                cnt += map.get(sum - k);
-            }
+            cnt += map.getOrDefault(sum - k, 0);
             if (sum == k) {
                 cnt++;
             }
@@ -66,7 +87,7 @@ public class SubarraySumEqualsK {
      * @param k
      * @return
      */
-    public static int subarraySum3(int[] nums, int k) {
+    public static int subarraySum4(int[] nums, int k) {
         int cnt = 0;
         int sum = 0;
         Map<Integer, Integer> map = new HashMap<>();
@@ -74,9 +95,7 @@ public class SubarraySumEqualsK {
         map.put(0, 1);
         for (int num : nums) {
             sum += num;
-            if (map.containsKey(sum - k)) {
-                cnt += map.get(sum - k);
-            }
+            cnt += map.getOrDefault(sum - k, 0);
             map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
         return cnt;
