@@ -29,4 +29,36 @@ public class BinarySubarraysWithSum {
         }
         return ans;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/binary-subarrays-with-sum/discuss/186683/C%2B%2BJavaPython-Sliding-Window-O(1)-Space">Sliding window</a>
+     *
+     * @param nums
+     * @param goal
+     * @return
+     */
+    public static int numSubarraysWithSum2(int[] nums, int goal) {
+        //Calculate all subarrays less and equal to sum goal minus all subarrays less and equal to sum goal - 1
+        return atMost(nums, goal) - atMost(nums, goal - 1);
+    }
+
+    private static int atMost(int[] nums, int goal) {
+        if (goal < 0) {
+            return 0;
+        }
+        int ans = 0;
+        int left = 0;
+        int right = 0;
+        int sum = 0;
+        while (right < nums.length) {
+            sum += nums[right];
+            while (sum > goal) {
+                sum -= nums[left++];
+            }
+            //Number of subarrays ends with nums[right] and sum <= goal
+            ans += right - left + 1;
+            right++;
+        }
+        return ans;
+    }
 }
