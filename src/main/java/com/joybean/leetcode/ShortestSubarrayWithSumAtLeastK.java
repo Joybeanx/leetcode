@@ -1,5 +1,8 @@
 package com.joybean.leetcode;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/">Shortest Subarray with Sum at Least
  * K</a>
@@ -50,13 +53,27 @@ public class ShortestSubarrayWithSumAtLeastK {
     /**
      * <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/143726/C%2B%2BJavaPython
      * -O(N)-Using-Deque">Monotonic queue</a>
-     * TODO
      *
      * @param nums
      * @param k
      * @return
      */
     public static int shortestSubarray2(int[] nums, int k) {
-        return 0;
+        long[] prefixSum = new long[nums.length + 1];
+        for (int i = 1; i < prefixSum.length; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
+        int ans = Integer.MAX_VALUE;
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i < prefixSum.length; i++) {
+            while (!deque.isEmpty() && prefixSum[i] - prefixSum[deque.peek()] >= k) {
+                ans = Math.min(i - deque.poll(), ans);
+            }
+            while (!deque.isEmpty() && prefixSum[i] <= prefixSum[deque.peekLast()]) {
+                deque.pollLast();
+            }
+            deque.addLast(i);
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
     }
 }
