@@ -31,4 +31,17 @@ public class ConstrainedSubsequenceSum {
         }
         return max;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/constrained-subsequence-sum/discuss/597751/JavaC%2B%2BPython-O(N)
+     * -Decreasing-Deque">Monotonic queue</a>
+     * TODO
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int constrainedSubsetSum2(int[] nums, int k) {
+        return 0;
+    }
 }
