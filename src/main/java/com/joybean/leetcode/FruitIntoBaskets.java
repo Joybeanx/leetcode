@@ -74,12 +74,14 @@ public class FruitIntoBaskets {
         Map<Integer, Integer> map = new HashMap<>();
         for (right = 0; right < fruits.length; right++) {
             map.put(fruits[right], map.getOrDefault(fruits[right], 0) + 1);
-            //see explanation by xingHong
+            // Possible result (the length of [left,right]) is always increasing
+            // see explanation by xingHong
             if (map.size() > 2) {
                 map.put(fruits[left], map.get(fruits[left]) - 1);
                 map.remove(fruits[left++], 0);
             }
         }
+        //now right equals fruits.length
         return right - left;
     }
 
