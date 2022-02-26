@@ -19,12 +19,12 @@ public class NumberOfSubstringsContainingAllThreeCharacters {
     public static int numberOfSubstrings1(String s) {
         int left = 0;
         int ans = 0;
-        Map<Character, Integer> counter = new HashMap<>();
+        Map<Character, Integer> countMap = new HashMap<>();
         for (int right = 0; right < s.length(); right++) {
-            counter.merge(s.charAt(right), 1, Integer::sum);
-            while (counter.size() == 3) {
-                counter.merge(s.charAt(left), -1, Integer::sum);
-                counter.remove(s.charAt(left++), 0);
+            countMap.merge(s.charAt(right), 1, Integer::sum);
+            while (countMap.size() == 3) {
+                countMap.merge(s.charAt(left), -1, Integer::sum);
+                countMap.remove(s.charAt(left++), 0);
             }
             ans += left;
         }
@@ -41,11 +41,11 @@ public class NumberOfSubstringsContainingAllThreeCharacters {
     public static int numberOfSubstrings2(String s) {
         int left = 0;
         int ans = 0;
-        int[] counter = new int[3];
+        int[] count = new int[3];
         for (int right = 0; right < s.length(); right++) {
-            counter[s.charAt(right) - 'a']++;
-            while (counter[0] > 0 && counter[1] > 0 && counter[2] > 0) {
-                counter[s.charAt(left++) - 'a']--;
+            count[s.charAt(right) - 'a']++;
+            while (count[0] > 0 && count[1] > 0 && count[2] > 0) {
+                count[s.charAt(left++) - 'a']--;
             }
             ans += left;
         }

@@ -18,7 +18,7 @@ public class FindAllAnagramsInAString {
      * @return
      */
     public static List<Integer> findAnagrams1(String s, String p) {
-        Map<Character, Integer> counter = new HashMap<>();
+        Map<Character, Integer> countMap = new HashMap<>();
         Map<Character, Integer> dict = new HashMap<>();
         List<Integer> res = new ArrayList<>();
         for (Character c : p.toCharArray()) {
@@ -28,8 +28,8 @@ public class FindAllAnagramsInAString {
         while (right < s.length() ) {
             Character rc = s.charAt(right);
             if (dict.containsKey(rc)) {
-                counter.put(rc, counter.getOrDefault(rc, 0) + 1);
-                if (dict.get(rc).equals(counter.get(rc))) {
+                countMap.put(rc, countMap.getOrDefault(rc, 0) + 1);
+                if (dict.get(rc).equals(countMap.get(rc))) {
                     valid++;
                 }
             }
@@ -40,10 +40,10 @@ public class FindAllAnagramsInAString {
                 Character lc = s.charAt(left);
                 left++;
                 if (dict.containsKey(lc)) {
-                    if (counter.get(lc).equals(dict.get(lc))) {
+                    if (countMap.get(lc).equals(dict.get(lc))) {
                         valid--;
                     }
-                    counter.merge(lc, -1, Integer::sum);
+                    countMap.merge(lc, -1, Integer::sum);
                 }
             }
             right++;

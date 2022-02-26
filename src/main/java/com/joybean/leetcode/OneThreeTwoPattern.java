@@ -50,7 +50,7 @@ public class OneThreeTwoPattern {
         int third = Integer.MIN_VALUE;
         //The stack is containing the highest numbers(monotonically decreasing) so far, and third is the
         // lower number after the highest numbers. So, this satisfies the 32 pattern.
-        // Now, we will just keep updating third and pop top when we encounter a number which is greater than the
+        // Now, we will just keep updating third and pop top when we encountMap a number which is greater than the
         // highest number.
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = nums.length - 1; i >= 0; i--) {

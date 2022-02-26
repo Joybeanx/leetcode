@@ -18,33 +18,33 @@ public class TopKFrequentElements {
      * @return
      */
     public static int[] topKFrequent1(int[] nums, int k) {
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int num : nums) {
-            counter.merge(num, 1, Integer::sum);
+            countMap.merge(num, 1, Integer::sum);
         }
-        int[] distinctNums = counter.keySet().stream().mapToInt(Integer::intValue).toArray();
+        int[] distinctNums = countMap.keySet().stream().mapToInt(Integer::intValue).toArray();
         for (int i = 1; i < distinctNums.length; i++) {
-            shiftUp1(i, distinctNums, counter);
+            shiftUp1(i, distinctNums, countMap);
         }
         int[] ans = new int[k];
         for (int i = 1; i <= k; i++) {
             ans[i - 1] = distinctNums[0];
             distinctNums[0] = distinctNums[distinctNums.length - i];
-            shiftDown1(distinctNums.length - i, distinctNums, counter);
+            shiftDown1(distinctNums.length - i, distinctNums, countMap);
 
         }
         return ans;
     }
 
-    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> counter) {
+    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> countMap) {
         int p = 0;
         int c;
         while ((c = 2 * p + 1) < i) {
             //Swap with the bigger child
-            if (c + 1 < i && counter.get(nums[c]) < counter.get(nums[c + 1])) {
+            if (c + 1 < i && countMap.get(nums[c]) < countMap.get(nums[c + 1])) {
                 c++;
             }
-            if (counter.get(nums[c]) > counter.get(nums[p])) {
+            if (countMap.get(nums[c]) > countMap.get(nums[p])) {
                 swap(c, p, nums);
                 p = c;
                 continue;
@@ -53,11 +53,11 @@ public class TopKFrequentElements {
         }
     }
 
-    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> counter) {
+    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> countMap) {
         int p = i;
         while (p != 0) {
             p = (i - 1) / 2;
-            if (counter.get(nums[p]) < counter.get(nums[i])) {
+            if (countMap.get(nums[p]) < countMap.get(nums[i])) {
                 swap(p, i, nums);
                 i = p;
                 continue;

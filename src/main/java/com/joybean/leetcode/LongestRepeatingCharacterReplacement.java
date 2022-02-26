@@ -24,18 +24,18 @@ public class LongestRepeatingCharacterReplacement {
         int ans = 0;
         //The top element of dequeue always store character which has the largest count in current window
         Deque<Character> deque = new LinkedList<>();
-        Map<Character, Integer> counter = new HashMap<>();
+        Map<Character, Integer> countMap = new HashMap<>();
         for (int right = 0; right < s.length(); right++) {
             Character rightChar = s.charAt(right);
-            counter.merge(rightChar, 1, Integer::sum);
-            while (!deque.isEmpty() && counter.get(rightChar) >= counter.get(deque.peekLast())) {
+            countMap.merge(rightChar, 1, Integer::sum);
+            while (!deque.isEmpty() && countMap.get(rightChar) >= countMap.get(deque.peekLast())) {
                 deque.pollLast();
             }
             deque.offerLast(rightChar);
-            while (!deque.isEmpty() && right - left - counter.get(deque.peek()) + 1 > k) {
+            while (!deque.isEmpty() && right - left - countMap.get(deque.peek()) + 1 > k) {
                 Character leftChar = s.charAt(left);
-                counter.merge(leftChar, -1, Integer::sum);
-                if (counter.remove(leftChar, 0) && deque.peek().equals(leftChar)) {
+                countMap.merge(leftChar, -1, Integer::sum);
+                if (countMap.remove(leftChar, 0) && deque.peek().equals(leftChar)) {
                     deque.poll();
                 }
                 left++;
@@ -57,11 +57,11 @@ public class LongestRepeatingCharacterReplacement {
         int left = 0;
         int ans = 0;
         int maxCount = 0;
-        int[] counter = new int[26];
+        int[] count = new int[26];
         for (int right = 0; right < s.length(); right++) {
-            maxCount = Math.max(++counter[s.charAt(right) - 'A'], maxCount);
+            maxCount = Math.max(++count[s.charAt(right) - 'A'], maxCount);
             if (right - left - maxCount + 1 > k) {
-                counter[s.charAt(left++) - 'A']--;
+                count[s.charAt(left++) - 'A']--;
                 //Don't need to update maxCount here,see tsuvmxwu's explanation.
             }
             ans = Math.max(right - left + 1, ans);
@@ -81,11 +81,11 @@ public class LongestRepeatingCharacterReplacement {
         int left = 0;
         int right = 0;
         int maxCount = 0;
-        int[] counter = new int[26];
+        int[] countMap = new int[26];
         for (right = 0; right < s.length(); right++) {
-            maxCount = Math.max(++counter[s.charAt(right) - 'A'], maxCount);
+            maxCount = Math.max(++countMap[s.charAt(right) - 'A'], maxCount);
             if (right - left - maxCount + 1 > k) {
-                counter[s.charAt(left++) - 'A']--;
+                countMap[s.charAt(left++) - 'A']--;
             }
         }
         return right - left;

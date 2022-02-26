@@ -18,20 +18,20 @@ public class FruitIntoBaskets {
     public static int totalFruit1(int[] fruits) {
         int ans = 0;
         int left = 0;
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int right = 0; right < fruits.length; right++) {
-            counter.merge(fruits[right], 1, Integer::sum);
-            if (counter.size() > 2) {
+            countMap.merge(fruits[right], 1, Integer::sum);
+            if (countMap.size() > 2) {
                 ans = Math.max(right - left, ans);
             } else if (right == fruits.length - 1) {
                 ans = Math.max(right - left + 1, ans);
             }
-            while (counter.size() > 2) {
-                int count = counter.get(fruits[left]);
+            while (countMap.size() > 2) {
+                int count = countMap.get(fruits[left]);
                 if (count > 1) {
-                    counter.put(fruits[left], --count);
+                    countMap.put(fruits[left], --count);
                 } else if (count == 1) {
-                    counter.remove(fruits[left]);
+                    countMap.remove(fruits[left]);
                 }
                 left++;
             }
@@ -49,12 +49,12 @@ public class FruitIntoBaskets {
     public static int totalFruit2(int[] fruits) {
         int ans = 0;
         int left = 0;
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int right = 0; right < fruits.length; right++) {
-            counter.merge(fruits[right], 1, Integer::sum);
-            while (counter.size() > 2) {
-                counter.merge(fruits[left], -1, Integer::sum);
-                counter.remove(fruits[left++], 0);
+            countMap.merge(fruits[right], 1, Integer::sum);
+            while (countMap.size() > 2) {
+                countMap.merge(fruits[left], -1, Integer::sum);
+                countMap.remove(fruits[left++], 0);
             }
             ans = Math.max(right - left + 1, ans);
         }
@@ -71,12 +71,12 @@ public class FruitIntoBaskets {
     public static int totalFruit3(int[] fruits) {
         int left = 0;
         int right = 0;
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (right = 0; right < fruits.length; right++) {
-            counter.merge(fruits[right], 1, Integer::sum);
-            if (counter.size() > 2) {
-                counter.merge(fruits[left], -1, Integer::sum);
-                counter.remove(fruits[left++], 0);
+            countMap.merge(fruits[right], 1, Integer::sum);
+            if (countMap.size() > 2) {
+                countMap.merge(fruits[left], -1, Integer::sum);
+                countMap.remove(fruits[left++], 0);
             }
             // Possible result (the length of [left,right]) is always increasing, we don't need to do calculation
             // everytime. see xingHong's explanation.

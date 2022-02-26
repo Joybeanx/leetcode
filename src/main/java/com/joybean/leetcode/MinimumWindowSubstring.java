@@ -85,7 +85,7 @@ public class MinimumWindowSubstring {
         int formed = 0;
 
         // Dictionary which keeps a count of all the unique characters in the current window.
-        Map<Character, Integer> counter = new HashMap<Character, Integer>();
+        Map<Character, Integer> countMap = new HashMap<Character, Integer>();
 
         // ans list of the form (window length, left, right)
         int[] ans = {-1, 0, 0};
@@ -93,11 +93,11 @@ public class MinimumWindowSubstring {
         while (r < s.length()) {
             // Add one character from the right to the window
             char c = s.charAt(r);
-            counter.merge(c, 1, Integer::sum);
+            countMap.merge(c, 1, Integer::sum);
 
             // If the frequency of the current character added equals to the
             // desired count in t then increment the formed count by 1.
-            if (dict.containsKey(c) && counter.get(c).intValue() == dict.get(c).intValue()) {
+            if (dict.containsKey(c) && countMap.get(c).intValue() == dict.get(c).intValue()) {
                 formed++;
             }
 
@@ -113,8 +113,8 @@ public class MinimumWindowSubstring {
 
                 // The character at the position pointed by the
                 // `Left` pointer is no longer a part of the window.
-                counter.put(c, counter.get(c) - 1);
-                if (dict.containsKey(c) && counter.get(c).intValue() < dict.get(c).intValue()) {
+                countMap.put(c, countMap.get(c) - 1);
+                if (dict.containsKey(c) && countMap.get(c).intValue() < dict.get(c).intValue()) {
                     formed--;
                 }
 

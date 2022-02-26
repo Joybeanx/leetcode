@@ -24,12 +24,12 @@ public class SubarraySumEqualsK {
         }
         int ans = 0;
         //Why not use set? Think about this case: [1, -1, 0], 0
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int i = 0; i < prefixSum.length; i++) {
-            if (counter.containsKey(prefixSum[i] - k)) {
-                ans += counter.get(prefixSum[i] - k);
+            if (countMap.containsKey(prefixSum[i] - k)) {
+                ans += countMap.get(prefixSum[i] - k);
             }
-            counter.merge(prefixSum[i], 1, Integer::sum);
+            countMap.merge(prefixSum[i], 1, Integer::sum);
         }
         return ans;
     }
@@ -47,12 +47,12 @@ public class SubarraySumEqualsK {
         for (int i = 0; i < n; ++i) {
             prefixSum[i + 1] = prefixSum[i] + nums[i];
         }
-        Map<Integer, Integer> counter = new HashMap();
+        Map<Integer, Integer> countMap = new HashMap();
         int ans = 0;
         //For each j, let's count the number of i with prefixSum[j] = prefixSum[i] + k
         for (int s : prefixSum) {
-            ans += counter.getOrDefault(s, 0);
-            counter.merge(s + k, 1, Integer::sum);
+            ans += countMap.getOrDefault(s, 0);
+            countMap.merge(s + k, 1, Integer::sum);
         }
         return ans;
     }
@@ -67,14 +67,14 @@ public class SubarraySumEqualsK {
     public static int subarraySum3(int[] nums, int k) {
         int ans = 0;
         int sum = 0;
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int num : nums) {
             sum += num;
-            ans += counter.getOrDefault(sum - k, 0);
+            ans += countMap.getOrDefault(sum - k, 0);
             if (sum == k) {
                 ans++;
             }
-            counter.merge(sum, 1, Integer::sum);
+            countMap.merge(sum, 1, Integer::sum);
         }
         return ans;
     }
@@ -91,13 +91,13 @@ public class SubarraySumEqualsK {
     public static int subarraySum4(int[] nums, int k) {
         int ans = 0;
         int sum = 0;
-        Map<Integer, Integer> counter = new HashMap<>();
+        Map<Integer, Integer> countMap = new HashMap<>();
         //base case
-        counter.put(0, 1);
+        countMap.put(0, 1);
         for (int num : nums) {
             sum += num;
-            ans += counter.getOrDefault(sum - k, 0);
-            counter.merge(sum, 1, Integer::sum);
+            ans += countMap.getOrDefault(sum - k, 0);
+            countMap.merge(sum, 1, Integer::sum);
         }
         return ans;
     }
