@@ -22,13 +22,17 @@ public class ReplaceTheSubstringForBalancedString {
         for (Character ch : s.toCharArray()) {
             countMap.merge(ch, 1, Integer::sum);
         }
-        int left = 0;
         int expectedCnt = s.length() / 4;
+        //already balanced
+        if (countMap.size() == 4 && countMap.values().stream().allMatch(each -> each <= expectedCnt)) {
+            return 0;
+        }
+        int left = 0;
         int ans = s.length();
         for (int right = 0; right < s.length(); right++) {
             countMap.merge(s.charAt(right), -1, Integer::sum);
             //We can make s balanced as long as all the counts of characters <= n / 4.
-            while (left < s.length() && countMap.values().stream().allMatch(each -> each <= expectedCnt)) {
+            while (countMap.values().stream().allMatch(each -> each <= expectedCnt)) {
                 ans = Math.min(right - left + 1, ans);
                 countMap.merge(s.charAt(left++), 1, Integer::sum);
             }
