@@ -67,14 +67,13 @@ public class MinimumWindowSubstring {
         }
 
         // Dictionary which keeps a count of all the unique characters in t.
-        Map<Character, Integer> dictT = new HashMap<Character, Integer>();
+        Map<Character, Integer> dict = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
-            int count = dictT.getOrDefault(t.charAt(i), 0);
-            dictT.put(t.charAt(i), count + 1);
+            dict.merge(t.charAt(i), 1, Integer::sum);
         }
 
         // Number of unique characters in t, which need to be present in the desired window.
-        int required = dictT.size();
+        int required = dict.size();
 
         // Left and Right pointer
         int l = 0, r = 0;
@@ -94,12 +93,11 @@ public class MinimumWindowSubstring {
         while (r < s.length()) {
             // Add one character from the right to the window
             char c = s.charAt(r);
-            int count = counter.getOrDefault(c, 0);
-            counter.put(c, count + 1);
+            counter.merge(c, 1, Integer::sum);
 
             // If the frequency of the current character added equals to the
             // desired count in t then increment the formed count by 1.
-            if (dictT.containsKey(c) && counter.get(c).intValue() == dictT.get(c).intValue()) {
+            if (dict.containsKey(c) && counter.get(c).intValue() == dict.get(c).intValue()) {
                 formed++;
             }
 
@@ -116,7 +114,7 @@ public class MinimumWindowSubstring {
                 // The character at the position pointed by the
                 // `Left` pointer is no longer a part of the window.
                 counter.put(c, counter.get(c) - 1);
-                if (dictT.containsKey(c) && counter.get(c).intValue() < dictT.get(c).intValue()) {
+                if (dict.containsKey(c) && counter.get(c).intValue() < dict.get(c).intValue()) {
                     formed--;
                 }
 
@@ -143,11 +141,7 @@ public class MinimumWindowSubstring {
         }
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         for (char c : t.toCharArray()) {
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(c, 1);
-            }
+            map.merge(c, 1, Integer::sum);
         }
         int left = 0;
         int minLeft = 0;
@@ -155,7 +149,7 @@ public class MinimumWindowSubstring {
         int count = 0;
         for (int right = 0; right < s.length(); right++) {
             if (map.containsKey(s.charAt(right))) {
-                map.put(s.charAt(right), map.get(s.charAt(right)) - 1);
+                map.merge(s.charAt(right), -1, Integer::sum);
                 if (map.get(s.charAt(right)) >= 0) {
                     count++;
                 }
@@ -165,7 +159,7 @@ public class MinimumWindowSubstring {
                         minLen = right - left + 1;
                     }
                     if (map.containsKey(s.charAt(left))) {
-                        map.put(s.charAt(left), map.get(s.charAt(left)) + 1);
+                        map.merge(s.charAt(left), 1, Integer::sum);
                         if (map.get(s.charAt(left)) > 0) {
                             count--;
                         }

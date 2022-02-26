@@ -26,9 +26,9 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
         for (int right = 0; right < nums.length; right++) {
             min = Math.min(nums[right], min);
             max = Math.max(nums[right], max);
-            counter.put(nums[right], counter.getOrDefault(nums[right], 0) + 1);
+            counter.merge(nums[right], 1, Integer::sum);
             while (max - min > limit) {
-                counter.put(nums[left], counter.getOrDefault(nums[left], 0) - 1);
+                counter.merge(nums[left], -1, Integer::sum);
                 if (counter.remove(nums[left], 0)) {
                     if (nums[left] == min) {
                         min =

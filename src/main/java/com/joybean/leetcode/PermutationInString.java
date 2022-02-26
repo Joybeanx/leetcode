@@ -9,22 +9,28 @@ import java.util.Map;
  * @author Joybean
  */
 public class PermutationInString {
+    /**
+     * Sliding window
+     *
+     * @param s1
+     * @param s2
+     * @return
+     */
     public static boolean checkInclusion(String s1, String s2) {
         int left = 0;
         int right = 0;
-        Map<Character, Integer> targetMap = new HashMap<>();
+        Map<Character, Integer> dict = new HashMap<>();
         for (Character c : s1.toCharArray()) {
-            targetMap.put(c, targetMap.getOrDefault(c, 0) + 1);
+            dict.merge(c, 1, Integer::sum);
         }
-        int required = targetMap.keySet().size();
-        Map<Character, Integer> windowMap = new HashMap<>();
+        int required = dict.keySet().size();
+        Map<Character, Integer> counter = new HashMap<>();
         int valid = 0;
         while (right < s2.length()) {
             Character rc = s2.charAt(right);
-            if (targetMap.containsKey(rc)) {
-                Integer newCnt = windowMap.getOrDefault(rc, 0) + 1;
-                windowMap.put(rc, newCnt);
-                if (newCnt.equals(targetMap.get(rc))) {
+            if (dict.containsKey(rc)) {
+                counter.merge(rc, 1, Integer::sum);
+                if (counter.get(rc).equals(dict.get(rc))) {
                     valid++;
                 }
             }
@@ -33,10 +39,9 @@ public class PermutationInString {
                     return true;
                 }
                 Character lc = s2.charAt(left);
-                if (targetMap.containsKey(lc)) {
-                    int count = windowMap.get(lc);
-                    windowMap.put(lc, count - 1);
-                    if (count == targetMap.get(lc)) {
+                if (dict.containsKey(lc)) {
+                    counter.merge(lc, -1, Integer::sum);
+                    if (counter.get(lc).equals(dict.get(lc))) {
                         valid--;
                     }
                 }

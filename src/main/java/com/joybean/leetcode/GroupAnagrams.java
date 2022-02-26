@@ -22,7 +22,7 @@ public class GroupAnagrams {
             String id = String.valueOf(arr);
             List<String> group;
             if ((group = map.get(id)) == null) {
-                group = new ArrayList<String>();
+                group = new ArrayList<>();
                 map.put(id, group);
                 result.add(group);
             }

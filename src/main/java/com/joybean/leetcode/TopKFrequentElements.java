@@ -18,33 +18,33 @@ public class TopKFrequentElements {
      * @return
      */
     public static int[] topKFrequent1(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> counter = new HashMap<>();
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            counter.merge(num, 1, Integer::sum);
         }
-        int[] distinctNums = map.keySet().stream().mapToInt(Integer::intValue).toArray();
+        int[] distinctNums = counter.keySet().stream().mapToInt(Integer::intValue).toArray();
         for (int i = 1; i < distinctNums.length; i++) {
-            shiftUp1(i, distinctNums, map);
+            shiftUp1(i, distinctNums, counter);
         }
-        int[] result = new int[k];
+        int[] ans = new int[k];
         for (int i = 1; i <= k; i++) {
-            result[i - 1] = distinctNums[0];
+            ans[i - 1] = distinctNums[0];
             distinctNums[0] = distinctNums[distinctNums.length - i];
-            shiftDown1(distinctNums.length - i, distinctNums, map);
+            shiftDown1(distinctNums.length - i, distinctNums, counter);
 
         }
-        return result;
+        return ans;
     }
 
-    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> map) {
+    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> counter) {
         int p = 0;
         int c;
         while ((c = 2 * p + 1) < i) {
             //Swap with the bigger child
-            if (c + 1 < i && map.get(nums[c]) < map.get(nums[c + 1])) {
+            if (c + 1 < i && counter.get(nums[c]) < counter.get(nums[c + 1])) {
                 c++;
             }
-            if (map.get(nums[c]) > map.get(nums[p])) {
+            if (counter.get(nums[c]) > counter.get(nums[p])) {
                 swap(c, p, nums);
                 p = c;
                 continue;
@@ -53,11 +53,11 @@ public class TopKFrequentElements {
         }
     }
 
-    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> map) {
+    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> counter) {
         int p = i;
         while (p != 0) {
             p = (i - 1) / 2;
-            if (map.get(nums[p]) < map.get(nums[i])) {
+            if (counter.get(nums[p]) < counter.get(nums[i])) {
                 swap(p, i, nums);
                 i = p;
                 continue;

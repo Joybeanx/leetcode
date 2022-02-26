@@ -109,7 +109,7 @@ public class PathSum3 {
         }
         currSum += root.val;
         int res = prefixSum.getOrDefault(currSum - target, 0);
-        prefixSum.put(currSum, prefixSum.getOrDefault(currSum, 0) + 1);
+        prefixSum.merge(currSum, 1, Integer::sum);
         res += helper(root.left, currSum, target, prefixSum) + helper(root.right, currSum, target, prefixSum);
         //Restore the map, as the recursion goes from the bottom to the top
         prefixSum.put(currSum, prefixSum.get(currSum) - 1);

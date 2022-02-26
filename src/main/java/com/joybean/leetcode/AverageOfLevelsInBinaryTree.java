@@ -33,8 +33,8 @@ public class AverageOfLevelsInBinaryTree {
         if (root == null) {
             return;
         }
-        levelSumMap.put(level, levelSumMap.getOrDefault(level, 0D) + root.val);
-        levelCountMap.put(level, levelCountMap.getOrDefault(level, 0) + 1);
+        levelSumMap.merge(level, (double)root.val, Double::sum);
+        levelCountMap.merge(level, 1, Integer::sum);
         helper(root.left, level + 1, levelSumMap, levelCountMap);
         helper(root.right, level + 1, levelSumMap, levelCountMap);
     }
@@ -87,7 +87,7 @@ public class AverageOfLevelsInBinaryTree {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;

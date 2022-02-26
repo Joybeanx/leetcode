@@ -38,7 +38,7 @@ public class NumberOfSubmatricesThatSumToTarget {
                 for (int k = 0; k < m; k++) {
                     sum += prefixSum[k][j] - prefixSum[k][i];
                     ans += map.getOrDefault(sum - target, 0);
-                    map.put(sum, map.getOrDefault(sum, 0) + 1);
+                    map.merge(sum, 1, Integer::sum);
                 }
             }
         }
