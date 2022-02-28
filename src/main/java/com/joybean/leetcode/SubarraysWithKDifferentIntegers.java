@@ -50,4 +50,44 @@ public class SubarraysWithKDifferentIntegers {
         }
         return ans;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/subarrays-with-k-different-integers/discuss/523136/JavaC%2B%2BPython
+     * -Sliding-Window">Two-pass sliding window</a>
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int subarraysWithKDistinct2(int[] nums, int k) {
+        return atMost(nums, k) - atMost(nums, k - 1);
+    }
+
+    private static int atMost(int[] nums, int k) {
+        int ans = 0;
+        Map<Integer, Integer> countMap = new HashMap<>();
+        int left = 0;
+        for (int right = 0; right < nums.length; right++) {
+            countMap.merge(nums[right], 1, Integer::sum);
+            while (countMap.size() > k) {
+                countMap.merge(nums[left], -1, Integer::sum);
+                countMap.remove(nums[left++], 0);
+            }
+            ans += right - left + 1;
+        }
+        return ans;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/subarrays-with-k-different-integers/discuss/235235/C%2B%2BJava-with
+     * -picture-prefixed-sliding-window">One-pass sliding window</a>
+     * TODO
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int subarraysWithKDistinct3(int[] nums, int k) {
+        return 0;
+    }
 }
