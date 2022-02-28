@@ -46,18 +46,16 @@ public class BinarySubarraysWithSum {
         if (goal < 0) {
             return 0;
         }
-        int ans = 0;
         int left = 0;
-        int right = 0;
         int sum = 0;
-        while (right < nums.length) {
+        int ans = 0;
+        for (int right = 0; right < nums.length; right++) {
             sum += nums[right];
             while (sum > goal) {
                 sum -= nums[left++];
             }
             //Number of subarrays ends with nums[right] and sum <= goal
             ans += right - left + 1;
-            right++;
         }
         return ans;
     }
