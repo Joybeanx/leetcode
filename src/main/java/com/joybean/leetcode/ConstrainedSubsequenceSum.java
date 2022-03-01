@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class ConstrainedSubsequenceSum {
     /**
-     * DP solution:TLE
+     * DP solution:Time Limit Exceeded
      *
      * @param nums
      * @param k

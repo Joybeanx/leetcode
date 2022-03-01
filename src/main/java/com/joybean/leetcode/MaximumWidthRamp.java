@@ -10,7 +10,7 @@ import java.util.Deque;
  */
 public class MaximumWidthRamp {
     /**
-     * Time complexity：O(n^2),TLE
+     * Time complexity：O(n^2),Time Limit Exceeded
      *
      * @param nums
      * @return

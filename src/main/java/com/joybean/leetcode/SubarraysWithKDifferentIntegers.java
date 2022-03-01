@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class SubarraysWithKDifferentIntegers {
     /**
-     * Sliding window:TLE
+     * Sliding window:Time Limit Exceeded
      *
      * @param nums
      * @param k
