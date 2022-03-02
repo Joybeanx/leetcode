@@ -24,18 +24,18 @@ public class LongestRepeatingCharacterReplacement {
         int ans = 0;
         //The top element of dequeue always store character which has the largest count in current window
         Deque<Character> deque = new LinkedList<>();
-        Map<Character, Integer> countMap = new HashMap<>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
         for (int right = 0; right < s.length(); right++) {
             Character rightChar = s.charAt(right);
-            countMap.merge(rightChar, 1, Integer::sum);
-            while (!deque.isEmpty() && countMap.get(rightChar) >= countMap.get(deque.peekLast())) {
+            windowCounts.merge(rightChar, 1, Integer::sum);
+            while (!deque.isEmpty() && windowCounts.get(rightChar) >= windowCounts.get(deque.peekLast())) {
                 deque.pollLast();
             }
             deque.offerLast(rightChar);
-            while (!deque.isEmpty() && right - left - countMap.get(deque.peek()) + 1 > k) {
+            while (!deque.isEmpty() && right - left - windowCounts.get(deque.peek()) + 1 > k) {
                 Character leftChar = s.charAt(left);
-                countMap.merge(leftChar, -1, Integer::sum);
-                if (countMap.remove(leftChar, 0) && deque.peek().equals(leftChar)) {
+                windowCounts.merge(leftChar, -1, Integer::sum);
+                if (windowCounts.remove(leftChar, 0) && deque.peek().equals(leftChar)) {
                     deque.poll();
                 }
                 left++;
@@ -81,11 +81,11 @@ public class LongestRepeatingCharacterReplacement {
         int left = 0;
         int right = 0;
         int maxCount = 0;
-        int[] countMap = new int[26];
+        int[] windowCounts = new int[26];
         for (right = 0; right < s.length(); right++) {
-            maxCount = Math.max(++countMap[s.charAt(right) - 'A'], maxCount);
+            maxCount = Math.max(++windowCounts[s.charAt(right) - 'A'], maxCount);
             if (right - left - maxCount + 1 > k) {
-                countMap[s.charAt(left++) - 'A']--;
+                windowCounts[s.charAt(left++) - 'A']--;
             }
         }
         return right - left;

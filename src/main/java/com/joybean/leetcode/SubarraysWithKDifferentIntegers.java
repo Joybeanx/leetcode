@@ -19,17 +19,17 @@ public class SubarraysWithKDifferentIntegers {
     public static int subarraysWithKDistinct1(int[] nums, int k) {
         int left = 0;
         int ans = 0;
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> windowCounts = new HashMap<>();
         for (int right = 0; right < nums.length; right++) {
-            countMap.merge(nums[right], 1, Integer::sum);
-            if (countMap.size() > k) {
+            windowCounts.merge(nums[right], 1, Integer::sum);
+            if (windowCounts.size() > k) {
                 ans += countInRange(left, right - 1, nums, k);
-                while (countMap.size() > k) {
-                    countMap.merge(nums[left], -1, Integer::sum);
-                    countMap.remove(nums[left++], 0);
+                while (windowCounts.size() > k) {
+                    windowCounts.merge(nums[left], -1, Integer::sum);
+                    windowCounts.remove(nums[left++], 0);
                 }
             }
-            if (countMap.size() == k && right == nums.length - 1) {
+            if (windowCounts.size() == k && right == nums.length - 1) {
                 ans += countInRange(left, right, nums, k);
             }
         }
@@ -38,13 +38,13 @@ public class SubarraysWithKDifferentIntegers {
 
     private static int countInRange(int start, int end, int[] nums, int k) {
         int ans = 0;
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> windowCounts = new HashMap<>();
         int left = start;
         for (int right = start; right <= end; right++) {
-            countMap.merge(nums[right], 1, Integer::sum);
-            while (countMap.size() == k) {
-                countMap.merge(nums[left], -1, Integer::sum);
-                countMap.remove(nums[left++], 0);
+            windowCounts.merge(nums[right], 1, Integer::sum);
+            while (windowCounts.size() == k) {
+                windowCounts.merge(nums[left], -1, Integer::sum);
+                windowCounts.remove(nums[left++], 0);
             }
             ans += left - start;
         }
@@ -65,13 +65,13 @@ public class SubarraysWithKDifferentIntegers {
 
     private static int atMost(int[] nums, int k) {
         int ans = 0;
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> windowCounts = new HashMap<>();
         int left = 0;
         for (int right = 0; right < nums.length; right++) {
-            countMap.merge(nums[right], 1, Integer::sum);
-            while (countMap.size() > k) {
-                countMap.merge(nums[left], -1, Integer::sum);
-                countMap.remove(nums[left++], 0);
+            windowCounts.merge(nums[right], 1, Integer::sum);
+            while (windowCounts.size() > k) {
+                windowCounts.merge(nums[left], -1, Integer::sum);
+                windowCounts.remove(nums[left++], 0);
             }
             ans += right - left + 1;
         }

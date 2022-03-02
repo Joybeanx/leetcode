@@ -21,19 +21,19 @@ public class SlidingWindowMaximum {
     public static int[] maxSlidingWindow1(int[] nums, int k) {
         int left = 0;
         int[] ans = new int[nums.length - k + 1];
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> windowCounts = new HashMap<>();
         Deque<Integer> deque = new LinkedList<>();
         int index = 0;
         for (int right = 0; right < nums.length; right++) {
-            countMap.merge(nums[right], 1, Integer::sum);
+            windowCounts.merge(nums[right], 1, Integer::sum);
             while (!deque.isEmpty() && deque.peekLast() <= nums[right]) {
                 deque.pollLast();
             }
             deque.offerLast(nums[right]);
             if (right - left + 1 == k) {
                 ans[index++] = deque.peek();
-                countMap.merge(nums[left], -1, Integer::sum);
-                if (countMap.remove(nums[left], 0) && nums[left] == deque.peek()) {
+                windowCounts.merge(nums[left], -1, Integer::sum);
+                if (windowCounts.remove(nums[left], 0) && nums[left] == deque.peek()) {
                     deque.poll();
                 }
                 left++;

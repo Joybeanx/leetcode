@@ -18,23 +18,23 @@ public class ReplaceTheSubstringForBalancedString {
      */
     public static int balancedString1(String s) {
         //count of characters outside the current window
-        Map<Character, Integer> countMap = new HashMap<>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
         for (Character ch : s.toCharArray()) {
-            countMap.merge(ch, 1, Integer::sum);
+            windowCounts.merge(ch, 1, Integer::sum);
         }
         int expectedCnt = s.length() / 4;
         //already balanced
-        if (countMap.size() == 4 && countMap.values().stream().allMatch(each -> each <= expectedCnt)) {
+        if (windowCounts.size() == 4 && windowCounts.values().stream().allMatch(each -> each <= expectedCnt)) {
             return 0;
         }
         int left = 0;
         int ans = s.length();
         for (int right = 0; right < s.length(); right++) {
-            countMap.merge(s.charAt(right), -1, Integer::sum);
+            windowCounts.merge(s.charAt(right), -1, Integer::sum);
             //We can make s balanced as long as all the counts of characters <= n / 4.
-            while (countMap.values().stream().allMatch(each -> each <= expectedCnt)) {
+            while (windowCounts.values().stream().allMatch(each -> each <= expectedCnt)) {
                 ans = Math.min(right - left + 1, ans);
-                countMap.merge(s.charAt(left++), 1, Integer::sum);
+                windowCounts.merge(s.charAt(left++), 1, Integer::sum);
             }
         }
         return ans;

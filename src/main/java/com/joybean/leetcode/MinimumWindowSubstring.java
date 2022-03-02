@@ -55,7 +55,8 @@ public class MinimumWindowSubstring {
     }
 
     /**
-     * Two HashMap
+     * <a href="https://leetcode.com/problems/minimum-window-substring/solution/">Sliding window 1</a>
+     *
      * @param s
      * @param t
      * @return
@@ -85,7 +86,7 @@ public class MinimumWindowSubstring {
         int formed = 0;
 
         // Dictionary which keeps a count of all the unique characters in the current window.
-        Map<Character, Integer> countMap = new HashMap<Character, Integer>();
+        Map<Character, Integer> windowCounts = new HashMap<Character, Integer>();
 
         // ans list of the form (window length, left, right)
         int[] ans = {-1, 0, 0};
@@ -93,11 +94,11 @@ public class MinimumWindowSubstring {
         while (r < s.length()) {
             // Add one character from the right to the window
             char c = s.charAt(r);
-            countMap.merge(c, 1, Integer::sum);
+            windowCounts.merge(c, 1, Integer::sum);
 
             // If the frequency of the current character added equals to the
             // desired count in t then increment the formed count by 1.
-            if (dict.containsKey(c) && countMap.get(c).intValue() == dict.get(c).intValue()) {
+            if (dict.containsKey(c) && windowCounts.get(c).intValue() == dict.get(c).intValue()) {
                 formed++;
             }
 
@@ -113,8 +114,8 @@ public class MinimumWindowSubstring {
 
                 // The character at the position pointed by the
                 // `Left` pointer is no longer a part of the window.
-                countMap.put(c, countMap.get(c) - 1);
-                if (dict.containsKey(c) && countMap.get(c).intValue() < dict.get(c).intValue()) {
+                windowCounts.put(c, windowCounts.get(c) - 1);
+                if (dict.containsKey(c) && windowCounts.get(c).intValue() < dict.get(c).intValue()) {
                     formed--;
                 }
 
@@ -130,7 +131,8 @@ public class MinimumWindowSubstring {
     }
 
     /**
-     * One HashMap
+     * Sliding window 2
+     *
      * @param s
      * @param t
      * @return
@@ -139,18 +141,18 @@ public class MinimumWindowSubstring {
         if (s == null || s.length() < t.length() || s.length() == 0) {
             return "";
         }
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> windowCounts = new HashMap<Character, Integer>();
         for (char c : t.toCharArray()) {
-            map.merge(c, 1, Integer::sum);
+            windowCounts.merge(c, 1, Integer::sum);
         }
         int left = 0;
         int minLeft = 0;
         int minLen = s.length() + 1;
         int count = 0;
         for (int right = 0; right < s.length(); right++) {
-            if (map.containsKey(s.charAt(right))) {
-                map.merge(s.charAt(right), -1, Integer::sum);
-                if (map.get(s.charAt(right)) >= 0) {
+            if (windowCounts.containsKey(s.charAt(right))) {
+                windowCounts.merge(s.charAt(right), -1, Integer::sum);
+                if (windowCounts.get(s.charAt(right)) >= 0) {
                     count++;
                 }
                 while (count == t.length()) {
@@ -158,9 +160,9 @@ public class MinimumWindowSubstring {
                         minLeft = left;
                         minLen = right - left + 1;
                     }
-                    if (map.containsKey(s.charAt(left))) {
-                        map.merge(s.charAt(left), 1, Integer::sum);
-                        if (map.get(s.charAt(left)) > 0) {
+                    if (windowCounts.containsKey(s.charAt(left))) {
+                        windowCounts.merge(s.charAt(left), 1, Integer::sum);
+                        if (windowCounts.get(s.charAt(left)) > 0) {
                             count--;
                         }
                     }

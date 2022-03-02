@@ -21,12 +21,12 @@ public class LongestSubstringWithAtMostKDistinctCharacters {
     public static int lengthOfLongestSubstringKDistinct1(String s, int k) {
         int left = 0;
         int ans = 0;
-        Map<Character, Integer> countMap = new HashMap<>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
         for (int right = 0; right < s.length(); right++) {
-            countMap.merge(s.charAt(right), 1, Integer::sum);
-            while (countMap.size() > k) {
-                countMap.merge(s.charAt(left), -1, Integer::sum);
-                countMap.remove(s.charAt(left++), 0);
+            windowCounts.merge(s.charAt(right), 1, Integer::sum);
+            while (windowCounts.size() > k) {
+                windowCounts.merge(s.charAt(left), -1, Integer::sum);
+                windowCounts.remove(s.charAt(left++), 0);
             }
             ans = Math.max(right - left + 1, ans);
         }

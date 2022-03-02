@@ -81,8 +81,7 @@ public class SubarraySumEqualsK {
 
     /**
      * <a href="https://leetcode.com/problems/subarray-sum-equals-k/discuss/102106/Java-Solution-PreSum-%2B-HashMap">Optimized
-     * one-pass
-     * prefix sum</a>
+     * one-pass prefix sum</a>
      *
      * @param nums
      * @param k

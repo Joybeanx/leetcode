@@ -24,13 +24,13 @@ public class PermutationInString {
             dict.merge(c, 1, Integer::sum);
         }
         int required = dict.keySet().size();
-        Map<Character, Integer> countMap = new HashMap<>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
         int valid = 0;
         while (right < s2.length()) {
             Character rc = s2.charAt(right);
             if (dict.containsKey(rc)) {
-                countMap.merge(rc, 1, Integer::sum);
-                if (countMap.get(rc).equals(dict.get(rc))) {
+                windowCounts.merge(rc, 1, Integer::sum);
+                if (windowCounts.get(rc).equals(dict.get(rc))) {
                     valid++;
                 }
             }
@@ -40,8 +40,8 @@ public class PermutationInString {
                 }
                 Character lc = s2.charAt(left);
                 if (dict.containsKey(lc)) {
-                    countMap.merge(lc, -1, Integer::sum);
-                    if (countMap.get(lc).equals(dict.get(lc))) {
+                    windowCounts.merge(lc, -1, Integer::sum);
+                    if (windowCounts.get(lc).equals(dict.get(lc))) {
                         valid--;
                     }
                 }

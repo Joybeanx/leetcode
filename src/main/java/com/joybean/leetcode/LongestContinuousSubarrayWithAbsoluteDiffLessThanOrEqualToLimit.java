@@ -22,19 +22,19 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
         int min = Integer.MAX_VALUE;
         int max = 0;
         int ans = 0;
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> windowCounts = new HashMap<>();
         for (int right = 0; right < nums.length; right++) {
             min = Math.min(nums[right], min);
             max = Math.max(nums[right], max);
-            countMap.merge(nums[right], 1, Integer::sum);
+            windowCounts.merge(nums[right], 1, Integer::sum);
             while (max - min > limit) {
-                countMap.merge(nums[left], -1, Integer::sum);
-                if (countMap.remove(nums[left], 0)) {
+                windowCounts.merge(nums[left], -1, Integer::sum);
+                if (windowCounts.remove(nums[left], 0)) {
                     if (nums[left] == min) {
                         min =
-                            countMap.keySet().stream().mapToInt(Integer::intValue).min().orElse(0);
+                            windowCounts.keySet().stream().mapToInt(Integer::intValue).min().orElse(0);
                     } else if (nums[left] == max) {
-                        max = countMap.keySet().stream().mapToInt(Integer::intValue).max().orElse(0);
+                        max = windowCounts.keySet().stream().mapToInt(Integer::intValue).max().orElse(0);
                     }
                 }
                 left++;

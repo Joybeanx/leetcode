@@ -19,12 +19,12 @@ public class NumberOfSubstringsContainingAllThreeCharacters {
     public static int numberOfSubstrings1(String s) {
         int left = 0;
         int ans = 0;
-        Map<Character, Integer> countMap = new HashMap<>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
         for (int right = 0; right < s.length(); right++) {
-            countMap.merge(s.charAt(right), 1, Integer::sum);
-            while (countMap.size() == 3) {
-                countMap.merge(s.charAt(left), -1, Integer::sum);
-                countMap.remove(s.charAt(left++), 0);
+            windowCounts.merge(s.charAt(right), 1, Integer::sum);
+            while (windowCounts.size() == 3) {
+                windowCounts.merge(s.charAt(left), -1, Integer::sum);
+                windowCounts.remove(s.charAt(left++), 0);
             }
             ans += left;
         }
