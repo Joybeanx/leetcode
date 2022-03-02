@@ -37,7 +37,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     /**
-     * Sliding window
+     * Sliding window 1
      *
      * @param s
      * @return
@@ -67,7 +67,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     /**
-     * Another Sliding window
+     * Sliding window 2
      *
      * @param s
      * @return
