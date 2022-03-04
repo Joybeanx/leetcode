@@ -62,11 +62,6 @@ public class MinimumWindowSubstring {
      * @return
      */
     public String minWindow2(String s, String t) {
-
-        if (s.length() == 0 || t.length() == 0) {
-            return "";
-        }
-
         // Dictionary which keeps a count of all the unique characters in t.
         Map<Character, Integer> dict = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
@@ -86,7 +81,7 @@ public class MinimumWindowSubstring {
         int formed = 0;
 
         // Dictionary which keeps a count of all the unique characters in the current window.
-        Map<Character, Integer> windowCounts = new HashMap<Character, Integer>();
+        Map<Character, Integer> windowCounts = new HashMap<>();
 
         // ans list of the form (window length, left, right)
         int[] ans = {-1, 0, 0};
@@ -138,10 +133,7 @@ public class MinimumWindowSubstring {
      * @return
      */
     public static String minWindow3(String s, String t) {
-        if (s == null || s.length() < t.length() || s.length() == 0) {
-            return "";
-        }
-        HashMap<Character, Integer> windowCounts = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> windowCounts = new HashMap<>();
         for (char c : t.toCharArray()) {
             windowCounts.merge(c, 1, Integer::sum);
         }
@@ -173,7 +165,6 @@ public class MinimumWindowSubstring {
         if (minLen > s.length()) {
             return "";
         }
-
         return s.substring(minLeft, minLeft + minLen);
     }
 }
