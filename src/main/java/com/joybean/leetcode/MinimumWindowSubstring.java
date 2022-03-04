@@ -55,7 +55,7 @@ public class MinimumWindowSubstring {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/minimum-window-substring/solution/">Sliding window 1</a>
+     * <a href="https://leetcode.com/problems/minimum-window-substring/solution/">Sliding window using two map</a>
      *
      * @param s
      * @param t
@@ -126,36 +126,36 @@ public class MinimumWindowSubstring {
     }
 
     /**
-     * Sliding window 2
+     * Sliding window using one map
      *
      * @param s
      * @param t
      * @return
      */
     public static String minWindow3(String s, String t) {
-        HashMap<Character, Integer> windowCounts = new HashMap<>();
+        HashMap<Character, Integer> requiredCounts = new HashMap<>();
         for (char c : t.toCharArray()) {
-            windowCounts.merge(c, 1, Integer::sum);
+            requiredCounts.merge(c, 1, Integer::sum);
         }
         int left = 0;
         int minLeft = 0;
         int minLen = s.length() + 1;
-        int count = 0;
+        int formed = 0;
         for (int right = 0; right < s.length(); right++) {
-            if (windowCounts.containsKey(s.charAt(right))) {
-                windowCounts.merge(s.charAt(right), -1, Integer::sum);
-                if (windowCounts.get(s.charAt(right)) >= 0) {
-                    count++;
+            if (requiredCounts.containsKey(s.charAt(right))) {
+                requiredCounts.merge(s.charAt(right), -1, Integer::sum);
+                if (requiredCounts.get(s.charAt(right)) >= 0) {
+                    formed++;
                 }
-                while (count == t.length()) {
+                while (formed == t.length()) {
                     if (right - left + 1 < minLen) {
                         minLeft = left;
                         minLen = right - left + 1;
                     }
-                    if (windowCounts.containsKey(s.charAt(left))) {
-                        windowCounts.merge(s.charAt(left), 1, Integer::sum);
-                        if (windowCounts.get(s.charAt(left)) > 0) {
-                            count--;
+                    if (requiredCounts.containsKey(s.charAt(left))) {
+                        requiredCounts.merge(s.charAt(left), 1, Integer::sum);
+                        if (requiredCounts.get(s.charAt(left)) > 0) {
+                            formed--;
                         }
                     }
                     left++;
@@ -166,5 +166,44 @@ public class MinimumWindowSubstring {
             return "";
         }
         return s.substring(minLeft, minLeft + minLen);
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that
+     * -can-solve-most-'substring'-problems">Sliding window using array</a>
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public static String minWindow4(String s, String t) {
+        int[] requiredCounts = new int[128];
+        for (char c : t.toCharArray()) {
+            requiredCounts[c]++;
+        }
+        int left = 0;
+        int minLeft = 0;
+        int minLen = Integer.MAX_VALUE;
+        //Number of characters of t to be found in s.
+        int remainingChars = t.length();
+        for (int right = 0; right < s.length(); right++) {
+            char rc = s.charAt(right);
+            requiredCounts[rc]--;
+            if (requiredCounts[rc] >= 0) {
+                remainingChars--;
+            }
+            while (remainingChars == 0) {
+                if (minLen > right - left + 1) {
+                    minLen = right - left + 1;
+                    minLeft = left;
+                }
+                char lc = s.charAt(left++);
+                requiredCounts[lc]++;
+                if (requiredCounts[lc] > 0) {
+                    remainingChars++;
+                }
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
 }
