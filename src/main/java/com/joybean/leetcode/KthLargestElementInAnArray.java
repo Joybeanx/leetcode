@@ -3,7 +3,7 @@ package com.joybean.leetcode;
 import java.util.Random;
 
 /**
- * <a href="https://leetcode.com/problems/kth-largest-element-in-an-array//">Kth Largest Element in an Array</a>
+ * <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element in an Array</a>
  *
  * @author Joybean
  */
