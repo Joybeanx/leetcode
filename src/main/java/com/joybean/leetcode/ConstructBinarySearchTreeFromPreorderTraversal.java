@@ -14,7 +14,7 @@ public class ConstructBinarySearchTreeFromPreorderTraversal {
 
     /**
      * <a href="https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/discuss/252754
-     * /Java-Stack-Iterative-Solution">Stack solution</a>
+     * /Java-Stack-Iterative-Solution">Monotonic stack</a>
      *
      * @param preorder
      * @return
@@ -91,7 +91,7 @@ public class ConstructBinarySearchTreeFromPreorderTraversal {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
