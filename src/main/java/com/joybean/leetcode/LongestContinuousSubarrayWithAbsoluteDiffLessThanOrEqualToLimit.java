@@ -1,8 +1,8 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -55,9 +55,9 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
      */
     public static int longestSubarray2(int[] nums, int limit) {
         //The head of maxDeque is always the max value in window [left,right]
-        Deque<Integer> maxDeque = new LinkedList<>();
+        Deque<Integer> maxDeque = new ArrayDeque<>();
         //The head of minDeque is always the min value in window [left,right]
-        Deque<Integer> minDeque = new LinkedList<>();
+        Deque<Integer> minDeque = new ArrayDeque<>();
         int left = 0;
         int ans = 0;
         for (int right = 0; right < nums.length; right++) {
