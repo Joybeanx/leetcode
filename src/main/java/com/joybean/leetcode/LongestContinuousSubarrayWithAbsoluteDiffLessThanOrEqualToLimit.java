@@ -46,7 +46,8 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/discuss/609743/Java-Detailed-Explanation-Sliding-Window-Deque-O(N)">Sliding window with two dequeues</a>
+     * <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to
+     * -limit/discuss/609743/Java-Detailed-Explanation-Sliding-Window-Deque-O(N)">Sliding window with two dequeues</a>
      *
      * @param nums
      * @param limit
@@ -82,7 +83,7 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
 
     /**
      * <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to
-     * -limit/discuss/609771/JavaC%2B%2BPython-Deques-O(N)">TreeMap</a>
+     * -limit/discuss/609771/JavaC%2B%2BPython-Deques-O(N)">Optimized sliding window with two dequeues</a>
      * TODO
      *
      * @param nums
@@ -90,6 +91,19 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
      * @return
      */
     public static int longestSubarray3(int[] nums, int limit) {
+        return 0;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to
+     * -limit/discuss/609771/JavaC%2B%2BPython-Deques-O(N)">TreeMap</a>
+     * TODO
+     *
+     * @param nums
+     * @param limit
+     * @return
+     */
+    public static int longestSubarray4(int[] nums, int limit) {
         return 0;
     }
 }
