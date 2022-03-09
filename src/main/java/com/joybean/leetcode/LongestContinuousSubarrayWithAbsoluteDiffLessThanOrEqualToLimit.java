@@ -54,7 +54,9 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
      * @return
      */
     public static int longestSubarray2(int[] nums, int limit) {
+        //The head of maxDeque is always the max value in the window [left,right]
         Deque<Integer> maxDeque = new LinkedList<>();
+        //The head of minDeque is always the min value in the window [left,right]
         Deque<Integer> minDeque = new LinkedList<>();
         int left = 0;
         int ans = 0;
