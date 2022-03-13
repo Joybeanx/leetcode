@@ -14,8 +14,8 @@ public class LRUCache {
 
     private int capacity;
     private Map<Integer, Node> map = new HashMap<>();
-    private Node HEAD = new Node();
-    private Node TAIL = new Node();
+    private Node head = new Node();
+    private Node tail = new Node();
     private int size = 0;
 
     static class LRULinkedHashMap extends LinkedHashMap<Integer, Integer> {
@@ -36,7 +36,7 @@ public class LRUCache {
         cacheHolder = new LRULinkedHashMap(capacity);
 
         this.capacity = capacity;
-        HEAD.setNext(TAIL);
+        head.setNext(tail);
     }
 
     public int get1(int key) {
@@ -78,7 +78,6 @@ public class LRUCache {
     private void moveToFirst(Node node) {
         node.next.setPre(node.pre);
         insertFirst0(node);
-        map.put(node.key, node);
     }
 
     private void insertFirst(int key, int value) {
@@ -92,13 +91,13 @@ public class LRUCache {
     }
 
     private void insertFirst0(Node node) {
-        node.setNext(HEAD.next);
-        HEAD.setNext(node);
+        node.setNext(head.next);
+        head.setNext(node);
     }
 
     private void removeLast() {
-        Node last = TAIL.pre;
-        TAIL.setPre(last == null ? null : last.pre);
+        Node last = tail.pre;
+        tail.setPre(last.pre);
         map.remove(last.key);
         size--;
     }
@@ -121,16 +120,12 @@ public class LRUCache {
 
         public void setPre(Node pre) {
             this.pre = pre;
-            if (pre != null) {
-                pre.next = this;
-            }
+            pre.next = this;
         }
 
         public void setNext(Node next) {
             this.next = next;
-            if (next != null) {
-                next.pre = this;
-            }
+            next.pre = this;
         }
     }
 }
