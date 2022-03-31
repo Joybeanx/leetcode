@@ -36,6 +36,7 @@ public class Subsets {
      * <li>if not pick, just leave all existing subsets as they are.</li>
      * We just combine both into our result.
      * </ol>
+     *
      * @param nums
      * @return
      */
@@ -55,6 +56,7 @@ public class Subsets {
 
     /**
      * Bit manipulation
+     *
      * @param nums
      * @return
      */
@@ -72,18 +74,24 @@ public class Subsets {
         return answer;
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/subsets/solution/">back tracking</a>
+     *
+     * @param nums
+     * @return
+     */
     public List<List<Integer>> subsets4(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        backtrack(list, new ArrayList<>(), nums, 0);
-        return list;
+        List<List<Integer>> ans = new ArrayList<>();
+        backtrack(ans, new ArrayList<>(), nums, 0);
+        return ans;
     }
 
-    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, int start) {
-        list.add(new ArrayList<>(tempList));
+    private void backtrack(List<List<Integer>> ans, List<Integer> curr, int[] nums, int start) {
+        ans.add(new ArrayList<>(curr));
         for (int i = start; i < nums.length; i++) {
-            tempList.add(nums[i]);
-            backtrack(list, tempList, nums, i + 1);
-            tempList.remove(tempList.size() - 1);
+            curr.add(nums[i]);
+            backtrack(ans, curr, nums, i + 1);
+            curr.remove(curr.size() - 1);
         }
     }
 
