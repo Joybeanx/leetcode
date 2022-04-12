@@ -1,6 +1,7 @@
 package com.joybean.leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,8 +15,8 @@ import java.util.stream.IntStream;
 public class Subsets {
     public static List<List<Integer>> subsets1(int[] nums) {
         return IntStream.range(0, 2 << nums.length - 1).mapToObj(Integer::toBinaryString)
-                        .map(bs -> buildSubset(bs, nums))
-                        .collect(Collectors.toList());
+            .map(bs -> buildSubset(bs, nums))
+            .collect(Collectors.toList());
     }
 
     private static List<Integer> buildSubset(String bs, int[] nums) {
@@ -30,12 +31,8 @@ public class Subsets {
     }
 
     /**
-     * While iterating through all numbers, for each new number, we can either pick it or not pick it
-     * <ol>
-     * <li>if pick, just add current number to every existing subset.</li>
-     * <li>if not pick, just leave all existing subsets as they are.</li>
-     * We just combine both into our result.
-     * </ol>
+     * <a href="https://leetcode.com/problems/subsets/discuss/122645/3ms-easiest-solution-no-backtracking-no-bit
+     * -manipulation-no-dfs-no-bullshit">Iterative solution</a>
      *
      * @param nums
      * @return
@@ -55,18 +52,44 @@ public class Subsets {
     }
 
     /**
+     * Recursive solution
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> subsets3(int[] nums) {
+        return findSubsets(nums, nums.length - 1);
+    }
+
+    private static List<List<Integer>> findSubsets(int[] nums, int endIdx) {
+        if (endIdx < 0) {
+            //Note: not returning Collections.emptyList()
+            return Collections.singletonList(new ArrayList<>());
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> subsets = findSubsets(nums, endIdx - 1);
+        result.addAll(subsets);
+        for (List<Integer> subset : subsets) {
+            List<Integer> newSubSet = new ArrayList<>(subset);
+            newSubSet.add(nums[endIdx]);
+            result.add(newSubSet);
+        }
+        return result;
+    }
+
+    /**
      * Bit manipulation
      *
      * @param nums
      * @return
      */
-    public List<List<Integer>> subsets3(int[] nums) {
+    public List<List<Integer>> subsets4(int[] nums) {
         int max_res = 1 << nums.length;
         List<List<Integer>> answer = new LinkedList<>();
         for (int i = 0; i < max_res; i++) {
             List<Integer> subset = new LinkedList<>();
             for (int bit = 0; bit < nums.length; bit++) {
-                if (((i >> bit) & 1) == 1) subset.add(nums[bit]);
+                if (((i >> bit) & 1) == 1) {subset.add(nums[bit]);}
             }
             answer.add(subset);
         }
@@ -75,25 +98,24 @@ public class Subsets {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/subsets/solution/">back tracking</a>
+     * <a href="https://leetcode.com/problems/subsets/solution/">backtracking</a>
      *
      * @param nums
      * @return
      */
-    public List<List<Integer>> subsets4(int[] nums) {
+    public List<List<Integer>> subsets5(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         backtrack(ans, new ArrayList<>(), nums, 0);
         return ans;
     }
 
-    private void backtrack(List<List<Integer>> ans, List<Integer> curr, int[] nums, int start) {
-        ans.add(new ArrayList<>(curr));
+    private void backtrack(List<List<Integer>> ans, List<Integer> curPath, int[] nums, int start) {
+        ans.add(new ArrayList<>(curPath));
         for (int i = start; i < nums.length; i++) {
-            curr.add(nums[i]);
-            backtrack(ans, curr, nums, i + 1);
-            curr.remove(curr.size() - 1);
+            curPath.add(nums[i]);
+            backtrack(ans, curPath, nums, i + 1);
+            curPath.remove(curPath.size() - 1);
         }
     }
-
 
 }
