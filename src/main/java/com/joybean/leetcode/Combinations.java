@@ -27,13 +27,35 @@ public class Combinations {
             ans.add(new ArrayList<>(curPath));
             return;
         }
-        if (start > n) {
-            return;
-        }
-        for (int cur = start; cur <= n; cur++) {
+        //Pruning, better than cur <= n
+        for (int cur = start; cur <= n - (k - curPath.size()) + 1; cur++) {
             curPath.add(cur);
             backtrack(ans, n, k, cur + 1, curPath);
             curPath.remove(curPath.size() - 1);
         }
+    }
+
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param n
+     * @param k
+     * @return
+     */
+    public static List<List<Integer>> combine2(int n, int k) {
+        return null;
+    }
+
+    /**
+     * Recursive solution
+     * TODO
+     *
+     * @param n
+     * @param k
+     * @return
+     */
+    public static List<List<Integer>> combine3(int n, int k) {
+        return null;
     }
 }
