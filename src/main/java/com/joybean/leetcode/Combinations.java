@@ -18,11 +18,11 @@ public class Combinations {
      */
     public static List<List<Integer>> combine1(int n, int k) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack(ans, n, k, 1, new ArrayList<>());
+        backtrack(ans, new ArrayList<>(), n, k, 1);
         return ans;
     }
 
-    private static void backtrack(List<List<Integer>> ans, int n, int k, int start, List<Integer> curPath) {
+    private static void backtrack(List<List<Integer>> ans, List<Integer> curPath, int n, int k, int start) {
         if (curPath.size() == k) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -30,7 +30,7 @@ public class Combinations {
         //Pruning, better than cur <= n
         for (int cur = start; cur <= n - (k - curPath.size()) + 1; cur++) {
             curPath.add(cur);
-            backtrack(ans, n, k, cur + 1, curPath);
+            backtrack(ans, curPath, n, k, cur + 1);
             curPath.remove(curPath.size() - 1);
         }
     }
