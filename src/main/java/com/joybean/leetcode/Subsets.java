@@ -103,13 +103,13 @@ public class Subsets {
      * @param nums
      * @return
      */
-    public List<List<Integer>> subsets5(int[] nums) {
+    public static List<List<Integer>> subsets5(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         backtrack(ans, new ArrayList<>(), nums, 0);
         return ans;
     }
 
-    private void backtrack(List<List<Integer>> ans, List<Integer> curPath, int[] nums, int start) {
+    private static void backtrack(List<List<Integer>> ans, List<Integer> curPath, int[] nums, int start) {
         ans.add(new ArrayList<>(curPath));
         for (int i = start; i < nums.length; i++) {
             curPath.add(nums[i]);
