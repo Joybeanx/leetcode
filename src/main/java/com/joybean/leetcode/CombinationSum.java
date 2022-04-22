@@ -1,6 +1,7 @@
 package com.joybean.leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,11 +13,11 @@ import java.util.stream.IntStream;
  * @author Joybean
  */
 public class CombinationSum {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public static List<List<Integer>> combinationSum1(int[] candidates, int target) {
         return findSubList(candidates, target, 0);
     }
 
-    public List<List<Integer>> findSubList(int[] candidates, int target, int startIdx) {
+    public static List<List<Integer>> findSubList(int[] candidates, int target, int startIdx) {
         if (startIdx == candidates.length) {
             return Collections.EMPTY_LIST;
         }
@@ -41,7 +42,68 @@ public class CombinationSum {
         return lists;
     }
 
-    private List<Integer> curList(int candidate, int n) {
+    private static List<Integer> curList(int candidate, int n) {
         return IntStream.range(0, n).map(t -> candidate).mapToObj(Integer::valueOf).collect(Collectors.toList());
+    }
+
+    /**
+     * backtracking
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        backtrack(candidates, target, 0, 0, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private static void backtrack(int[] candidates, int target, int startIndex, int curSum, List<Integer> curPath,
+        List<List<Integer>> ans) {
+        if (curSum == target) {
+            ans.add(new ArrayList<>(curPath));
+            return;
+        }
+        if (curSum > target) {
+            return;
+        }
+        for (int i = startIndex; i < candidates.length; i++) {
+            curPath.add(candidates[i]);
+            backtrack(candidates, target, i, curSum + candidates[i], curPath, ans);
+            curPath.remove(curPath.size() - 1);
+        }
+    }
+
+    /**
+     * backtracking with pruning
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    public static List<List<Integer>> combinationSum3(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack2(candidates, target, 0, 0, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private static void backtrack2(int[] candidates, int target, int startIndex, int curSum, List<Integer> curPath,
+        List<List<Integer>> ans) {
+        if (curSum == target) {
+            ans.add(new ArrayList<>(curPath));
+            return;
+        }
+        for (int i = startIndex; i < candidates.length; i++) {
+            int newSum = curSum + candidates[i];
+            //pruning
+            if (newSum > target) {
+                break;
+            }
+            curPath.add(candidates[i]);
+            backtrack2(candidates, target, i, newSum, curPath, ans);
+            curPath.remove(curPath.size() - 1);
+        }
     }
 }
