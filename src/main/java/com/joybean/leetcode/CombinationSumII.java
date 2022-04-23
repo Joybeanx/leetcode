@@ -28,20 +28,20 @@ public class CombinationSumII {
         return new ArrayList<>(set);
     }
 
-    private static void backtrack1(int[] candidates, int remainingSum, int startIndex,
+    private static void backtrack1(int[] candidates, int target, int startIndex,
         List<Integer> curPath, Set<List<Integer>> set) {
-        if (remainingSum == 0 && !set.contains(curPath)) {
+        if (target == 0 && !set.contains(curPath)) {
             set.add(new ArrayList<>(curPath));
             return;
         }
         for (int i = startIndex; i < candidates.length; i++) {
-            int newRemainingSum = remainingSum - candidates[i];
+            int newTarget = target - candidates[i];
             //pruning
-            if (newRemainingSum < 0) {
+            if (newTarget < 0) {
                 break;
             }
             curPath.add(candidates[i]);
-            backtrack1(candidates, newRemainingSum, i + 1, curPath, set);
+            backtrack1(candidates, newTarget, i + 1, curPath, set);
             curPath.remove(curPath.size() - 1);
         }
     }
@@ -68,17 +68,17 @@ public class CombinationSumII {
         return ans;
     }
 
-    private static void backtrack2(List<Integer> candidates, int remainingSum, int startIndex,
+    private static void backtrack2(List<Integer> candidates, int target, int startIndex,
         List<Integer> curPath, int[] remainingCount, List<List<Integer>> ans) {
-        if (remainingSum == 0) {
+        if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
         for (int i = startIndex; i < candidates.size(); i++) {
             int candidate = candidates.get(i);
-            int newRemainingSum = remainingSum - candidate;
+            int newTarget = target - candidate;
             //pruning
-            if (newRemainingSum < 0) {
+            if (newTarget < 0) {
                 break;
             }
             if (remainingCount[candidate] == 0) {
@@ -86,7 +86,7 @@ public class CombinationSumII {
             }
             curPath.add(candidate);
             remainingCount[candidate]--;
-            backtrack2(candidates, newRemainingSum, i, curPath, remainingCount, ans);
+            backtrack2(candidates, newTarget, i, curPath, remainingCount, ans);
             curPath.remove(curPath.size() - 1);
             remainingCount[candidate]++;
         }
@@ -107,9 +107,9 @@ public class CombinationSumII {
         return ans;
     }
 
-    private static void backtrack3(int[] candidates, int remainingSum, int startIndex, List<Integer> curPath,
+    private static void backtrack3(int[] candidates, int target, int startIndex, List<Integer> curPath,
         List<List<Integer>> ans) {
-        if (remainingSum == 0) {
+        if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
@@ -118,13 +118,13 @@ public class CombinationSumII {
             if (i > startIndex && candidates[i] == candidates[i - 1]) {
                 continue;
             }
-            int newRemainingSum = remainingSum - candidates[i];
+            int newTarget = target - candidates[i];
             //pruning
-            if (newRemainingSum < 0) {
+            if (newTarget < 0) {
                 break;
             }
             curPath.add(candidates[i]);
-            backtrack3(candidates, newRemainingSum, i + 1, curPath, ans);
+            backtrack3(candidates, newTarget, i + 1, curPath, ans);
             curPath.remove(curPath.size() - 1);
         }
     }

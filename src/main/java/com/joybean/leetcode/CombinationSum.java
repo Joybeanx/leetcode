@@ -55,22 +55,22 @@ public class CombinationSum {
      */
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack(candidates, target, 0, 0, new ArrayList<>(), ans);
+        backtrack(candidates, target, 0, new ArrayList<>(), ans);
         return ans;
     }
 
-    private static void backtrack(int[] candidates, int target, int startIndex, int curSum, List<Integer> curPath,
+    private static void backtrack(int[] candidates, int target, int startIndex, List<Integer> curPath,
         List<List<Integer>> ans) {
-        if (curSum == target) {
+        if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
-        if (curSum > target) {
+        if (target < 0) {
             return;
         }
         for (int i = startIndex; i < candidates.length; i++) {
             curPath.add(candidates[i]);
-            backtrack(candidates, target, i, curSum + candidates[i], curPath, ans);
+            backtrack(candidates, target - candidates[i], i, curPath, ans);
             curPath.remove(curPath.size() - 1);
         }
     }
@@ -85,24 +85,24 @@ public class CombinationSum {
     public static List<List<Integer>> combinationSum3(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack2(candidates, target, 0, 0, new ArrayList<>(), ans);
+        backtrack2(candidates, target, 0, new ArrayList<>(), ans);
         return ans;
     }
 
-    private static void backtrack2(int[] candidates, int target, int startIndex, int curSum, List<Integer> curPath,
+    private static void backtrack2(int[] candidates, int target, int startIndex, List<Integer> curPath,
         List<List<Integer>> ans) {
-        if (curSum == target) {
+        if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
         for (int i = startIndex; i < candidates.length; i++) {
-            int newSum = curSum + candidates[i];
+            int newTarget = target - candidates[i];
             //pruning
-            if (newSum > target) {
+            if (newTarget < 0) {
                 break;
             }
             curPath.add(candidates[i]);
-            backtrack2(candidates, target, i, newSum, curPath, ans);
+            backtrack2(candidates, newTarget, i, curPath, ans);
             curPath.remove(curPath.size() - 1);
         }
     }
