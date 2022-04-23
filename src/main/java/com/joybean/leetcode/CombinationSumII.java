@@ -47,7 +47,7 @@ public class CombinationSumII {
     }
 
     /**
-     * backtracking on distinct candidates
+     * backtracking on unique candidates
      *
      * @param candidates
      * @param target
@@ -56,15 +56,15 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         int[] count = new int[51];
-        List<Integer> distinctCandidates = new ArrayList<>();
+        List<Integer> uniqueCandidates = new ArrayList<>();
         for (int candidate : candidates) {
             count[candidate]++;
-            if (!distinctCandidates.contains(candidate)) {
-                distinctCandidates.add(candidate);
+            if (!uniqueCandidates.contains(candidate)) {
+                uniqueCandidates.add(candidate);
             }
         }
-        Collections.sort(distinctCandidates);
-        backtrack2(distinctCandidates, target, 0, new ArrayList<>(), count, ans);
+        Collections.sort(uniqueCandidates);
+        backtrack2(uniqueCandidates, target, 0, new ArrayList<>(), count, ans);
         return ans;
     }
 

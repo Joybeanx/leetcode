@@ -1,6 +1,5 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,33 +17,33 @@ public class TopKFrequentElements {
      * @return
      */
     public static int[] topKFrequent1(int[] nums, int k) {
-        Map<Integer, Integer> countMap = new HashMap<>();
+        Map<Integer, Integer> counter = new HashMap<>();
         for (int num : nums) {
-            countMap.merge(num, 1, Integer::sum);
+            counter.merge(num, 1, Integer::sum);
         }
-        int[] distinctNums = countMap.keySet().stream().mapToInt(Integer::intValue).toArray();
-        for (int i = 1; i < distinctNums.length; i++) {
-            shiftUp1(i, distinctNums, countMap);
+        int[] uniqueNums = counter.keySet().stream().mapToInt(Integer::intValue).toArray();
+        for (int i = 1; i < uniqueNums.length; i++) {
+            shiftUp1(i, uniqueNums, counter);
         }
         int[] ans = new int[k];
         for (int i = 1; i <= k; i++) {
-            ans[i - 1] = distinctNums[0];
-            distinctNums[0] = distinctNums[distinctNums.length - i];
-            shiftDown1(distinctNums.length - i, distinctNums, countMap);
+            ans[i - 1] = uniqueNums[0];
+            uniqueNums[0] = uniqueNums[uniqueNums.length - i];
+            shiftDown1(uniqueNums.length - i, uniqueNums, counter);
 
         }
         return ans;
     }
 
-    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> countMap) {
+    private static void shiftDown1(int i, int[] nums, Map<Integer, Integer> counter) {
         int p = 0;
         int c;
         while ((c = 2 * p + 1) < i) {
             //Swap with the bigger child
-            if (c + 1 < i && countMap.get(nums[c]) < countMap.get(nums[c + 1])) {
+            if (c + 1 < i && counter.get(nums[c]) < counter.get(nums[c + 1])) {
                 c++;
             }
-            if (countMap.get(nums[c]) > countMap.get(nums[p])) {
+            if (counter.get(nums[c]) > counter.get(nums[p])) {
                 swap(c, p, nums);
                 p = c;
                 continue;
@@ -53,11 +52,11 @@ public class TopKFrequentElements {
         }
     }
 
-    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> countMap) {
+    private static void shiftUp1(int i, int[] nums, Map<Integer, Integer> counter) {
         int p = i;
         while (p != 0) {
             p = (i - 1) / 2;
-            if (countMap.get(nums[p]) < countMap.get(nums[i])) {
+            if (counter.get(nums[p]) < counter.get(nums[i])) {
                 swap(p, i, nums);
                 i = p;
                 continue;
