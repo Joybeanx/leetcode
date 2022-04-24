@@ -105,15 +105,15 @@ public class Subsets {
      */
     public static List<List<Integer>> subsets5(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack(ans, new ArrayList<>(), nums, 0);
+        backtrack(nums, 0, new ArrayList<>(), ans);
         return ans;
     }
 
-    private static void backtrack(List<List<Integer>> ans, List<Integer> curPath, int[] nums, int start) {
+    private static void backtrack(int[] nums, int start, List<Integer> curPath, List<List<Integer>> ans) {
         ans.add(new ArrayList<>(curPath));
         for (int i = start; i < nums.length; i++) {
             curPath.add(nums[i]);
-            backtrack(ans, curPath, nums, i + 1);
+            backtrack(nums, i + 1, curPath, ans);
             curPath.remove(curPath.size() - 1);
         }
     }
