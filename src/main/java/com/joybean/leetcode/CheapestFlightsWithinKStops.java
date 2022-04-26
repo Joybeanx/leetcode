@@ -6,7 +6,17 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class CheapestFlightsWithinKStops {
-    //TODO
+    /**
+     * Dijkstra solution
+     * TODO
+     *
+     * @param n
+     * @param flights
+     * @param src
+     * @param dst
+     * @param k
+     * @return
+     */
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         return 0;
     }
