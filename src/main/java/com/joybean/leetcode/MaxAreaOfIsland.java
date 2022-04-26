@@ -89,6 +89,17 @@ public class MaxAreaOfIsland {
     }
 
     /**
+     * DFS
+     * TODO
+     *
+     * @param grid
+     * @return
+     */
+    public static int maxAreaOfIsland3(int[][] grid) {
+        return 0;
+    }
+
+    /**
      * BFS
      * TODO
      *
@@ -99,14 +110,4 @@ public class MaxAreaOfIsland {
         return 0;
     }
 
-    /**
-     * DFS
-     * TODO
-     *
-     * @param grid
-     * @return
-     */
-    public static int maxAreaOfIsland3(int[][] grid) {
-        return 0;
-    }
 }

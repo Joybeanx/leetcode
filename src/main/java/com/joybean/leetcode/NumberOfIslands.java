@@ -117,4 +117,15 @@ public class NumberOfIslands {
         return 1;
     }
 
+    /**
+     * BFS
+     * TODO
+     *
+     * @param grid
+     * @return
+     */
+    public static int numIslands3(char[][] grid) {
+        return 0;
+    }
+
 }
