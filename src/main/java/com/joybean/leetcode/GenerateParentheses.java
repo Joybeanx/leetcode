@@ -1,3 +1,4 @@
+
 package com.joybean.leetcode;
 
 import java.util.ArrayList;
@@ -65,13 +66,71 @@ public class GenerateParentheses {
     }
 
     /**
-     * Backtracking
-     * TODO
+     * backtracking (by labuladong)
      *
      * @param n
      * @return
      */
     public static List<String> generateParenthesis3(int n) {
+        List<String> ans = new ArrayList<>();
+        backtrack1(n - 1, n, "(", ans);
+        return ans;
+    }
+
+    private static void backtrack1(int availableOpen, int availableClose, String curPath, List<String> ans) {
+        if (availableOpen == 0 && availableClose == 0) {
+            ans.add(curPath);
+            return;
+        }
+        if (availableOpen > availableClose) {
+            return;
+        }
+        if (availableOpen > 0) {
+            backtrack1(availableOpen - 1, availableClose, curPath + "(", ans);
+        }
+        if (availableClose > 0) {
+            backtrack1(availableOpen, availableClose - 1, curPath + ")", ans);
+        }
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/generate-parentheses/discuss/10100/Easy-to-understand-Java-backtracking
+     * -solution">Optimized backtracking</a>
+     *
+     * @param n
+     * @return
+     */
+    public static List<String> generateParenthesis4(int n) {
+        List<String> ans = new ArrayList<>();
+        backtrack2(0, 0, n, new StringBuilder(), ans);
+        return ans;
+    }
+
+    private static void backtrack2(int open, int close, int n, StringBuilder curPath, List<String> ans) {
+        if (curPath.length() == 2 * n) {
+            ans.add(curPath.toString());
+            return;
+        }
+        if (open < n) {
+            curPath.append("(");
+            backtrack2(open + 1, close, n, curPath, ans);
+            curPath.deleteCharAt(curPath.length() - 1);
+        }
+        if (open > close) {
+            curPath.append(")");
+            backtrack2(open, close + 1, n, curPath, ans);
+            curPath.deleteCharAt(curPath.length() - 1);
+        }
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/generate-parentheses/solution/">Closure Number</a>
+     * TODO
+     *
+     * @param n
+     * @return
+     */
+    public static List<String> generateParenthesis5(int n) {
         return null;
     }
 }
