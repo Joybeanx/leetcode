@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <a href="https://leetcode.com/problems/open-the-lock/">Open the Lock</a>
@@ -14,20 +17,22 @@ import java.util.Set;
  */
 public class OpenTheLock {
     /**
-     * Time Limit Exceeded
+     * BFS
+     *
      * @param deadends
      * @param target
      * @return
      */
     public static int openLock1(String[] deadends, String target) {
-        LinkedList<String> queue = new LinkedList<>();
-        Set<String> visited = new HashSet<>();
-        List<String> deadendList = Arrays.asList(deadends);
+        //Use set to avoid TLE
+        Set<String> visited = Stream.of(deadends).collect(Collectors.toSet());
         String initial = "0000";
-        if (deadendList.contains(initial)) {
+        //corner case
+        if (visited.contains(initial)) {
             return -1;
         }
-        queue.add(initial);
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(initial);
         visited.add(initial);
         int step = 0;
         while (!queue.isEmpty()) {
@@ -37,10 +42,10 @@ public class OpenTheLock {
                 if (current.equals(target)) {
                     return step;
                 }
-                List<String> adjacentDigits = adjacent(current, deadendList, visited);
-                for (String adjacent : adjacentDigits) {
-                    queue.offer(adjacent);
-                    visited.add(adjacent);
+                List<String> neighbors = getNeighbors(current, visited);
+                for (String neighbor : neighbors) {
+                    queue.offer(neighbor);
+                    visited.add(neighbor);
                 }
             }
             step++;
@@ -48,24 +53,116 @@ public class OpenTheLock {
         return -1;
     }
 
-    public static List<String> adjacent(String digits, List<String> deadendList, Set<String> visited) {
-        List<String> adjacents = new ArrayList<>();
-        for (int i = 0; i < digits.length(); i++) {
-            char[] slots = digits.toCharArray();
-            int slot = slots[i];
-            char bigger = slot != '9' ? (char)(slot + 1) : '0';
-            char less = slot != '0' ? (char)(slot - 1) : '9';
-            slots[i] = bigger;
-            String adjacent = new String(slots);
-            if (!deadendList.contains(adjacent) && !visited.contains(adjacent)) {
-                adjacents.add(adjacent);
+    /**
+     * Bidirectional BFS
+     *
+     * @param deadends
+     * @param target
+     * @return
+     */
+    public static int openLock2(String[] deadends, String target) {
+        Set<String> deadSet = Stream.of(deadends).collect(Collectors.toSet());
+        String initial = "0000";
+        Set<String> set1 = new HashSet<>();
+        set1.add(initial);
+        Set<String> set2 = new HashSet<>();
+        set2.add(target);
+        int step = 0;
+        while (!set1.isEmpty() && !set2.isEmpty()) {
+            Set<String> tmpSet = new HashSet<>();
+            for (String cur1 : set1) {
+                if (deadSet.contains(cur1)) {
+                    continue;
+                }
+                if (set2.contains(cur1)) {
+                    return step;
+                }
+                //Note here, compare with openLock1
+                deadSet.add(cur1);
+                List<String> neighbors = getNeighbors(cur1, deadSet);
+                for (String neighbor : neighbors) {
+                    tmpSet.add(neighbor);
+                }
             }
-            slots[i] = less;
-            adjacent = new String(slots);
-            if (!deadendList.contains(adjacent) && !visited.contains(adjacent)) {
-                adjacents.add(adjacent);
+            set1 = set2;
+            set2 = tmpSet;
+            step++;
+        }
+        return -1;
+    }
+
+    /**
+     * Optimized bidirectional BFS
+     *
+     * @param deadends
+     * @param target
+     * @return
+     */
+    public static int openLock3(String[] deadends, String target) {
+        Set<String> deadSet = Stream.of(deadends).collect(Collectors.toSet());
+        String initial = "0000";
+        Set<String> set1 = new HashSet<>();
+        set1.add(initial);
+        Set<String> set2 = new HashSet<>();
+        set2.add(target);
+        Set<String> tmpSet;
+        int step = 0;
+        while (!set1.isEmpty() && !set2.isEmpty()) {
+            //pick a smaller set
+            if (set1.size() > set2.size()) {
+                tmpSet = set1;
+                set1 = set2;
+                set2 = tmpSet;
+            }
+            Set<String> neighborSet = new HashSet<>();
+            for (String cur1 : set1) {
+                if (deadSet.contains(cur1)) {
+                    continue;
+                }
+                if (set2.contains(cur1)) {
+                    return step;
+                }
+                deadSet.add(cur1);
+                List<String> neighbors = getNeighbors(cur1, deadSet);
+                for (String neighbor : neighbors) {
+                    neighborSet.add(neighbor);
+                }
+            }
+            set1 = neighborSet;
+            step++;
+        }
+        return -1;
+    }
+
+    public static List<String> getNeighbors(String digits, Set<String> visited) {
+        List<String> neighbors = new ArrayList<>();
+        for (int i = 0; i < digits.length(); i++) {
+            for (String neighbor : Arrays.asList(moveUp(digits, i), moveDown(digits, i))) {
+                if (!visited.contains(neighbor)) {
+                    neighbors.add(neighbor);
+                }
             }
         }
-        return adjacents;
+        return neighbors;
+    }
+
+    public static String moveUp(String digits, int index) {
+        char[] slots = digits.toCharArray();
+        if (slots[index] == '9') {
+            slots[index] = '0';
+        } else {
+            slots[index]++;
+        }
+        return new String(slots);
+    }
+
+    public static String moveDown(String digits, int index) {
+        char[] slots = digits.toCharArray();
+        if (slots[index] == '0') {
+            slots[index] = '9';
+        } else {
+            slots[index]--;
+        }
+        return new String(slots);
     }
 }
