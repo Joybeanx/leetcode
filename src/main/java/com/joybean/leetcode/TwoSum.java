@@ -1,9 +1,7 @@
 package com.joybean.leetcode;
 
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * <a href="https://leetcode.com/problems/two-sum/description/">Two Sum</a>
@@ -22,7 +20,7 @@ public class TwoSum {
                 return new int[]{i, map.get(another)};
             }
         }
-        throw new RuntimeException("No solution");
+        return null;
     }
 
     public static int[] twoSum2(int[] nums, int target) {
@@ -34,6 +32,6 @@ public class TwoSum {
             }
             map.put(nums[i], i);
         }
-        throw new RuntimeException("No solution");
+        return null;
     }
 }
