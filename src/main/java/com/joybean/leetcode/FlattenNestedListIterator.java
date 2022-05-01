@@ -1,7 +1,9 @@
 package com.joybean.leetcode;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -9,8 +11,10 @@ import java.util.Stack;
  *
  * @author Joybean
  */
-public class FlattenNestedListIterator2 implements Iterator<Integer> {
+public class FlattenNestedListIterator implements Iterator<Integer> {
     private Stack<NestedInteger> stack;
+
+    private Queue<Integer> queue = new LinkedList<>();
 
     /**
      * <a href="https://leetcode.com/problems/flatten-nested-list-iterator/discuss/142999/Load-data-on-next()
@@ -18,9 +22,22 @@ public class FlattenNestedListIterator2 implements Iterator<Integer> {
      *
      * @param nestedList
      */
-    public FlattenNestedListIterator2(List<NestedInteger> nestedList) {
+    public FlattenNestedListIterator(List<NestedInteger> nestedList) {
         stack = new Stack<>();
         enstack(nestedList);
+
+        //Not a real iterator, because it copy the entire data to a queue at initialization
+        buildQueue(nestedList);
+    }
+
+    private void buildQueue(List<NestedInteger> nestedList) {
+        for (NestedInteger ni : nestedList) {
+            if (ni.isInteger()) {
+                queue.add(ni.getInteger());
+            } else {
+                buildQueue(ni.getList());
+            }
+        }
     }
 
     private void enstack(List<NestedInteger> list) {
@@ -41,9 +58,17 @@ public class FlattenNestedListIterator2 implements Iterator<Integer> {
         return res;
     }
 
+    public Integer next2() {
+        return queue.poll();
+    }
+
     @Override
     public boolean hasNext() {
         return !stack.isEmpty();
+    }
+
+    public boolean hasNext2() {
+        return !queue.isEmpty();
     }
 
     public interface NestedInteger {
