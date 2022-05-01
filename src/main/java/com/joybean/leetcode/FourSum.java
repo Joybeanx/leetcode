@@ -53,4 +53,15 @@ public class FourSum {
         }
         return ans;
     }
+
+    /**
+     * Use KSum template
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static List<List<Integer>> fourSum2(int[] nums, int target) {
+        return KSum.kSum(nums, 4, target);
+    }
 }

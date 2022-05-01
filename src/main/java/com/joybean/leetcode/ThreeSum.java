@@ -151,4 +151,14 @@ public class ThreeSum {
         }
         return ans;
     }
+
+    /**
+     * Use KSum template
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> threeSum5(int[] nums) {
+        return KSum.kSum(nums, 3, 0);
+    }
 }
