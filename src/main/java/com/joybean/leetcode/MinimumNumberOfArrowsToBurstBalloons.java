@@ -10,6 +10,12 @@ import java.util.Comparator;
  * @author Joybean
  */
 public class MinimumNumberOfArrowsToBurstBalloons {
+    /**
+     * Greedy algorithm（Interval Scheduling）
+     *
+     * @param points
+     * @return
+     */
     public static int findMinArrowShots1(int[][] points) {
         if (points.length == 0) {
             return 0;

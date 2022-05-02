@@ -9,6 +9,12 @@ import java.util.Comparator;
  * @author Joybean
  */
 public class NonOverlappingIntervals {
+    /**
+     * Greedy algorithm（Interval Scheduling）
+     *
+     * @param intervals
+     * @return
+     */
     public static int eraseOverlapIntervals1(int[][] intervals) {
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[1]));
         int removed = 0;
