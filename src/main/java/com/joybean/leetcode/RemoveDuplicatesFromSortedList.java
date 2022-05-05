@@ -29,13 +29,37 @@ public class RemoveDuplicatesFromSortedList {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/discuss/28730/Concise-solution-and
-     * -memory-freeing">Clean iterative solution </a>
+     * Two pointers (by labuladong)
      *
      * @param head
      * @return
      */
     public static ListNode deleteDuplicates2(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null) {
+            if (fast.val != slow.val) {
+                slow.next = fast;
+                //equivalent to: slow = fast;
+                slow = slow.next;
+            }
+            fast = fast.next;
+        }
+        slow.next = null;
+        return head;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/discuss/28730/Concise-solution-and
+     * -memory-freeing">Clean iterative solution</a>
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplicates3(ListNode head) {
         if (head == null) {
             return head;
         }
@@ -57,7 +81,7 @@ public class RemoveDuplicatesFromSortedList {
      * @param head
      * @return
      */
-    public static ListNode deleteDuplicates3(ListNode head) {
+    public static ListNode deleteDuplicates4(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
@@ -74,7 +98,7 @@ public class RemoveDuplicatesFromSortedList {
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;
