@@ -36,7 +36,7 @@ public class RemoveNthNodeFromEndOfList {
 
     /**
      * <a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/8804/Simple-Java-solution-in
-     * -one-pass">Cleaner two pointer solution</a>
+     * -one-pass">Cleaner two pointers solution</a>
      *
      * @param head
      * @param n
