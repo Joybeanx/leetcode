@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class LinkedListCycle {
     /**
-     * Two pointer solution
+     * Two pointers
      *
      * @param head
      * @return

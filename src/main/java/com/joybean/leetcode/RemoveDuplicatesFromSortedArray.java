@@ -13,15 +13,15 @@ public class RemoveDuplicatesFromSortedArray {
      * @return
      */
     public static int removeDuplicates1(int[] nums) {
-        int left = 0;
-        int right = 1;
-        while (right < nums.length) {
-            if (nums[right] != nums[left]) {
-                nums[++left] = nums[right];
+        int slow = 0;
+        int fast = 1;
+        while (fast < nums.length) {
+            if (nums[fast] != nums[slow]) {
+                nums[++slow] = nums[fast];
             }
-            right++;
+            fast++;
         }
-        return ++left;
+        return ++slow;
     }
 
     /**
@@ -31,13 +31,13 @@ public class RemoveDuplicatesFromSortedArray {
      * @return
      */
     public static int removeDuplicates2(int[] nums) {
-        int left = 0;
-        for (int right = 1; right < nums.length; right++) {
-            if (nums[right] != nums[left]) {
-                nums[++left] = nums[right];
+        int slow = 0;
+        for (int fast = 1; fast < nums.length; fast++) {
+            if (nums[fast] != nums[slow]) {
+                nums[++slow] = nums[fast];
             }
         }
-        return ++left;
+        return ++slow;
     }
 
     /**
