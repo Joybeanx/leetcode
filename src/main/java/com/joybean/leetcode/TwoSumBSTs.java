@@ -8,7 +8,7 @@ package com.joybean.leetcode;
 public class TwoSumBSTs {
 
     /**
-     * <a href="https://lixinchengdu.github.io/algorithmbook/leetcode/two-sum-bsts.html">Two Pointers</a>
+     * <a href="https://lixinchengdu.github.io/algorithmbook/leetcode/two-sum-bsts.html">Two pointers</a>
      * TODO
      *
      * @param root1

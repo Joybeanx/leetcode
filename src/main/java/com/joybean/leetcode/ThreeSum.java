@@ -89,7 +89,7 @@ public class ThreeSum {
             }
             int left = i + 1;
             int right = nums.length - 1;
-            // Two Pointers
+            // Two pointers
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {

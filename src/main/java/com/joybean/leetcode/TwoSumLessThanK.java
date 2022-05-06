@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class TwoSumLessThanK {
     /**
-     * <a href="https://lixinchengdu.github.io/algorithmbook/leetcode/two-sum-less-than-k.html">Two Pointers</a>
+     * <a href="https://lixinchengdu.github.io/algorithmbook/leetcode/two-sum-less-than-k.html">Two pointers</a>
      * TODO
      *
      * @param A

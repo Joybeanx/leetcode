@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class ThreeSumSmaller {
     /**
-     * <a href="https://www.lintcode.com/problem/918/">Two Pointers</a>
+     * <a href="https://www.lintcode.com/problem/918/">Two pointers</a>
      *
      * @param nums
      * @param target

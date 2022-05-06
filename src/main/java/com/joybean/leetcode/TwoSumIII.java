@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class TwoSumIII {
     /**
-     * <a href="https://www.lintcode.com/problem/607/">Two Pointers</a>
+     * <a href="https://www.lintcode.com/problem/607/">Two pointers</a>
      * Add the number to an internal data structure.
      * TODO
      *
