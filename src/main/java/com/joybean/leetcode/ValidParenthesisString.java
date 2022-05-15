@@ -6,8 +6,35 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ValidParenthesisString {
-    //TODO
-    public boolean checkValidString(String s) {
+    /**
+     * Backtracking
+     * TODO
+     *
+     * @param s
+     * @return
+     */
+    public static boolean checkValidString1(String s) {
+        return false;
+    }
+
+    /**
+     * DP
+     * TODO
+     *
+     * @param s
+     * @return
+     */
+    public static boolean checkValidString2(String s) {
+        return false;
+    }
+
+    /**
+     * Greedy
+     *
+     * @param s
+     * @return
+     */
+    public static boolean checkValidString3(String s) {
         return false;
     }
 }
