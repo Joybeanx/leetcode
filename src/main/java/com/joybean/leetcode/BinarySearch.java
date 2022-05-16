@@ -52,7 +52,8 @@ public class BinarySearch {
             if (nums[mid] < target) {
                 left = mid + 1;
             } else {
-                right = mid;
+                //much better than: right = mid;
+                right = mid - 1;
             }
         }
         return nums[left] == target ? left : -1;
