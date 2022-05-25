@@ -115,8 +115,37 @@ public class ValidParenthesisString {
                 return false; // Currently, don't have enough open parentheses to match close parentheses-> Invalid
             }
             // For example: ())(
-            cmin = Math.max(cmin, 0);   // It's invalid if open parentheses count < 0 that's why cmin can't be negative
+            cmin = Math.max(cmin, 0);   // It's invalid if open parentheses count < 0 that's why cmin can't be
+            // negative
         }
         return cmin == 0; // Return true if can found `openCount == 0` in range [cmin, cmax]
+    }
+
+    /**
+     * Optimized Greedy
+     *
+     * @param s
+     * @return
+     */
+    public static boolean checkValidString5(String s) {
+        int cmin = 0;
+        int cmax = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                cmax++;
+                cmin++;
+            } else if (c == ')') {
+                cmax--;
+                cmin--;
+            } else if (c == '*') {
+                cmax++;
+                cmin--;
+
+            }
+            if (cmax < 0) {
+                return false;
+            }
+        }
+        return cmin <= 0 && cmax >= 0;
     }
 }
