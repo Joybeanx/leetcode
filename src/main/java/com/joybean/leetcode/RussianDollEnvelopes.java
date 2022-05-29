@@ -9,7 +9,12 @@ import java.util.Comparator;
  * @author Joybean
  */
 public class RussianDollEnvelopes {
-
+    /**
+     * DP
+     *
+     * @param envelopes
+     * @return
+     */
     public static int maxEnvelopes1(int[][] envelopes) {
         //pre handling:convert to LIS problem
         //case: {4, 5}, {4, 6}, {6, 7}, {2, 3}
@@ -49,6 +54,7 @@ public class RussianDollEnvelopes {
 
     /**
      * TODO
+     *
      * @param envelopes
      * @return
      */
