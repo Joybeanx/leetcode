@@ -7,7 +7,17 @@ package com.joybean.leetcode;
  */
 public class ShortestPalindrome {
     //TODO
-    public String shortestPalindrome(String s) {
+    public static String shortestPalindrome1(String s) {
+        return null;
+    }
+
+    /**
+     * KMP
+     * TODO
+     * @param s
+     * @return
+     */
+    public static String shortestPalindrome2(String s) {
         return null;
     }
 }
