@@ -35,4 +35,17 @@ public class CarFleet {
         }
         return ans;
     }
+
+    /**
+     * TreeMap
+     * TODO
+     *
+     * @param target
+     * @param position
+     * @param speed
+     * @return
+     */
+    public static int carFleet2(int target, int[] position, int[] speed) {
+        return 0;
+    }
 }
