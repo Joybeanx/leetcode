@@ -25,16 +25,37 @@ public class CarFleet {
         }
         Arrays.sort(arr, Comparator.comparing(a -> a[0]));
         int ans = 0;
-        double longestTimeToArrive = 0;
+        //arrival time of each fleet
+        double arrivalTime = 0;
         //Calculate from end to start
         for (int i = arr.length - 1; i >= 0; i--) {
-            if (arr[i][1] > longestTimeToArrive) {
-                longestTimeToArrive = arr[i][1];
+            //Current car is unable to catch up with previous fleet,so it should be in a new fleet
+            if (arr[i][1] > arrivalTime) {
+                arrivalTime = arr[i][1];
                 ans++;
             }
         }
         return ans;
     }
+
+
+   /* public static int carFleet2(int target, int[] position, int[] speed) {
+        double[][] arr = new double[position.length][2];
+        for (int i = 0; i < position.length; i++) {
+            arr[i] = new double[] {position[i], (target - position[i]) / (double)speed[i]};
+        }
+        Arrays.sort(arr, Comparator.comparing(a -> a[0]));
+        int ans = 0;
+        double arrivalTime = Integer.MAX_VALUE;
+        //Calculate from start to end
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][1] < arrivalTime) {
+                ans++;
+            }
+            arrivalTime = arr[i][1];
+        }
+        return ans;
+    }*/
 
     /**
      * TreeMap
@@ -45,7 +66,7 @@ public class CarFleet {
      * @param speed
      * @return
      */
-    public static int carFleet2(int target, int[] position, int[] speed) {
+    public static int carFleet3(int target, int[] position, int[] speed) {
         return 0;
     }
 }
