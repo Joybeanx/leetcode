@@ -6,8 +6,75 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class InsertionSortList {
-    //TODO
-    public ListNode insertionSortList(ListNode head) {
+    /**
+     * Recursive solution
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode insertionSortList1(ListNode head) {
+        ListNode dummy = new ListNode(Integer.MIN_VALUE, head);
+        ListNode sortedTail = dummy;
+        insertionSortListInternal(dummy, head, sortedTail);
+        return dummy.next;
+    }
+
+    private static void insertionSortListInternal(ListNode sortedHead, ListNode target, ListNode sortedTail) {
+        if (target == null) {
+            return;
+        }
+        ListNode nextTarget = target.next;
+        ListNode cur = sortedHead;
+        ListNode prev = null;
+        while (cur != null && cur != target) {
+            if (target.val <= cur.val) {
+                sortedTail.next = target.next;
+                prev.next = target;
+                target.next = cur;
+                break;
+            }
+            prev = cur;
+            cur = cur.next;
+        }
+        if (cur == target) {
+            sortedTail = cur;
+        }
+        insertionSortListInternal(sortedHead, nextTarget, sortedTail);
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/insertion-sort-list/discuss/46420/An-easy-and-clear-way-to-sort-(-O(1)
+     * -space-)">Iterative solution</a>
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode insertionSortList2(ListNode head) {
+        ListNode sortedHead = new ListNode(0);
+        ListNode target = head;
+        ListNode prev = sortedHead;
+        while (target != null) {
+            ListNode nextTarget = target.next;
+            while (prev.next != null && prev.next.val < target.val) {
+                prev = prev.next;
+            }
+            target.next = prev.next;
+            prev.next = target;
+            prev = sortedHead;
+            target = nextTarget;
+        }
+        return sortedHead.next;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/insertion-sort-list/discuss/46420/An-easy-and-clear-way-to-sort-(-O(1)
+     * -space-)">Optimized iterative solution (by Xing_)</a>
+     * TODO
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode insertionSortList3(ListNode head) {
         return null;
     }
 
