@@ -82,7 +82,7 @@ public class SortAnArray {
     }
 
     /**
-     * Quick sort:Lomuto partition schema,Time Limit Exceeded
+     * <a href="https://en.wikipedia.org/wiki/Quicksort">Quick sort:Standard hoare partition schema</a>
      *
      * @param nums
      * @return
@@ -97,14 +97,55 @@ public class SortAnArray {
             return;
         }
         int pi = partition3(nums, left, right);
-        quickSort3(nums, left, pi - 1);
+        // Note: the pivot is now included
+        quickSort3(nums, left, pi);
         quickSort3(nums, pi + 1, right);
     }
 
     private static int partition3(int[] nums, int left, int right) {
+        int mid = (left + right) >>> 1;
+        int pivot = nums[mid];
+        int i = left - 1;
+        int j = right + 1;
+        while (true) {
+            do {
+                i++;
+            } while (nums[i] < pivot);
+            do {
+                j--;
+            } while (nums[j] > pivot);
+            if (i >= j) {
+                return j;
+            }
+            swap(nums, i, j);
+        }
+    }
+
+    /**
+     * Quick sort:Lomuto partition schema,Time Limit Exceeded
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] sortArray4(int[] nums) {
+        quickSort4(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private static void quickSort4(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int pi = partition4(nums, left, right);
+        quickSort4(nums, left, pi - 1);
+        quickSort4(nums, pi + 1, right);
+    }
+
+    private static int partition4(int[] nums, int left, int right) {
         int pivot = nums[right];
         int i = left;
         for (int j = left; j < right; j++) {
+            // or <=
             if (nums[j] < pivot) {
                 swap(nums, i, j);
                 i++;
