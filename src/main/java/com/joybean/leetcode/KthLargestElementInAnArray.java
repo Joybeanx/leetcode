@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class KthLargestElementInAnArray {
     /**
-     * Recursion partition
+     * Quick select using recursion partition
      *
      * @param nums
      * @param k
@@ -17,29 +17,6 @@ public class KthLargestElementInAnArray {
      */
     public static int findKthLargest1(int[] nums, int k) {
         partition1(nums, k, 0, nums.length - 1);
-        return nums[k - 1];
-    }
-
-    /**
-     * Loop partition
-     *
-     * @param nums
-     * @param k
-     * @return
-     */
-    public static int findKthLargest2(int[] nums, int k) {
-        int from = 0;
-        int to = nums.length - 1;
-        while (true) {
-            int pivot = partition2(nums, from, to);
-            if (pivot > k - 1) {
-                to = pivot - 1;
-            } else if (pivot < k - 1) {
-                from = pivot + 1;
-            } else {
-                break;
-            }
-        }
         return nums[k - 1];
     }
 
@@ -73,6 +50,29 @@ public class KthLargestElementInAnArray {
         partition1(nums, k, from, j - 1);
     }
 
+    /**
+     * Quick select using loop partition
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int findKthLargest2(int[] nums, int k) {
+        int from = 0;
+        int to = nums.length - 1;
+        while (true) {
+            int pivot = partition2(nums, from, to);
+            if (pivot > k - 1) {
+                to = pivot - 1;
+            } else if (pivot < k - 1) {
+                from = pivot + 1;
+            } else {
+                break;
+            }
+        }
+        return nums[k - 1];
+    }
+
     private static int partition2(int[] nums, int from, int to) {
         //random partition pivot for better performance
         swap(from, new Random().nextInt(to - from + 1) + from, nums);
@@ -93,6 +93,39 @@ public class KthLargestElementInAnArray {
         }
         swap(from, j, nums);
         return j;
+    }
+
+    /**
+     * Quick select
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int findKthLargest3(int[] nums, int k) {
+        return nums[partition3(nums, 0, nums.length - 1, k)];
+    }
+
+    private static int partition3(int[] nums, int left, int right, int k) {
+        if (left == right) {
+            return left;
+        }
+        int pivot = nums[right];
+        int i = left;
+        for (int j = left; j < right; j++) {
+            if (nums[j] > pivot) {
+                swap(i, j, nums);
+                i++;
+            }
+        }
+        swap(i, right, nums);
+        if (i == k - 1) {
+            return i;
+        } else if (i > k - 1) {
+            return partition3(nums, left, i - 1, k);
+        } else {
+            return partition3(nums, i + 1, right, k);
+        }
     }
 
     private static void swap(int i, int j, int[] nums) {
