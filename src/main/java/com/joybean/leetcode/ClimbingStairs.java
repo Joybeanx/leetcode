@@ -41,12 +41,55 @@ public class ClimbingStairs {
     }
 
     /**
-     * Recursive(top-down) DP with memo
+     * <a href="https://leetcode.com/problems/climbing-stairs/discuss/963994/Java-from-Recursion-to-DP">Clean
+     * recursive solution:Time Limit Exceeded</a>
      *
      * @param n
      * @return
      */
     public static int climbStairs3(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        return climbStairs3(n - 1) + climbStairs3(n - 2);
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/climbing-stairs/discuss/963994/Java-from-Recursion-to-DP">Clean
+     * recursive(top-down) DP with memo</a>
+     *
+     * @param n
+     * @return
+     */
+    public static int climbStairs4(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int memo[] = new int[n + 1];
+        memo[1] = 1;
+        memo[2] = 2;
+        return climbStairs(n, memo);
+    }
+
+    private static int climbStairs(int n, int[] memo) {
+        if (memo[n] != 0) {
+            return memo[n];
+        }
+        int ways = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);
+        memo[n] = ways;
+        return ways;
+    }
+
+    /**
+     * Recursive(top-down) DP with memo
+     *
+     * @param n
+     * @return
+     */
+    public static int climbStairs5(int n) {
         int memo[] = new int[n + 1];
         return climbStairs(0, n, memo);
     }
