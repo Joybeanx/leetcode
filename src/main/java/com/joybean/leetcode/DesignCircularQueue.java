@@ -63,7 +63,7 @@ public class DesignCircularQueue {
      * @return
      */
     public boolean enQueue2(int value) {
-
+        return false;
     }
 
 }
