@@ -47,7 +47,7 @@ public class RemoveNthNodeFromEndOfList {
         ListNode slow = start;
         ListNode fast = start;
 
-        //Move fast in front so that the gap between slow and fast becomes n
+        //Move fast in front so that the gap between slow and fast becomes n+1
         for (int i = 0; i <= n; i++) {
             fast = fast.next;
         }
@@ -67,7 +67,7 @@ public class RemoveNthNodeFromEndOfList {
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;
