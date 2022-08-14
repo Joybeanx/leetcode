@@ -6,7 +6,14 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class IntersectionOfTwoLinkedLists {
-    public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+    /**
+     * Straight forward solution
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public static ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
         int lengthA = length(headA);
         int lengthB = length(headB);
         if (lengthA > lengthB) {
@@ -21,24 +28,7 @@ public class IntersectionOfTwoLinkedLists {
         return headA;
     }
 
-    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
-        //boundary check
-        if (headA == null || headB == null) return null;
-
-        ListNode a = headA;
-        ListNode b = headB;
-
-        //if a & b have different len, then we will stop the loop after second iteration
-        while (a != b) {
-            //for the end of first iteration, we just reset the pointer to the head of another linkedlist
-            a = a == null ? headB : a.next;
-            b = b == null ? headA : b.next;
-        }
-
-        return a;
-    }
-
-    public int length(ListNode target) {
+    public static int length(ListNode target) {
         int length = 0;
         ListNode node = target;
         while (node != null) {
@@ -48,7 +38,7 @@ public class IntersectionOfTwoLinkedLists {
         return length;
     }
 
-    public ListNode skip(ListNode target, int n) {
+    public static ListNode skip(ListNode target, int n) {
         ListNode node = target;
         for (int i = 0; i < n; i++) {
             node = node.next;
@@ -56,6 +46,24 @@ public class IntersectionOfTwoLinkedLists {
         return node;
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without
+     * -knowing-the-difference-in-len!">Two pointers without knowing the difference in length</a>
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public static ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+        while (curA != curB) {
+            //At the end of first iteration, we just reset the pointer to the head of another linked list
+            curA = curA != null ? curA.next : headB;
+            curB = curB != null ? curB.next : headA;
+        }
+        return curA;
+    }
 
     public static class ListNode {
         int val;
