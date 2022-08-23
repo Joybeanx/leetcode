@@ -50,20 +50,20 @@ public class InsertionSortList {
      * @return
      */
     public static ListNode insertionSortList2(ListNode head) {
-        ListNode sortedHead = new ListNode(0);
+        //must not specify next
+        ListNode sortedNode = new ListNode(0);
         ListNode target = head;
-        ListNode prev = sortedHead;
         while (target != null) {
             ListNode nextTarget = target.next;
-            while (prev.next != null && prev.next.val < target.val) {
+            ListNode prev = sortedNode;
+            while (prev.next != null && target.val > prev.next.val) {
                 prev = prev.next;
             }
             target.next = prev.next;
             prev.next = target;
-            prev = sortedHead;
             target = nextTarget;
         }
-        return sortedHead.next;
+        return sortedNode.next;
     }
 
     /**

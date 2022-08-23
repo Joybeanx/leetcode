@@ -14,19 +14,20 @@ public class SortList {
      * @see InsertionSortList#insertionSortList2(com.joybean.leetcode.InsertionSortList.ListNode)
      */
     public static ListNode sortList1(ListNode head) {
-        ListNode dummy = new ListNode(Integer.MIN_VALUE);
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode next = cur.next;
-            ListNode node = dummy;
-            while (node.next != null && cur.val > node.next.val) {
-                node = node.next;
+        //must not specify next
+        ListNode sortedNode = new ListNode(0);
+        ListNode target = head;
+        while (target != null) {
+            ListNode nextTarget = target.next;
+            ListNode prev = sortedNode;
+            while (prev.next != null && target.val > prev.next.val) {
+                prev = prev.next;
             }
-            cur.next = node.next;
-            node.next = cur;
-            cur = next;
+            target.next = prev.next;
+            prev.next = target;
+            target = nextTarget;
         }
-        return dummy.next;
+        return sortedNode.next;
     }
 
     /**
