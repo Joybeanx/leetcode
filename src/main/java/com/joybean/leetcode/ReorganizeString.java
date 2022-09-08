@@ -10,7 +10,8 @@ import java.util.Queue;
  */
 public class ReorganizeString {
     /**
-     * Priority queue
+     * <a href="https://leetcode.com/problems/reorganize-string/discuss/113440/Java-solution-PriorityQueue">Priority
+     * queue (by diddit)</a>
      *
      * @param s
      * @return
@@ -30,7 +31,7 @@ public class ReorganizeString {
             }
 
         }
-        int[] prev = {-1, -1};
+        int[] prev = {-1, 0};
         int[] cur;
         StringBuilder sb = new StringBuilder();
         while (!queue.isEmpty()) {
@@ -38,10 +39,8 @@ public class ReorganizeString {
             if (prev[1] > 0) {
                 queue.offer(prev);
             }
-            if (cur[1] > 0) {
-                sb.append((char)(cur[0] + 'a'));
-                cur[1]--;
-            }
+            sb.append((char)(cur[0] + 'a'));
+            cur[1]--;
             prev = cur;
         }
         return sb.toString();
