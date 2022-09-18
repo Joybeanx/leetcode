@@ -12,10 +12,9 @@ public class LongestIncreasingSubsequence {
      * @param nums
      * @return
      */
-    public static int lengthOfLIS1(int[] nums) {
-        if (nums.length == 0) {
-            return 0;
-        }
+    public int lengthOfLIS(int[] nums) {
+        int ans = 0;
+        //dp[i] stores the length of LIS that ends with nums[i]
         int[] dp = new int[nums.length];
         for (int i = 0; i < nums.length; i++) {
             dp[i] = 1;
@@ -24,17 +23,15 @@ public class LongestIncreasingSubsequence {
                     dp[i] = Math.max(dp[j] + 1, dp[i]);
                 }
             }
+            ans = Math.max(dp[i], ans);
         }
-        int max = 1;
-        for (int n : dp) {
-            max = Math.max(max, n);
-        }
-        return max;
+        return ans;
     }
 
     /**
      * Binary search
      * TODO
+     *
      * @param nums
      * @return
      */
