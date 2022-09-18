@@ -112,10 +112,16 @@ public class EditDistance {
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    //dp[i - 1][j - 1] without replace operation
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
-                    dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]);
-                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1]) + 1;
+                    // dp[i - 1][j] + delete word1[i - 1]
+                    int delete = dp[i - 1][j] + 1;
+                    // dp[i][j - 1] + insert word2[j - 1] into word1
+                    int insert = dp[i][j - 1] + 1;
+                    // dp[i - 1][j - 1] + replace word1[i - 1] with word2[j - 1]
+                    int replace = dp[i - 1][j - 1] + 1;
+                    dp[i][j] = Math.min(Math.min(delete, insert), replace);
                 }
             }
         }
