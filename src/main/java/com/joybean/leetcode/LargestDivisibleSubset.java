@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class LargestDivisibleSubset {
     /**
-     * Iterative(bottom-up) DP,which is concise but is not very efficient considering space
+     * Iterative(bottom-up) DP,concise but inefficient considering space
      *
      * @param nums
      * @return
