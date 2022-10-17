@@ -18,6 +18,7 @@ public class MaximumHeightByStackingCuboids {
         Arrays.sort(cuboids, (a, b) -> b[0] * b[1] * b[2] - a[0] * a[1] * a[2]);
         int ans = 0;
         int n = cuboids.length;
+        //dp[i][j] represents max height after stacking (i-1)th cuboids with jth dimension as its height
         int[][] dp = new int[n + 1][3];
         dp[0] = new int[]{101, 101, 101};
         for (int i = 1; i < n + 1; i++) {
