@@ -33,7 +33,7 @@ public class ArithmeticSlices {
     }
 
     /**
-     * Iterative(bottom-up) DP
+     * Optimized iterative(bottom-up) DP
      *
      * @param nums
      * @return
