@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class CountOfSubsetsWithGivenDifference {
     //TODO
-    public int subsetSum(int a[], int n, int sum) {
+    public int subsetWithDifference(int a[], int n, int diff) {
         return 0;
     }
 }
