@@ -53,4 +53,40 @@ public class MaximumHeightByStackingCuboids {
         int preLength = prevCuboids[(phd + 4) % 3];
         return curWidth <= preWidth && curLength <= preLength || curWidth <= preLength && curLength <= preWidth;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/maximum-height-by-stacking-cuboids/discuss/970293/JavaC%2B%2BPython-DP-Prove-with-Explanation">Optimized iterative(bottom-up) DP</a>
+     *
+     * @param cuboids
+     * @return
+     */
+    public static int maxHeight2(int[][] cuboids) {
+        int ans = 0;
+        for (int[] cuboid : cuboids) {
+            Arrays.sort(cuboid);
+        }
+        //A cube can only be potentially placed on top of another cube if its shortest dimension is smaller.
+        Arrays.sort(cuboids, (c1, c2) -> {
+            if (c1[0] != c2[0]) {
+                return c2[0] - c1[0];
+            }
+            if (c1[1] != c2[1]) {
+                return c2[1] - c1[1];
+            }
+            return c2[2] - c1[2];
+
+        });
+        int n = cuboids.length;
+        int[] dp = new int[n];
+        for (int i = 0; i < cuboids.length; i++) {
+            dp[i] = cuboids[i][2];
+            for (int j = 0; j < i; j++) {
+                if (cuboids[i][0] <= cuboids[j][0] && cuboids[i][1] <= cuboids[j][1] && cuboids[i][2] <= cuboids[j][2]) {
+                    dp[i] = Math.max(dp[j] + cuboids[i][2], dp[i]);
+                }
+            }
+            ans = Math.max(ans, dp[i]);
+        }
+        return ans;
+    }
 }
