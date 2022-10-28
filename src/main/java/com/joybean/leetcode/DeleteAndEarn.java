@@ -18,8 +18,8 @@ public class DeleteAndEarn {
         for (int num : nums) {
             counter[num]++;
         }
-        //dp[i][0] represents maximum points when we skip number i
-        //dp[i][1] represents maximum points when we take number i
+        //dp[i][0] represents maximum points from 0 to i, while we skip number i
+        //dp[i][1] represents maximum points from 0 to i, while we take number i
         int[][] dp = new int[n][2];
         for (int i = 1; i < n; i++) {
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
@@ -47,9 +47,9 @@ public class DeleteAndEarn {
         }
         int take = 0, skip = 0;
         for (int i = 0; i < n; i++) {
-            //maximum points from 0 to i, while you take i.
+            //maximum points from 0 to i, while we take i
             int takei = skip + sum[i];
-            //maximum points from 0 to i, while you skip i.
+            //maximum points from 0 to i, while we skip i
             int skipi = Math.max(skip, take);
             take = takei;
             skip = skipi;
@@ -77,12 +77,5 @@ public class DeleteAndEarn {
             dp[i] = Math.max(dp[i - 2] + sum[i - 2], dp[i - 1]);
         }
         return dp[n + 1];
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(deleteAndEarn1(new int[]{3, 1}));
-        System.out.println(deleteAndEarn1(new int[]{3, 4, 2}));
-        System.out.println(deleteAndEarn1(new int[]{2, 2, 3, 3, 3, 4}));
     }
 }
