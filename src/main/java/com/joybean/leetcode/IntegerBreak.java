@@ -43,4 +43,15 @@ public class IntegerBreak {
         }
         return dp[n];
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/integer-break/discuss/80689/A-simple-explanation-of-the-math-part-and-a-O(n)-solution">Math</a>
+     * TODO
+     * @param n
+     * @return
+     */
+    public static int integerBreak3(int n) {
+        return 0;
+    }
+
 }
