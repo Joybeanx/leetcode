@@ -31,4 +31,15 @@ public class LastStoneWeightII {
         }
         return sum - 2 * dp[n][target];
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/last-stone-weight-ii/solutions/294888/java-c-python-easy-knapsacks-dp/">Optimized iterative(bottom-up) DP: 0/1 knapsack</a>
+     * TODO
+     *
+     * @param stones
+     * @return
+     */
+    public static int lastStoneWeightII2(int[] stones) {
+        return 0;
+    }
 }
