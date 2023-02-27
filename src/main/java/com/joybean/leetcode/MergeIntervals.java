@@ -40,7 +40,8 @@ public class MergeIntervals {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/merge-intervals/solutions/127480/merge-intervals/?orderBy=most_votes">Add interval first andthen merge</a>
+     *
+     * <a href="https://leetcode.com/problems/merge-intervals/solutions/127480/merge-intervals/?orderBy=most_votes">Add interval first and then merge</a>
      *
      * @param intervals
      * @return
