@@ -1,7 +1,6 @@
 package com.joybean.leetcode;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -9,46 +8,25 @@ import java.util.Map;
  *
  * @author Joybean
  */
-public class LRUCache {
-    private final LinkedHashMap<Integer, Integer> cacheHolder;
-
+public class LRUCache1 {
     private int capacity;
     private Map<Integer, Node> map = new HashMap<>();
     private Node head = new Node();
     private Node tail = new Node();
     private int size = 0;
 
-    static class LRULinkedHashMap extends LinkedHashMap<Integer, Integer> {
-        private int capacity;
-
-        public LRULinkedHashMap(int capacity) {
-            super(capacity, 0.75f, true);
-            this.capacity = capacity;
-        }
-
-        @Override
-        protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
-            return this.size() > capacity;
-        }
-    }
-
-    public LRUCache(int capacity) {
-        cacheHolder = new LRULinkedHashMap(capacity);
-
+    /**
+     * HashMap and Doubly LinkedList solution
+     *
+     * @param capacity
+     */
+    public LRUCache1(int capacity) {
         this.capacity = capacity;
         head.setNext(tail);
     }
 
-    public int get1(int key) {
-        return cacheHolder.getOrDefault(key, -1);
-    }
 
-    public void put1(int key, int value) {
-        cacheHolder.put(key, value);
-    }
-
-
-    public int get2(int key) {
+    public int get(int key) {
         Node target = findByKey(key);
         if (target == null) {
             return -1;
@@ -57,7 +35,7 @@ public class LRUCache {
         return target.value;
     }
 
-    public void put2(int key, int value) {
+    public void put(int key, int value) {
         Node node = findByKey(key);
         if (node == null) {
             if (size == capacity) {
