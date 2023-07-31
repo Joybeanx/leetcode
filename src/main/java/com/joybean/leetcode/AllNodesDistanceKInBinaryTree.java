@@ -1,12 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/">All Nodes Distance K in Binary Tree</a>
@@ -14,7 +8,7 @@ import java.util.Set;
  * @author Joybean
  */
 public class AllNodesDistanceKInBinaryTree {
-    private Map<Integer, List<Integer>> graph = new HashMap<>();
+    private static Map<Integer, List<Integer>> graph = new HashMap<>();
 
     /**
      * <a href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/editorial/">DFS on equivalent Graph</a>
@@ -24,14 +18,14 @@ public class AllNodesDistanceKInBinaryTree {
      * @param k
      * @return
      */
-    public List<Integer> distanceK1(TreeNode root, TreeNode target, int k) {
+    public static List<Integer> distanceK1(TreeNode root, TreeNode target, int k) {
         List<Integer> ans = new ArrayList();
         buildGraph(root);
         dfs(target.val, k, new HashSet<>(), ans);
         return ans;
     }
 
-    private void dfs(int cur, int k, Set<Integer> visited, List<Integer> ans) {
+    private static void dfs(int cur, int k, Set<Integer> visited, List<Integer> ans) {
         if (k == 0) {
             ans.add(cur);
             return;
@@ -45,7 +39,7 @@ public class AllNodesDistanceKInBinaryTree {
         }
     }
 
-    private void buildGraph(TreeNode node) {
+    private static void buildGraph(TreeNode node) {
         if (node == null) {
             return;
         }
@@ -71,7 +65,7 @@ public class AllNodesDistanceKInBinaryTree {
      * @param k
      * @return
      */
-    public List<Integer> distanceK2(TreeNode root, TreeNode target, int k) {
+    public static List<Integer> distanceK2(TreeNode root, TreeNode target, int k) {
         return null;
     }
 
