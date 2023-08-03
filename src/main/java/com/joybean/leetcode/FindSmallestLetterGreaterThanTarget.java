@@ -44,8 +44,7 @@ public class FindSmallestLetterGreaterThanTarget {
         int right = letters.length;
         //search range [left,right)
         while (left < right) {
-            //Make mid biased to the left,so that this won't make the search range stuck
-            int mid = (left + right - 1) >>> 1;
+            int mid = (left + right) >>> 1;
             if (letters[mid] <= target) {
                 //mid must not be insert position
                 left = mid + 1;
