@@ -81,9 +81,12 @@ public class SearchInsertPosition {
                 right = mid;
             }
         }
-
-        //We need a post-processing because there is one element left at the end
-        return nums[left] < target ? left + 1 : left;
+        //handle the case that left stops at n-1 and desired insert position is n
+        //nums=[1,3] target=5
+        if (left == nums.length - 1 && nums[left] < target) {
+            return left + 1;
+        }
+        return left;
     }
 
 
