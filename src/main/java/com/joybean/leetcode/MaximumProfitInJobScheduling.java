@@ -49,4 +49,17 @@ public class MaximumProfitInJobScheduling {
         }
         return left;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling/solutions/409009/java-c-python-dp-solution/">Iterative(bottom-up) DP + TreeMap</a>
+     * TODO
+     *
+     * @param startTime
+     * @param endTime
+     * @param profit
+     * @return
+     */
+    public static int jobScheduling2(int[] startTime, int[] endTime, int[] profit) {
+        return 0;
+    }
 }
