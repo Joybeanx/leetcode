@@ -53,6 +53,7 @@ public class FindSmallestLetterGreaterThanTarget {
                 right = mid;
             }
         }
+        //Every letter in [0,left) must be less than or equal target
         return letters[left % letters.length];
     }
 }

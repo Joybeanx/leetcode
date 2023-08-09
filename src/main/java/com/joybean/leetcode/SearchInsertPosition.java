@@ -111,6 +111,7 @@ public class SearchInsertPosition {
                 right = mid;
             }
         }
+        //Every integer in [0,left) must be less than target
         return left;
     }
 
