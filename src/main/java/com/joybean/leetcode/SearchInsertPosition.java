@@ -102,8 +102,7 @@ public class SearchInsertPosition {
         int right = nums.length;
         //search range [left,right)
         while (left < right) {
-            //Always gives the lower mid,so that this won't make the search range stuck
-            int mid = (left + right - 1) >>> 1;
+            int mid = (left + right) >>> 1;
             //100% sure logic
             if (nums[mid] < target) {
                 left = mid + 1;
@@ -114,4 +113,6 @@ public class SearchInsertPosition {
         }
         return left;
     }
+
+
 }
