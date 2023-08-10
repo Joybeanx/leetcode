@@ -149,7 +149,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     }
 
     /**
-     * Two iterative binary searches 2
+     * Two iterative binary searches 3
      *
      * @param nums
      * @param target
