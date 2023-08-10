@@ -48,7 +48,6 @@ public class MaximumProfitInJobScheduling {
                 right = mid;
             }
         }
-        //endTime in [0,left) must be less than or equal target
         return left;
     }
 

@@ -82,10 +82,13 @@ public class MostProfitAssigningWork {
     }
 
     /**
-     * <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L15">Python bisect_right</a>
+     * Binary search 3:find upper bound
+     *
      * @param jobs
      * @param target
      * @return
+     * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L15">Python bisect_right</a>
+     * @see FindSmallestLetterGreaterThanTarget#nextGreatestLetter2(char[], char)
      */
     private static int binarySearch2(int[][] jobs, int target) {
         int left = 0;

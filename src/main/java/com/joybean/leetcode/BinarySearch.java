@@ -94,6 +94,10 @@ public class BinarySearch {
         int left = 0;
         int right = nums.length;
         //search range [0,nums.length)
+        //loop invariants:
+        //for each num in [0, left), num < target
+        //[left, right) is not empty, left < right
+        //for each num in [right, length), num >= target
         while (left < right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
@@ -103,7 +107,6 @@ public class BinarySearch {
                 right = mid;
             }
         }
-        //Integer in [0,left) must be less than target
         if (left != nums.length && nums[left] == target) {
             return left;
         }
