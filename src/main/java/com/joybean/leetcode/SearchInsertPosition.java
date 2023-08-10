@@ -91,11 +91,12 @@ public class SearchInsertPosition {
 
 
     /**
-     * <a href="https://leetcode.com/problems/search-insert-position/discuss/423166/Binary-Search-101">Binary search 4</a>
+     * <a href="https://leetcode.com/problems/search-insert-position/discuss/423166/Binary-Search-101">Binary search 4:find lower bound</a>
      *
      * @param nums
      * @param target
      * @return
+     * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L50">Python bisect_left</a>
      */
     public static int searchInsert4(int[] nums, int target) {
         int left = 0;
@@ -111,9 +112,8 @@ public class SearchInsertPosition {
                 right = mid;
             }
         }
-        //Every integer in [0,left) must be less than target
+        //Integer in [0,left) must be less than target
         return left;
     }
-
 
 }
