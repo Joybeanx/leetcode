@@ -16,7 +16,7 @@ public class BinarySearch {
     public static int search1(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
-        //search range [left,right]
+        //search range [0,nums.length - 1]
         while (left <= right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
@@ -42,7 +42,7 @@ public class BinarySearch {
     public static int search2(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
-        //search range [left,right)
+        //search range [0,nums.length - 1)
         while (left < right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
@@ -58,6 +58,30 @@ public class BinarySearch {
         return nums[left] == target ? left : -1;
     }
 
+
+    /**
+     * Binary search 3
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int search3(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        //search range [0,nums.length - 1)
+        while (left < right) {
+            //avoid overflow
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return nums[left] == target ? left : -1;
+    }
+
     /**
      * <a href="https://www.zhihu.com/question/36132386">Binary search 3:find lower bound</a>
      *
@@ -66,10 +90,10 @@ public class BinarySearch {
      * @return
      * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L50">Python bisect_left</a>
      */
-    public static int search3(int[] nums, int target) {
+    public static int search4(int[] nums, int target) {
         int left = 0;
         int right = nums.length;
-        //search range [left,right)
+        //search range [0,nums.length)
         while (left < right) {
             //avoid overflow
             int mid = (left + right) >>> 1;
