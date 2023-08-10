@@ -81,11 +81,19 @@ public class MostProfitAssigningWork {
         return ans;
     }
 
+    /**
+     * <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L15">Python bisect_right</a>
+     * @param jobs
+     * @param target
+     * @return
+     */
     private static int binarySearch2(int[][] jobs, int target) {
         int left = 0;
         int right = jobs.length;
+        //search range [0,jobs.length)
         while (left < right) {
             int mid = (left + right) >>> 1;
+            //100% sure logic
             if (jobs[mid][0] <= target) {
                 left = mid + 1;
             } else {
@@ -94,26 +102,6 @@ public class MostProfitAssigningWork {
         }
         return left;
     }
-
-//    private static int binarySearch3(int[][] jobs, int target) {
-//        int left = 0;
-//        int right = jobs.length;
-//        while (left < right) {
-//            int mid = (left + right + 1) >>> 1;
-//            if (jobs[mid][0] > target) {
-//                right = mid - 1;
-//            } else {
-//                left = mid;
-//            }
-//        }
-//        if (left == 0) {
-//            return -1;
-//        }
-//        if (left == jobs.length) {
-//            return jobs.length - 1;
-//        }
-//        return left;
-//    }
 
     /**
      * <a href="https://leetcode.com/problems/most-profit-assigning-work/editorial/">Sorting Events</a>

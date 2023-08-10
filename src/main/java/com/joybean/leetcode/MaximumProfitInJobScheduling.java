@@ -39,12 +39,13 @@ public class MaximumProfitInJobScheduling {
     private static int binarySearchInsertPos(int target, int endIdx, int[][] jobs) {
         int left = 0;
         int right = endIdx;
+       //search range [0,endIdx)
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (jobs[mid][1] > target) {
-                right = mid;
-            } else {
+            if (jobs[mid][1] <= target) {
                 left = mid + 1;
+            } else {
+                right = mid;
             }
         }
         //endTime in [0,left) must be less than or equal target
