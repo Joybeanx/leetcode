@@ -36,7 +36,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         int i = left;
         int j = t;
-        //Search the starting position of target in range[left,t]
+        //search range [left,t]
         while (i <= j) {
             int mid = (i + j) >>> 1;
             if (nums[mid] >= target) {
@@ -48,7 +48,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
         int p = t;
         int q = right;
-        //Search the starting position of target in range[t,right]
+        //search range [t,right]
         while (p <= q) {
             int mid = (p + q) >>> 1;
             if (nums[mid] <= target) {
@@ -74,7 +74,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         int left = 0;
         int right = nums.length - 1;
-        //Search the starting position of target in range[0,nums.length - 1)
+        //search range [0,nums.length - 1)
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (nums[mid] < target) {
@@ -88,7 +88,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         ans[0] = left;
         right = nums.length - 1;
-        //Search the ending position of target in range[left,nums.length - 1)
+        //search range [left,nums.length - 1)
         while (left < right) {
             //Make mid biased to the right,so that this won't make the search range stuck
             int mid = (left + right + 1) >>> 1;
@@ -116,7 +116,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         int left = 0;
         int right = nums.length - 1;
-        //Search the starting position of target in range[0,nums.length - 1)
+        //search range [0,nums.length - 1)
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (nums[mid] == target) {
@@ -132,7 +132,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         ans[0] = left;
         right = nums.length - 1;
-        //Search the ending position of target in range[left,nums.length - 1)
+        //search range [left,nums.length - 1)
         while (left < right) {
             //Make mid biased to the right,so that this won't make the search range stuck
             int mid = (left + right + 1) >>> 1;
@@ -148,6 +148,49 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         return ans;
     }
 
+    /**
+     * Two iterative binary searches 2
+     *
+     * @param nums
+     * @param target
+     * @return
+     * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L50">Python bisect_left</a>
+     * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L15">Python bisect_right</a>
+     */
+    public static int[] searchRange4(int[] nums, int target) {
+        int[] ans = new int[]{-1, -1};
+        if (nums.length == 0) {
+            return ans;
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        //search range [0,nums.length-1), find lower bound
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        if (nums[left] != target) {
+            return ans;
+        }
+        ans[0] = left;
+        right = nums.length;
+        //search range [0,nums.length), find upper bound
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        ans[1] = left - 1;
+        return ans;
+    }
+
 
     /**
      * Recursive binary search
@@ -156,7 +199,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @param target
      * @return
      */
-    public static int[] searchRange4(int[] nums, int target) {
+    public static int[] searchRange5(int[] nums, int target) {
         //Find any position that holds target
         int idx = getTargetIndex(nums, target, 0, nums.length - 1);
         int i = idx;
@@ -200,7 +243,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @param target
      * @return
      */
-    public static int[] searchRange5(int[] nums, int target) {
+    public static int[] searchRange6(int[] nums, int target) {
         return null;
     }
 
