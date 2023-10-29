@@ -37,6 +37,15 @@ public class SumOfFlooredPairs {
         return (int) ans;
     }
 
+    /**
+     * find lower bound
+     *
+     * @param nums
+     * @param target
+     * @param left
+     * @return
+     * @see BinarySearch#search4(int[], int)
+     */
     private static int binarySearch(int[] nums, int target, int left) {
         int right = nums.length;
         while (left < right) {
@@ -48,5 +57,16 @@ public class SumOfFlooredPairs {
             }
         }
         return left;
+    }
+
+    /**
+     * Prefix sum
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int sumOfFlooredPairs2(int[] nums) {
+        return 0;
     }
 }
