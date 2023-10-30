@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class LinkedListCycle2 {
     /**
-     * Floyd's cycle-finding algorithm
+     * Floyd's cycle detection algorithm
      *
      * @param head
      * @return

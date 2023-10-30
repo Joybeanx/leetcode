@@ -29,7 +29,7 @@ public class FindTheDuplicateNumber {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/find-the-duplicate-number/editorial/">Floyd's Tortoise and Hare</a>
+     * <a href="https://leetcode.com/problems/find-the-duplicate-number/editorial/">Floyd's cycle detection algorithm</a>
      *
      * @param nums
      * @return
