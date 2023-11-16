@@ -57,7 +57,59 @@ public class LongestPalindromicSubstring {
      * @return
      */
     public static String longestPalindrome3(String s) {
-        return null;
+        int targetStartIdx = 0;
+        int maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int k = i;
+            while (i + 1 < s.length() && s.charAt(i + 1) == s.charAt(i)) {
+                i++;
+            }
+            int right = i + 1;
+            int left = k - 1;
+            while (right < s.length() && left >= 0 && s.charAt(left) == s.charAt(right)) {
+                right++;
+                left--;
+            }
+            int length = right - left - 1;
+            if (length > maxLen) {
+                maxLen = length;
+                targetStartIdx = left + 1;
+            }
+        }
+        return s.substring(targetStartIdx, targetStartIdx + maxLen);
+    }
+
+    /**
+     * <a
+     * href="https://leetcode.com/problems/longest-palindromic-substring/solutions/151144/bottom-up-dp-two-pointers/">
+     * Optimized two pointers</a>
+     *
+     * @param s
+     * @return
+     */
+    public static String longestPalindrome4(String s) {
+        int targetStartIdx = 0;
+        int maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int right = i + 1;
+            int skipped = 0;
+            while (right < s.length() && s.charAt(i) == s.charAt(right)) {
+                right++;
+                skipped++;
+            }
+            int left = i - 1;
+            while (right < s.length() && left >= 0 && s.charAt(left) == s.charAt(right)) {
+                right++;
+                left--;
+            }
+            int length = right - left - 1;
+            if (length > maxLen) {
+                maxLen = length;
+                targetStartIdx = left + 1;
+            }
+            i += skipped;
+        }
+        return s.substring(targetStartIdx, targetStartIdx + maxLen);
     }
 
     /**
@@ -67,7 +119,7 @@ public class LongestPalindromicSubstring {
      * @param s
      * @return
      */
-    public static String longestPalindrome4(String s) {
+    public static String longestPalindrome5(String s) {
         return null;
     }
 }
