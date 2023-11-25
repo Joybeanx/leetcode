@@ -43,7 +43,7 @@ public class CoinChange {
      */
     public static int coinChange2(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
-        //initialize with amount+1
+        //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
         dp[0] = 0;
         for (int i = 1; i <= amount; i++) {
@@ -63,18 +63,17 @@ public class CoinChange {
      * @param coins
      * @param amount
      * @return
+     * @see <a href="https://leetcode.com/problems/coin-change/solutions/77385/dp-ac-java-solution-18ms-beating-95/">GrubenM</a>
      */
     public static int coinChange3(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
-        // initialize to maximum value
-        Arrays.fill(dp, Integer.MAX_VALUE);
+        //initialize array with amount+1
+        Arrays.fill(dp, amount + 1);
         dp[0] = 0;
         //put coins at outer loop to avoid some dp slots
         for (int coin : coins) {
             for (int i = coin; i <= amount; i++) {
-                if (dp[i - coin] != Integer.MAX_VALUE) {
-                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-                }
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
             }
         }
         return dp[amount] > amount ? -1 : dp[amount];
