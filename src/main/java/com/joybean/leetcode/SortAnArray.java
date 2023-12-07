@@ -1,5 +1,7 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.com/problems/sort-an-array/">Sort an Array</a>
  *
@@ -159,5 +161,109 @@ public class SortAnArray {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
+    }
+
+    /**
+     * Merge sort:allocate new array in every merge
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] sortArray5(int[] nums) {
+        return mergeSort1(nums, 0, nums.length - 1);
+    }
+
+    private static int[] mergeSort1(int[] nums, int left, int right) {
+        if (left > right) {
+            return new int[0];
+        }
+        if (left == right) {
+            return new int[] {nums[left]};
+        }
+        int mid = (left + right) >> 1;
+        int[] leftPart = mergeSort1(nums, left, mid);
+        int[] rightPart = mergeSort1(nums, mid + 1, right);
+        return merge1(leftPart, rightPart);
+    }
+
+    private static int[] merge1(int[] leftPart, int[] rightPart) {
+        int[] merged = new int[leftPart.length + rightPart.length];
+        int l = 0;
+        int r = 0;
+        int i = 0;
+        while (l < leftPart.length && r < rightPart.length) {
+            if (leftPart[l] <= rightPart[r]) {
+                merged[i++] = leftPart[l++];
+            } else {
+                merged[i++] = rightPart[r++];
+            }
+        }
+        while (l < leftPart.length) {
+            merged[i++] = leftPart[l++];
+        }
+        while (r < rightPart.length) {
+            merged[i++] = rightPart[r++];
+        }
+        return merged;
+    }
+
+    /**
+     * Merge sort:only allocate one array
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] sortArray6(int[] nums) {
+        int[] tmp = new int[nums.length];
+        mergeSort2(nums, 0, nums.length - 1, tmp);
+        return nums;
+    }
+
+    private static void mergeSort2(int[] nums, int start, int end, int[] tmp) {
+        if (start >= end) {
+            return;
+        }
+        int mid = (start + end) >> 1;
+        mergeSort2(nums, start, mid, tmp);
+        mergeSort2(nums, mid + 1, end, tmp);
+        merge2(nums, start, mid, end, tmp);
+    }
+
+    private static void merge2(int[] nums, int start, int mid, int end, int[] tmp) {
+        int l = start;
+        int r = mid + 1;
+        int k = start;
+        while (l <= mid && r <= end) {
+            if (nums[l] <= nums[r]) {
+                tmp[k++] = nums[l++];
+            } else {
+                tmp[k++] = nums[r++];
+            }
+        }
+        while (l <= mid) {
+            tmp[k++] = nums[l++];
+        }
+        while (r <= end) {
+            tmp[k++] = nums[r++];
+        }
+        for (k = start; k <= end; k++) {
+            nums[k] = tmp[k];
+        }
+
+    }
+
+    /**
+     * In-place merge sort
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] sortArray7(int[] nums) {
+        return null;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(sortArray6(new int[] {3, 2, 7, 6, 4})));
     }
 }
