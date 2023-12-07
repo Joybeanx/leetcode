@@ -1,7 +1,5 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
-
 /**
  * <a href="https://leetcode.com/problems/sort-an-array/">Sort an Array</a>
  *
@@ -261,9 +259,5 @@ public class SortAnArray {
      */
     public static int[] sortArray7(int[] nums) {
         return null;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(sortArray6(new int[] {3, 2, 7, 6, 4})));
     }
 }
