@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/accounts-merge/">Xiaozhang's problem-writing plan</a>
+ * <a href="https://leetcode.cn/problems/xiao-zhang-shua-ti-ji-hua/description/">Xiaozhang's problem-writing plan</a>
  *
  * @author Joybean
  */
