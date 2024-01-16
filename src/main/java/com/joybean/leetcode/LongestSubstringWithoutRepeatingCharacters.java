@@ -77,7 +77,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
         while (right < s.length()) {
             Character c = s.charAt(right);
             if (map.containsKey(c)) {
-                //An example is abba, if we do not do this, at the end a was already in map and will update i, but it
+                //An example is abba, if we do not do this, at the end a was already in map and will update left, but it
                 // should not update it. aka left pointer should always move forward.
                 left = Math.max(map.get(c) + 1, left);
             }
