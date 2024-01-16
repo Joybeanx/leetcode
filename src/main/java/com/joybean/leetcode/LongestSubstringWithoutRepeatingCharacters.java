@@ -2,8 +2,10 @@ package com.joybean.leetcode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">Longest Substring
@@ -43,27 +45,20 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @return
      */
     public static int lengthOfLongestSubstring2(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        int result = 0;
         int left = 0;
         int right = 0;
+        int ans = 0;
+        Set<Character> set = new HashSet<>();
         while (right < s.length()) {
-            Character current = s.charAt(right);
-            /**
-             *  equivalent to:
-             *  if (map.containsKey(current)) {
-             *    left = Math.max(map.get(current)+1, left);
-             *  }
-             */
-            while (map.containsKey(current)) {
-                map.remove(s.charAt(left));
-                left++;
+            Character c = s.charAt(right);
+            while (set.contains(c)) {
+                set.remove(s.charAt(left++));
             }
-            result = Math.max(right - left + 1, result);
-            map.put(current, right);
+            ans = Math.max(right - left + 1, ans);
+            set.add(c);
             right++;
         }
-        return result;
+        return ans;
     }
 
     /**
@@ -73,18 +68,22 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @return
      */
     public static int lengthOfLongestSubstring3(String s) {
-        int n = s.length(), ans = 0;
-        // current index of character
+        int ans = 0;
+        int left = 0;
+        int right = 0;
+        //key:current character, value: current index of character
         Map<Character, Integer> map = new HashMap<>();
-        // try to extend the range [i, j]
-        for (int right = 0, left = 0; right < n; right++) {
-            if (map.containsKey(s.charAt(right))) {
+        //abba
+        while (right < s.length()) {
+            Character c = s.charAt(right);
+            if (map.containsKey(c)) {
                 //An example is abba, if we do not do this, at the end a was already in map and will update i, but it
                 // should not update it. aka left pointer should always move forward.
-                left = Math.max(map.get(s.charAt(right)), left);
+                left = Math.max(map.get(c) + 1, left);
             }
-            ans = Math.max(ans, right - left + 1);
-            map.put(s.charAt(right), right + 1);
+            ans = Math.max(right - left + 1, ans);
+            map.put(c, right);
+            right++;
         }
         return ans;
     }
