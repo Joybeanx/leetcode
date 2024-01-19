@@ -90,15 +90,22 @@ public class MergeKSortedLists {
             return lists[left];
         }
         if (right == left + 1) {
-            return merge(lists[left], lists[right]);
+            return merge2(lists[left], lists[right]);
         }
         int mid = (left + right) >>> 1;
         ListNode leftPart = mergeSort(left, mid, lists);
         ListNode rightPart = mergeSort(mid + 1, right, lists);
-        return merge(leftPart, rightPart);
+        return merge2(leftPart, rightPart);
     }
 
-    private static ListNode merge(ListNode leftPart, ListNode rightPart) {
+    /**
+     * Iterative merge
+     *
+     * @param leftPart
+     * @param rightPart
+     * @return
+     */
+    private static ListNode merge1(ListNode leftPart, ListNode rightPart) {
         ListNode dummy = new ListNode();
         ListNode tail = dummy;
         while (leftPart != null && rightPart != null) {
@@ -122,6 +129,28 @@ public class MergeKSortedLists {
             tail = tail.next;
         }
         return dummy.next;
+    }
+
+    /**
+     * Recursive merge
+     *
+     * @param leftPart
+     * @param rightPart
+     * @return
+     */
+    private static ListNode merge2(ListNode leftPart, ListNode rightPart) {
+        if (leftPart == null) {
+            return rightPart;
+        }
+        if (rightPart == null) {
+            return leftPart;
+        }
+        if (leftPart.val <= rightPart.val) {
+            leftPart.next = merge2(leftPart.next, rightPart);
+            return leftPart;
+        }
+        rightPart.next = merge2(leftPart, rightPart.next);
+        return rightPart;
     }
 
     private static void shiftDown(ListNode[] heapNodes, int heapSize) {
