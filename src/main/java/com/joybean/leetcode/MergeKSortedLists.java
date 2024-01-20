@@ -104,6 +104,7 @@ public class MergeKSortedLists {
      * @param leftPart
      * @param rightPart
      * @return
+     * @see MergeTwoSortedLists
      */
     private static ListNode merge1(ListNode leftPart, ListNode rightPart) {
         ListNode dummy = new ListNode();
@@ -118,16 +119,7 @@ public class MergeKSortedLists {
             }
             tail = tail.next;
         }
-        while (leftPart != null) {
-            tail.next = leftPart;
-            leftPart = leftPart.next;
-            tail = tail.next;
-        }
-        while (rightPart != null) {
-            tail.next = rightPart;
-            rightPart = rightPart.next;
-            tail = tail.next;
-        }
+        tail.next = leftPart != null ? leftPart : rightPart;
         return dummy.next;
     }
 
@@ -137,6 +129,7 @@ public class MergeKSortedLists {
      * @param leftPart
      * @param rightPart
      * @return
+     * @see MergeTwoSortedLists
      */
     private static ListNode merge2(ListNode leftPart, ListNode rightPart) {
         if (leftPart == null) {
