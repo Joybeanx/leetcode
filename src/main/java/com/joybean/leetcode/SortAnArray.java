@@ -103,8 +103,8 @@ public class SortAnArray {
     }
 
     private static int partition3(int[] nums, int left, int right) {
-        int mid = (left + right) >>> 1;
-        int pivot = nums[mid];
+        //or: int pivot = nums[(left + right) >>> 1];
+        int pivot = nums[left];
         int i = left - 1;
         int j = right + 1;
         while (true) {
@@ -176,7 +176,7 @@ public class SortAnArray {
             return new int[0];
         }
         if (left == right) {
-            return new int[] {nums[left]};
+            return new int[]{nums[left]};
         }
         int mid = (left + right) >> 1;
         int[] leftPart = mergeSort1(nums, left, mid);
