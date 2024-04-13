@@ -103,8 +103,9 @@ public class SortAnArray {
     }
 
     private static int partition3(int[] nums, int left, int right) {
-        //or: int pivot = nums[(left + right) >>> 1];
-        int pivot = nums[left];
+        //or pivot = nums[left];
+        //must not be pivot = nums[right],because it would cause infinite loop in some case,such as:[1,3,5,7]
+        int pivot = nums[(left + right) >>> 1];
         int i = left - 1;
         int j = right + 1;
         while (true) {
