@@ -89,11 +89,11 @@ public class RestoreIPAddresses {
             if (startIdx + i > s.length()) {
                 break;
             }
-            String seg = s.substring(startIdx, startIdx + i);
-            if ((seg.length() > 1 && seg.startsWith("0")) || (seg.length() == 3 && seg.compareTo("255") > 0)) {
+            String part = s.substring(startIdx, startIdx + i);
+            if ((part.length() > 1 && part.startsWith("0")) || (part.length() == 3 && part.compareTo("255") > 0)) {
                 continue;
             }
-            dfs2(s, startIdx + i, remainingParts - 1, restored + seg + ".", ans);
+            dfs2(s, startIdx + i, remainingParts - 1, restored + part + ".", ans);
         }
     }
 
