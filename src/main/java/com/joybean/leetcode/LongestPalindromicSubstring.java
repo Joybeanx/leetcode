@@ -41,13 +41,28 @@ public class LongestPalindromicSubstring {
     /**
      * <a href="https://leetcode.com/problems/longest-palindromic-substring/discuss/2921/Share-my-Java-solution-using
      * -dynamic-programming">Concise DP</a>
-     * TODO
      *
      * @param s
      * @return
      */
     public static String longestPalindrome2(String s) {
-        return null;
+        int n = s.length();
+        //dp[i][j] indicates whether substring s starting at index i and ending at j is palindrome
+        boolean[][] dp = new boolean[n][n];
+        //initialize ans with s[0] instead of "" to avoid incorrect answer for case: s = "a"
+        String ans = String.valueOf(s.charAt(0));
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][i] = true;
+            for (int j = i + 1; j < n; j++) {
+                if ((j == i + 1 || dp[i + 1][j - 1]) && s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = true;
+                    if (j - i + 1 > ans.length()) {
+                        ans = s.substring(i, j + 1);
+                    }
+                }
+            }
+        }
+        return ans;
     }
 
     /**
@@ -122,4 +137,5 @@ public class LongestPalindromicSubstring {
     public static String longestPalindrome5(String s) {
         return null;
     }
+
 }
