@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class KthLargestElementInAnArray {
     /**
-     * Quick select using recursion partition
+     * Quick select
      *
      * @param nums
      * @param k
@@ -51,81 +51,60 @@ public class KthLargestElementInAnArray {
     }
 
     /**
-     * Quick select using loop partition
+     * Quick select using Hoare partition
      *
      * @param nums
      * @param k
      * @return
+     * @see SortAnArray#sortArray3(int[])
      */
     public static int findKthLargest2(int[] nums, int k) {
-        int from = 0;
-        int to = nums.length - 1;
-        while (true) {
-            int pivot = partition2(nums, from, to);
-            if (pivot > k - 1) {
-                to = pivot - 1;
-            } else if (pivot < k - 1) {
-                from = pivot + 1;
-            } else {
-                break;
-            }
-        }
-        return nums[k - 1];
+        return findKthLargestInternal(nums, 0, nums.length - 1, k - 1);
     }
 
-    private static int partition2(int[] nums, int from, int to) {
-        //random partition pivot for better performance
-        swap(from, new Random().nextInt(to - from + 1) + from, nums);
-        int i = from + 1;
-        int j = to;
-        int t = nums[from];
+    static int findKthLargestInternal(int[] nums, int i, int j, int k) {
+        if (i == j) {
+            return nums[i];
+        }
+        int pi = partition2(nums, i, j);
+        if (pi < k) {
+            return findKthLargestInternal(nums, pi + 1, j, k);
+        }
+        return findKthLargestInternal(nums, i, pi, k);
+    }
+
+    private static int partition2(int[] nums, int left, int right) {
+        int i = left - 1;
+        int j = right + 1;
+        //or pivot = nums[left]
+        //must not be pivot = nums[right],because it would cause infinite loop in some case,such as:[7, 5, 3, 1]
+        int pivot = nums[(left + right) >>> 1];
         while (true) {
-            while (i <= to && nums[i] >= t) {
+            do {
                 i++;
-            }
-            while (nums[j] < t) {
+            } while (nums[i] > pivot);
+            do {
                 j--;
-            }
-            if (i > j) {
-                break;
+            } while (nums[j] < pivot);
+            if (i >= j) {
+                return j;
             }
             swap(i, j, nums);
         }
-        swap(from, j, nums);
-        return j;
     }
 
+
     /**
-     * Quick select
+     * <a href ="https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/3906260/100-3-approaches-video-heap-quickselect-sorting/">Quick select using Lomuto partition</a>
      *
      * @param nums
      * @param k
      * @return
+     * @see BinarySearch#search4(int[], int)
+     * TODO
      */
     public static int findKthLargest3(int[] nums, int k) {
-        return nums[partition3(nums, 0, nums.length - 1, k)];
-    }
-
-    private static int partition3(int[] nums, int left, int right, int k) {
-        if (left == right) {
-            return left;
-        }
-        int pivot = nums[right];
-        int i = left;
-        for (int j = left; j < right; j++) {
-            if (nums[j] > pivot) {
-                swap(i, j, nums);
-                i++;
-            }
-        }
-        swap(i, right, nums);
-        if (i == k - 1) {
-            return i;
-        } else if (i > k - 1) {
-            return partition3(nums, left, i - 1, k);
-        } else {
-            return partition3(nums, i + 1, right, k);
-        }
+        return 0;
     }
 
     private static void swap(int i, int j, int[] nums) {

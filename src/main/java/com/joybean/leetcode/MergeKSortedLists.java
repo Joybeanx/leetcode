@@ -62,13 +62,88 @@ public class MergeKSortedLists {
         ListNode head = new ListNode();
         ListNode tail = head;
         while (!queue.isEmpty()) {
-            tail.next = queue.poll();
+            ListNode minNode = queue.poll();
+            tail.next = minNode;
             tail = tail.next;
-            if (tail.next != null) {
-                queue.offer(tail.next);
+            if (minNode.next != null) {
+                queue.offer(minNode.next);
             }
         }
         return head.next;
+    }
+
+    /**
+     * Divide and conquer
+     *
+     * @param lists
+     * @return
+     */
+    public static ListNode mergeKLists3(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        return mergeSort(0, lists.length - 1, lists);
+    }
+
+    private static ListNode mergeSort(int left, int right, ListNode[] lists) {
+        if (left == right) {
+            return lists[left];
+        }
+        if (right == left + 1) {
+            return merge2(lists[left], lists[right]);
+        }
+        int mid = (left + right) >>> 1;
+        ListNode leftPart = mergeSort(left, mid, lists);
+        ListNode rightPart = mergeSort(mid + 1, right, lists);
+        return merge2(leftPart, rightPart);
+    }
+
+    /**
+     * Iterative merge
+     *
+     * @param leftPart
+     * @param rightPart
+     * @return
+     * @see MergeTwoSortedLists
+     */
+    private static ListNode merge1(ListNode leftPart, ListNode rightPart) {
+        ListNode dummy = new ListNode();
+        ListNode tail = dummy;
+        while (leftPart != null && rightPart != null) {
+            if (leftPart.val <= rightPart.val) {
+                tail.next = leftPart;
+                leftPart = leftPart.next;
+            } else {
+                tail.next = rightPart;
+                rightPart = rightPart.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = leftPart != null ? leftPart : rightPart;
+        return dummy.next;
+    }
+
+    /**
+     * Recursive merge
+     *
+     * @param leftPart
+     * @param rightPart
+     * @return
+     * @see MergeTwoSortedLists
+     */
+    private static ListNode merge2(ListNode leftPart, ListNode rightPart) {
+        if (leftPart == null) {
+            return rightPart;
+        }
+        if (rightPart == null) {
+            return leftPart;
+        }
+        if (leftPart.val <= rightPart.val) {
+            leftPart.next = merge2(leftPart.next, rightPart);
+            return leftPart;
+        }
+        rightPart.next = merge2(leftPart, rightPart.next);
+        return rightPart;
     }
 
     private static void shiftDown(ListNode[] heapNodes, int heapSize) {

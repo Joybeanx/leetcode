@@ -9,101 +9,90 @@ import java.util.Map;
  * @author Joybean
  */
 public class LRUCache1 {
-    private int capacity;
-    private Map<Integer, Node> map = new HashMap<>();
-    private Node head = new Node();
-    private Node tail = new Node();
-    private int size = 0;
+    private final Map<Integer, Node> map;
+    /**
+     * head.next is the newest node
+     */
+    private Node head;
+    /**
+     * tail.prev is the oldest node
+     */
+    private Node tail;
+    private final int capacity;
 
     /**
      * HashMap and Doubly LinkedList solution
-     *
      * @param capacity
      */
     public LRUCache1(int capacity) {
+        this.map = new HashMap<>(capacity);
         this.capacity = capacity;
+        this.head = new Node();
+        this.tail = new Node();
         head.setNext(tail);
     }
 
-
     public int get(int key) {
-        Node target = findByKey(key);
-        if (target == null) {
+        Node node = getNode(key);
+        if (node == null) {
             return -1;
         }
-        moveToFirst(target);
-        return target.value;
+        return node.val;
+    }
+
+    private Node getNode(int key) {
+        Node node = map.get(key);
+        if (node == null) {
+            return null;
+        }
+        node.prev.setNext(node.next);
+        node.setNext(head.next);
+        head.setNext(node);
+        return node;
     }
 
     public void put(int key, int value) {
-        Node node = findByKey(key);
-        if (node == null) {
-            if (size == capacity) {
-                removeLast();
-            }
-            insertFirst(key, value);
-        } else {
-            node.value = value;
-            moveToFirst(node);
+        Node node = getNode(key);
+        if (node != null) {
+            node.val = value;
+            return;
         }
-    }
-
-
-    private Node findByKey(int key) {
-        return map.get(key);
-    }
-
-    private void moveToFirst(Node node) {
-        node.next.setPre(node.pre);
-        insertFirst0(node);
-    }
-
-    private void insertFirst(int key, int value) {
-        insertFirst(new Node(key, value));
-    }
-
-    private void insertFirst(Node node) {
-        insertFirst0(node);
-        map.put(node.key, node);
-        size++;
-    }
-
-    private void insertFirst0(Node node) {
+        node = new Node(key, value);
+        if (map.size() == capacity) {
+            Node last = tail.prev;
+            tail.setPrev(last.prev);
+            map.remove(last.key);
+        }
         node.setNext(head.next);
         head.setNext(node);
-    }
-
-    private void removeLast() {
-        Node last = tail.pre;
-        tail.setPre(last.pre);
-        map.remove(last.key);
-        size--;
+        map.put(key, node);
     }
 
 
-    static class Node {
+    private static class Node {
         private int key;
-        private int value;
-        private Node pre;
+        private int val;
+        private Node prev;
         private Node next;
 
         public Node() {
 
         }
 
-        public Node(int key, int value) {
+        public Node(int key, int val) {
             this.key = key;
-            this.value = value;
+            this.val = val;
         }
 
-        public void setPre(Node pre) {
-            this.pre = pre;
-            pre.next = this;
+        public void setPrev(Node prev) {
+            this.prev = prev;
+            this.prev.next = this;
         }
 
         public void setNext(Node next) {
             this.next = next;
-            next.pre = this;
+            this.next.prev = this;
         }
     }
+
 }
