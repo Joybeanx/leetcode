@@ -14,14 +14,14 @@ public class ReverseLinkedList {
      */
     public static ListNode reverseList1(ListNode head) {
         ListNode cur = head;
-        ListNode next = null;
+        ListNode newHead = null;
         while (cur != null) {
             ListNode tmp = cur.next;
-            cur.next = next;
-            next = cur;
+            cur.next = newHead;
+            newHead = cur;
             cur = tmp;
         }
-        return next;
+        return newHead;
     }
 
     /**
@@ -43,26 +43,7 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Recursive solution
-     *
-     * @param head
-     * @return
-     */
-    public static ListNode reverseList3(ListNode head) {
-        return helper(null, head);
-    }
-
-    private static ListNode helper(ListNode prev, ListNode cur) {
-        if (cur == null) {
-            return prev;
-        }
-        ListNode next = cur.next;
-        cur.next = prev;
-        return helper(cur, next);
-    }
-
-    /**
-     * Recursive solution 2
+     * Recursive solution: start from head, reverse the pointer between previous node and current node
      *
      * @param head
      * @return
@@ -71,22 +52,42 @@ public class ReverseLinkedList {
         if (head == null) {
             return null;
         }
-        ListNode ans = helper2(head, head.next);
+        ListNode ans = reverseList4(head, head.next);
+        //head <—> n1 <— n2 ... <— tail
         head.next = null;
         return ans;
     }
 
-    private static ListNode helper2(ListNode prev, ListNode cur) {
-        if (cur != null) {
-            ListNode next = cur.next;
-            cur.next = prev;
-            return helper2(cur, next);
+    private static ListNode reverseList4(ListNode prev, ListNode cur) {
+        if (cur == null) {
+            return prev;
         }
-        return prev;
+        ListNode next = cur.next;
+        cur.next = prev;
+        return reverseList4(cur, next);
     }
 
     /**
-     * Recursive solution 3 (by labuladong)
+     * Recursive solution: optimized version of reverseList4
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList3(ListNode head) {
+        return reverseList3(null, head);
+    }
+
+    private static ListNode reverseList3(ListNode prev, ListNode cur) {
+        if (cur == null) {
+            return prev;
+        }
+        ListNode next = cur.next;
+        cur.next = prev;
+        return reverseList3(cur, next);
+    }
+
+    /**
+     * Recursive solution (by labuladong): start from tail, reverse the pointer between previous node and current node
      *
      * @param head
      * @return
@@ -95,11 +96,35 @@ public class ReverseLinkedList {
         if (head == null || head.next == null) {
             return head;
         }
-        //head.next will become the last node of reversed list after each recursion
+        //head.next become the tail of reversed list after each recursion
+        //newHead must be the tail of original list
         ListNode newHead = reverseList5(head.next);
         head.next.next = head;
+        //head <—> n1 <— n2 ... <— tail
         head.next = null;
         return newHead;
+    }
+
+    /**
+     * Recursive solution: insert next node after dummy node
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList6(ListNode head) {
+        ListNode dummy = new ListNode(0, null);
+        reverseList6(dummy, head);
+        return dummy.next;
+    }
+
+    private static void reverseList6(ListNode dummy, ListNode cur) {
+        if (cur == null) {
+            return;
+        }
+        ListNode next = cur.next;
+        cur.next = dummy.next;
+        dummy.next = cur;
+        reverseList6(dummy, next);
     }
 
     public static class ListNode {
@@ -108,7 +133,7 @@ public class ReverseLinkedList {
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;
