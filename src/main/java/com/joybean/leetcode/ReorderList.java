@@ -67,13 +67,65 @@ public class ReorderList {
     }
 
     /**
+     * Find middle + Reverse range + Merge
+     *
+     * @param head
+     */
+    public static void reorderList3(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode slowPrev = null;
+        //find the middle
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slowPrev = slow;
+            slow = slow.next;
+        }
+        if (fast == slow) {
+            return;
+        }
+        //Split original list into two sublists
+        if (slowPrev != null) {
+            slowPrev.next = null;
+        }
+        //reverse the second sublist
+        ListNode dummy = new ListNode(0, null);
+        reverse(dummy, slow);
+
+        //merge two sublists
+        ListNode cur1 = head;
+        ListNode cur2 = dummy.next;
+        while (cur1 != null) {
+            ListNode next = cur1.next;
+            ListNode rnext = cur2.next;
+            cur1.next = cur2;
+            if (next == null) {
+                return;
+            }
+            cur2.next = next;
+            cur1 = next;
+            cur2 = rnext;
+        }
+
+    }
+
+    private static void reverse(ListNode dummy, ListNode cur) {
+        if (cur == null) {
+            return;
+        }
+        ListNode next = cur.next;
+        cur.next = dummy.next;
+        dummy.next = cur;
+        reverse(dummy, next);
+    }
+
+    /**
      * <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps">Find middle +
      * Reverse range + Merge </a>
      *
      * @param head
-     * @see <a href="https://leetcode.com/problems/reorder-list/discuss/44992/Java-solution-with-3-steps"></a>
      */
-    public static void reorderList3(ListNode head) {
+    public static void reorderList4(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
         //1:Find the second middle node
@@ -85,17 +137,17 @@ public class ReorderList {
         ListNode middle = slow;
         //2:Reverse list from the middle node
         //1->2->3<-4
-        ListNode next = null;
+        ListNode reversedHead = null;
         ListNode cur1 = middle;
         while (cur1 != null) {
             ListNode tmp = cur1.next;
-            cur1.next = next;
-            next = cur1;
+            cur1.next = reversedHead;
+            reversedHead = cur1;
             cur1 = tmp;
         }
         //3:Merge two halves
         cur1 = head;
-        ListNode cur2 = next;
+        ListNode cur2 = reversedHead;
         //[head,middle) of the second half
         while (cur2 != middle) {
             ListNode tmp1 = cur1.next;
@@ -113,7 +165,7 @@ public class ReorderList {
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;
