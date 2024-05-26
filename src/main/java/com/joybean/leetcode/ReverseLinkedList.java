@@ -106,7 +106,7 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Recursive solution: insert next node after dummy node
+     * Recursive solution: insert node after dummy node
      *
      * @param head
      * @return
