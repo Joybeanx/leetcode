@@ -40,7 +40,6 @@ public class MergeIntervals {
     }
 
     /**
-     *
      * <a href="https://leetcode.com/problems/merge-intervals/solutions/127480/merge-intervals/?orderBy=most_votes">Add interval first and then merge</a>
      *
      * @param intervals
@@ -52,8 +51,9 @@ public class MergeIntervals {
         merged.add(intervals[0]);
         for (int i = 1; i < intervals.length; i++) {
             int[] curInterval = intervals[i];
-            if (curInterval[0] <= merged.getLast()[1]) {
-                merged.getLast()[1] = Math.max(curInterval[1], merged.getLast()[1]);
+            int[] last = merged.getLast();
+            if (curInterval[0] <= last[1]) {
+                last[1] = Math.max(curInterval[1], last[1]);
             } else {
                 merged.add(curInterval);
             }
