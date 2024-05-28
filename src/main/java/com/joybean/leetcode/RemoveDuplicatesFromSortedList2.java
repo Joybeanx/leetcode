@@ -8,12 +8,40 @@ package com.joybean.leetcode;
  */
 public class RemoveDuplicatesFromSortedList2 {
     /**
-     * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/solution/">Iterative solution</a>
+     * Iterative solution
      *
      * @param head
      * @return
      */
     public static ListNode deleteDuplicates1(ListNode head) {
+        ListNode dummy = new ListNode(101, null);
+        ListNode prev = dummy;
+        ListNode tail = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            while (cur.next != null && cur.val == cur.next.val || cur.val == prev.val) {
+                prev = cur;
+                cur = cur.next;
+                if (cur == null) {
+                    return dummy.next;
+                }
+            }
+            tail.next = cur;
+            prev = cur;
+            cur = cur.next;
+            tail = tail.next;
+            tail.next = null;
+        }
+        return dummy.next;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/solution/">Iterative solution</a>
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode deleteDuplicates2(ListNode head) {
         ListNode sentinel = new ListNode(0, head);
         ListNode cur = head;
         //the last node before the sublist of duplicates
@@ -42,7 +70,7 @@ public class RemoveDuplicatesFromSortedList2 {
      * @param head
      * @return
      */
-    public static ListNode deleteDuplicates2(ListNode head) {
+    public static ListNode deleteDuplicates3(ListNode head) {
         ListNode sentinel = new ListNode(0, head);
         ListNode cur = head;
         //the last node before the sublist of duplicates
@@ -71,27 +99,31 @@ public class RemoveDuplicatesFromSortedList2 {
      * @param head
      * @return
      */
-    public static ListNode deleteDuplicates3(ListNode head) {
+    public static ListNode deleteDuplicates4(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
         if (head.val != head.next.val) {
-            head.next = deleteDuplicates3(head.next);
+            head.next = deleteDuplicates4(head.next);
             return head;
         }
         do {
             head = head.next;
         } while (head.next != null && head.val == head.next.val);
-        return deleteDuplicates3(head.next);
+        return deleteDuplicates4(head.next);
     }
+
 
     public static class ListNode {
         int val;
         ListNode next;
 
-        ListNode() {}
+        ListNode() {
+        }
 
-        ListNode(int val) {this.val = val;}
+        ListNode(int val) {
+            this.val = val;
+        }
 
         ListNode(int val, ListNode next) {
             this.val = val;

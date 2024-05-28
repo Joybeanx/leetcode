@@ -14,15 +14,12 @@ public class RemoveNthNodeFromEndOfList {
      * @return
      */
     public static ListNode removeNthFromEnd1(ListNode head, int n) {
-        ListNode dummy = new ListNode(0, head);
         ListNode fast = head;
-        int step = n;
-        while (fast != null) {
+        while (n > 0) {
             fast = fast.next;
-            if (--step == 0) {
-                break;
-            }
+            n--;
         }
+        ListNode dummy = new ListNode(0, head);
         ListNode slow = head;
         ListNode prev = dummy;
         while (fast != null) {
@@ -34,6 +31,7 @@ public class RemoveNthNodeFromEndOfList {
         return dummy.next;
     }
 
+
     /**
      * <a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/8804/Simple-Java-solution-in
      * -one-pass">Cleaner two pointers solution</a>
@@ -42,10 +40,10 @@ public class RemoveNthNodeFromEndOfList {
      * @param n
      * @return
      */
-    public static ListNode removeNthFromEnd2(ListNode head, int n) {
-        ListNode start = new ListNode(0, head);
-        ListNode slow = start;
-        ListNode fast = start;
+    public static ListNode removeNthFromEnd3(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode slow = dummy;
+        ListNode fast = dummy;
 
         //Move fast in front so that the gap between slow and fast becomes n+1
         for (int i = 0; i <= n; i++) {
@@ -58,16 +56,21 @@ public class RemoveNthNodeFromEndOfList {
         }
         //Skip the desired node
         slow.next = slow.next.next;
-        return start.next;
+        return dummy.next;
     }
+
+
 
     public static class ListNode {
         int val;
         ListNode next;
 
-        ListNode() {}
+        ListNode() {
+        }
 
-        ListNode(int val) {this.val = val;}
+        ListNode(int val) {
+            this.val = val;
+        }
 
         ListNode(int val, ListNode next) {
             this.val = val;
