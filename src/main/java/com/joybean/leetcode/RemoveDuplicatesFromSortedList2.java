@@ -7,7 +7,12 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class RemoveDuplicatesFromSortedList2 {
-
+    /**
+     * Iterative solution
+     *
+     * @param head
+     * @return
+     */
     public static ListNode deleteDuplicates1(ListNode head) {
         ListNode dummy = new ListNode(101, null);
         ListNode prev = dummy;
