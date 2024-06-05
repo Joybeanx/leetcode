@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class LetterCombinationsOfAPhoneNumber {
     /**
-     * Recursive solution 1
+     * backtracking 1
      *
      * @param digits
      * @return
@@ -35,54 +35,6 @@ public class LetterCombinationsOfAPhoneNumber {
         digitMap.put(8, Arrays.asList("t", "u", "v"));
         digitMap.put(9, Arrays.asList("w", "x", "y", "z"));
         return doCombine(digits, digitMap);
-    }
-
-    private static final String[] KEYS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
-    /**
-     * Recursive solution 2
-     *
-     * @param digits
-     * @return
-     */
-    public List<String> letterCombinations2(String digits) {
-        List<String> ret = new LinkedList<>();
-        combination("", digits, 0, ret);
-        return ret;
-    }
-
-    /**
-     * FIFO queue
-     *
-     * @param digits
-     * @return
-     */
-    public List<String> letterCombinations3(String digits) {
-        LinkedList<String> ans = new LinkedList<>();
-        if (digits.isEmpty()) {
-            return ans;
-        }
-        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        ans.add("");
-        while (ans.peek().length() != digits.length()) {
-            String remove = ans.remove();
-            String map = mapping[digits.charAt(remove.length()) - '0'];
-            for (char c : map.toCharArray()) {
-                ans.addLast(remove + c);
-            }
-        }
-        return ans;
-    }
-
-    private void combination(String prefix, String digits, int offset, List<String> ret) {
-        if (offset >= digits.length()) {
-            ret.add(prefix);
-            return;
-        }
-        String letters = KEYS[(digits.charAt(offset) - '0')];
-        for (int i = 0; i < letters.length(); i++) {
-            combination(prefix + letters.charAt(i), digits, offset + 1, ret);
-        }
     }
 
     public List<String> doCombine(String digits, Map<Integer, List<String>> digitMap) {
@@ -110,4 +62,89 @@ public class LetterCombinationsOfAPhoneNumber {
         }
         return list;
     }
+
+    /**
+     * backtracking 2
+     *
+     * @param digits
+     * @return
+     */
+    public static List<String> letterCombinations2(String digits) {
+        List<String> ans = new ArrayList<>();
+        if (digits.length() == 0) {
+            return ans;
+        }
+        Map<Character, List<String>> map = new HashMap<>();
+        map.put('2', Arrays.asList("a", "b", "c"));
+        map.put('3', Arrays.asList("d", "e", "f"));
+        map.put('4', Arrays.asList("g", "h", "i"));
+        map.put('5', Arrays.asList("j", "k", "l"));
+        map.put('6', Arrays.asList("m", "n", "o"));
+        map.put('7', Arrays.asList("p", "q", "r", "s"));
+        map.put('8', Arrays.asList("t", "u", "v"));
+        map.put('9', Arrays.asList("w", "x", "y", "z"));
+        backtrack("", digits,0, map, ans);
+        return ans;
+    }
+
+    private static void backtrack(String curPath, String digits, int offset, Map<Character, List<String>> map,
+        List<String> ans) {
+        if (curPath.length() == digits.length()) {
+            ans.add(curPath);
+            return;
+        }
+        Character digit = digits.charAt(offset);
+        for (String letter : map.get(digit)) {
+            backtrack(curPath + letter,  digits, offset + 1, map, ans);
+        }
+    }
+
+    private static final String[] LETTERS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    /**
+     * backtracking 3: optimized version of letterCombinations2
+     *
+     * @param digits
+     * @return
+     */
+    public static List<String> letterCombinations3(String digits) {
+        List<String> ret = new LinkedList<>();
+        backtrack("", digits, 0, ret);
+        return ret;
+    }
+
+    private static void backtrack(String prefix, String digits, int offset, List<String> ret) {
+        if (offset >= digits.length()) {
+            ret.add(prefix);
+            return;
+        }
+        String letters = LETTERS[(digits.charAt(offset) - '0')];
+        for (int i = 0; i < letters.length(); i++) {
+            backtrack(prefix + letters.charAt(i), digits, offset + 1, ret);
+        }
+    }
+
+    /**
+     * FIFO queue
+     *
+     * @param digits
+     * @return
+     */
+    public static List<String> letterCombinations4(String digits) {
+        LinkedList<String> ans = new LinkedList<>();
+        if (digits.isEmpty()) {
+            return ans;
+        }
+        String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        ans.add("");
+        while (ans.peek().length() != digits.length()) {
+            String remove = ans.remove();
+            String map = mapping[digits.charAt(remove.length()) - '0'];
+            for (char c : map.toCharArray()) {
+                ans.addLast(remove + c);
+            }
+        }
+        return ans;
+    }
+
 }
