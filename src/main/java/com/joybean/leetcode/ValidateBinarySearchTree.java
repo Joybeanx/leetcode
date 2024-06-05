@@ -6,21 +6,41 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class ValidateBinarySearchTree {
-    public static boolean isValidBST(TreeNode root) {
-        return isValid(root, null, null);
-    }
 
-    private static boolean isValid(TreeNode root, TreeNode min, TreeNode max) {
+     /*
+     //wrong solution
+     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
         }
-        if (min != null && root.val <= min.val) {
+        if (root.left != null && root.left.val >= root.val) {
             return false;
         }
-        if (max != null && root.val >= max.val) {
+        if (root.right != null && root.right.val <= root.val) {
             return false;
         }
-        return isValid(root.left, min, root) && isValid(root.right, root, max);
+        return isValidBST(root.left) && isValidBST(root.right);
+    }
+    */
+
+    /**
+     * Recursive solution
+     *
+     * @param root
+     * @return
+     */
+    public static boolean isValidBST1(TreeNode root) {
+        return isValidBST1(root, null, null);
+    }
+
+    public static boolean isValidBST1(TreeNode curNode, Integer max, Integer min) {
+        if (curNode == null) {
+            return true;
+        }
+        if (max != null && curNode.val >= max || min != null && curNode.val <= min) {
+            return false;
+        }
+        return isValidBST1(curNode.left, curNode.val, min) && isValidBST1(curNode.right, max, curNode.val);
     }
 
     public static class TreeNode {
@@ -30,7 +50,7 @@ public class ValidateBinarySearchTree {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
