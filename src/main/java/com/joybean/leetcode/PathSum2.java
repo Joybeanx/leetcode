@@ -10,21 +10,21 @@ import java.util.List;
  * @author Joybean
  */
 public class PathSum2 {
-    private static List<List<Integer>> ans = new ArrayList<>();
 
     /**
-     * DFS without backtracking
+     * DFS
      *
      * @param root
      * @param targetSum
      * @return
      */
     public static List<List<Integer>> pathSum1(TreeNode root, int targetSum) {
-        pathSumInternal1(root, new ArrayList<>(), targetSum);
+        List<List<Integer>> ans = new ArrayList<>();
+        pathSumInternal1(root, new ArrayList<>(), targetSum, ans);
         return ans;
     }
 
-    private static void pathSumInternal1(TreeNode root, List<Integer> curPath, int targetSum) {
+    private static void pathSumInternal1(TreeNode root, List<Integer> curPath, int targetSum, List<List<Integer>> ans) {
         if (root == null) {
             return;
         }
@@ -37,12 +37,12 @@ public class PathSum2 {
             return;
         }
         //Use a copy of current path
-        pathSumInternal1(root.left, new ArrayList<>(curPath), nextTargetSum);
-        pathSumInternal1(root.right, new ArrayList<>(curPath), nextTargetSum);
+        pathSumInternal1(root.left, new ArrayList<>(curPath), nextTargetSum, ans);
+        pathSumInternal1(root.right, new ArrayList<>(curPath), nextTargetSum, ans);
     }
 
     /**
-     * DFS without backtracking
+     * DFS
      *
      * @param root
      * @param targetSum
@@ -72,7 +72,7 @@ public class PathSum2 {
     }
 
     /**
-     * DFS with backtracking
+     * backtracking
      *
      * @param root
      * @param targetSum
@@ -109,7 +109,8 @@ public class PathSum2 {
     }
 
     /**
-     * More concise DFS with backtracking
+     * <a href="https://leetcode.com/problems/path-sum-ii/solutions/36698/another-accepted-java-solution/"> Optimized
+     * backtracking</a>
      *
      * @param root
      * @param targetSum
@@ -146,7 +147,7 @@ public class PathSum2 {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
