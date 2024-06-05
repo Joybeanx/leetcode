@@ -13,13 +13,9 @@ import java.util.Set;
  * @author Joybean
  */
 public class GenerateParentheses {
-    /**
-     * wrong solution, cannot generate:"(())(())" when n = 4
-     *
-     * @param n
-     * @return
-     */
+
     /*
+    //wrong solution, cannot generate:"(())(())" when n = 4
     public static List<String> generateParenthesis(int n) {
         Set<String> set = new HashSet<>();
         generateParenthesis(n, "", set);
