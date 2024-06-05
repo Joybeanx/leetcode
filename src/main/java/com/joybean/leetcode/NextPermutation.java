@@ -7,11 +7,33 @@ package com.joybean.leetcode;
  */
 public class NextPermutation {
     /**
-     * <a href="https://leetcode.com/problems/next-permutation/solutions/13867/c-from-wikipedia/?orderBy=most_votes">Two pointers using next lexicographical permutation algorithm</a>
+     * Two pointers
      *
      * @param nums
      */
     public static void nextPermutation1(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) {
+            return;
+        }
+        int i = n - 2;
+        while (i >= 1 && nums[i + 1] <= nums[i]) {
+            i--;
+        }
+        int j = n - 1;
+        while (j > i && nums[j] <= nums[i]) {
+            j--;
+        }
+        swap(nums, i, j);
+        reverse(nums, i == j ? 0 : i + 1, n - 1);
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/next-permutation/solutions/13867/c-from-wikipedia/?orderBy=most_votes">Two pointers using next lexicographical permutation algorithm</a>
+     *
+     * @param nums
+     */
+    public static void nextPermutation2(int[] nums) {
         int i = nums.length - 1;
         int j = i - 1;
         while (j >= 0 && nums[j] >= nums[i]) {
@@ -34,7 +56,7 @@ public class NextPermutation {
      *
      * @param nums
      */
-    public static void nextPermutation2(int[] nums) {
+    public static void nextPermutation3(int[] nums) {
         int n = nums.length;
         int k = n - 2;
         while (k >= 0 && nums[k] >= nums[k + 1]) {
@@ -65,4 +87,13 @@ public class NextPermutation {
             swap(a, i++, j--);
         }
     }
+
+    private static void reverse(int[] nums, int start, int end) {
+        int i = start;
+        int j = end;
+        while (i < j) {
+            swap(nums, i++, j--);
+        }
+    }
+
 }
