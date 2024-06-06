@@ -9,17 +9,16 @@ import java.util.Arrays;
  */
 public class CoinChange {
     /**
-     * DP iterative solution
+     * Iterative(bottom-up) DP
      *
      * @param coins
      * @param amount
      * @return
      */
-    public static int coinChange1(int[] coins, int amount) {
+    public static int coinChange2(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
-        Arrays.fill(dp, -1);
-        dp[0] = 0;
         for (int i = 1; i <= amount; i++) {
+            dp[i] = -1;
             for (int coin : coins) {
                 if (i < coin || dp[i - coin] < 0) {
                     continue;
@@ -35,13 +34,13 @@ public class CoinChange {
     }
 
     /**
-     * Better iterative(bottom-up) DP
+     * Optimized iterative(bottom-up) DP
      *
      * @param coins
      * @param amount
      * @return
      */
-    public static int coinChange2(int[] coins, int amount) {
+    public static int coinChange3(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
@@ -58,14 +57,16 @@ public class CoinChange {
     }
 
     /**
-     * Best iterative(bottom-up) DP
+     * <a
+     * href="href="https://leetcode.com/problems/coin-change/solutions/77385/dp-ac-java-solution-18ms-beating-95/">Best
+     * iterative(bottom-up) DP</a>
      *
      * @param coins
      * @param amount
      * @return
-     * @see <a href="https://leetcode.com/problems/coin-change/solutions/77385/dp-ac-java-solution-18ms-beating-95/">GrubenM</a>
+     * @see <a
      */
-    public static int coinChange3(int[] coins, int amount) {
+    public static int coinChange4(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
@@ -87,7 +88,7 @@ public class CoinChange {
      * @param amount
      * @return
      */
-    public static int coinChange4(int[] coins, int amount) {
+    public static int coinChange5(int[] coins, int amount) {
         return 0;
     }
 }
