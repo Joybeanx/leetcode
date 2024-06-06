@@ -31,13 +31,32 @@ public class Subsets {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/subsets/discuss/122645/3ms-easiest-solution-no-backtracking-no-bit
-     * -manipulation-no-dfs-no-bullshit">Iterative solution</a>
+     * Iterative solution
      *
      * @param nums
      * @return
      */
     public static List<List<Integer>> subsets2(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        ans.add(new ArrayList<>());
+        for (int i = 0; i < nums.length; i++) {
+            for (List<Integer> subset : new ArrayList<>(ans)) {
+                List<Integer> newSubset = new ArrayList<>(subset);
+                newSubset.add(nums[i]);
+                ans.add(newSubset);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/subsets/discuss/122645/3ms-easiest-solution-no-backtracking-no-bit
+     * -manipulation-no-dfs-no-bullshit">Optimized iterative solution</a>
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> subsets3(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         result.add(new ArrayList<>());
         for (int n : nums) {
@@ -57,7 +76,7 @@ public class Subsets {
      * @param nums
      * @return
      */
-    public static List<List<Integer>> subsets3(int[] nums) {
+    public static List<List<Integer>> subsets4(int[] nums) {
         return findSubsets(nums, nums.length - 1);
     }
 
@@ -83,7 +102,7 @@ public class Subsets {
      * @param nums
      * @return
      */
-    public List<List<Integer>> subsets4(int[] nums) {
+    public List<List<Integer>> subsets5(int[] nums) {
         int max_res = 1 << nums.length;
         List<List<Integer>> answer = new LinkedList<>();
         for (int i = 0; i < max_res; i++) {
@@ -103,7 +122,7 @@ public class Subsets {
      * @param nums
      * @return
      */
-    public static List<List<Integer>> subsets5(int[] nums) {
+    public static List<List<Integer>> subsets6(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         backtrack(nums, 0, new ArrayList<>(), ans);
         return ans;
