@@ -1,8 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/">Remove Duplicates from Sorted List
- * II</a>
+ * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/">Remove Duplicates from Sorted List II</a>
  *
  * @author Joybean
  */
@@ -42,11 +41,12 @@ public class RemoveDuplicatesFromSortedList2 {
      * @return
      */
     public static ListNode deleteDuplicates2(ListNode head) {
-        ListNode sentinel = new ListNode(0, head);
+        ListNode dummy = new ListNode(0, head);
         ListNode cur = head;
         //the last node before the sublist of duplicates
-        ListNode pred = sentinel;
+        ListNode pred = dummy;
         while (cur != null) {
+            //duplicates exists from current node
             if (cur.next != null && cur.val == cur.next.val) {
                 // move till the end of duplicates sublist
                 do {
@@ -56,11 +56,12 @@ public class RemoveDuplicatesFromSortedList2 {
                 pred.next = cur.next;
             } else {
                 //move predecessor
+                //or: pred = cur
                 pred = pred.next;
             }
             cur = cur.next;
         }
-        return sentinel.next;
+        return dummy.next;
     }
 
     /**
@@ -71,10 +72,10 @@ public class RemoveDuplicatesFromSortedList2 {
      * @return
      */
     public static ListNode deleteDuplicates3(ListNode head) {
-        ListNode sentinel = new ListNode(0, head);
+        ListNode dummy = new ListNode(0, head);
         ListNode cur = head;
         //the last node before the sublist of duplicates
-        ListNode pred = sentinel;
+        ListNode pred = dummy;
         while (cur != null) {
             while (cur.next != null && cur.val == cur.next.val) {
                 // move till the end of duplicates sublist
@@ -83,6 +84,7 @@ public class RemoveDuplicatesFromSortedList2 {
             //cur.val is distinct
             if (pred.next == cur) {
                 //move predecessor
+                //or: pred = cur
                 pred = pred.next;
             } else {
                 //skip all duplicates, but shouldn't move predecessor
@@ -90,7 +92,7 @@ public class RemoveDuplicatesFromSortedList2 {
             }
             cur = cur.next;
         }
-        return sentinel.next;
+        return dummy.next;
     }
 
     /**
