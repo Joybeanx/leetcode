@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/add-two-numbers/description/">Add Two Numbers</a>
+ * <a href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a>
  *
  * @author Joybean
  */

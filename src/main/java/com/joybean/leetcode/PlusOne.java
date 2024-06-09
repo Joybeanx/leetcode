@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/plus-one/description/">Plus One</a>
+ * <a href="https://leetcode.com/problems/plus-one/">Plus One</a>
  *
  * @author Joybean
  */

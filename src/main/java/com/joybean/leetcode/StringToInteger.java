@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/string-to-integer-atoi/description/">String to Integer (atoi)</a>
+ * <a href="https://leetcode.com/problems/string-to-integer-atoi/">String to Integer (atoi)</a>
  *
  * @author Joybean
  */

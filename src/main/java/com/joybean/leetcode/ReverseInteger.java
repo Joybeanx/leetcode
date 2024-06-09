@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/reverse-integer/description/">Reverse Integer</a>
+ * <a href="https://leetcode.com/problems/reverse-integer/">Reverse Integer</a>
  *
  * @author Joybean
  */

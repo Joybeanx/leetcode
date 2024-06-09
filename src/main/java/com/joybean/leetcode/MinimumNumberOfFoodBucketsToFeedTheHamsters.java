@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/minimum-number-of-food-buckets-to-feed-the-hamsters/description/">Minimum Number of Food Buckets to Feed the Hamsters</a>
+ * <a href="https://leetcode.com/problems/minimum-number-of-food-buckets-to-feed-the-hamsters/">Minimum Number of Food Buckets to Feed the Hamsters</a>
  *
  * @author Joybean
  */

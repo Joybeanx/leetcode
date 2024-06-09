@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <a href="https://leetcode.com/problems/restore-ip-addresses/description/">Restore IP Addresses</a>
+ * <a href="https://leetcode.com/problems/restore-ip-addresses/">Restore IP Addresses</a>
  *
  * @author Joybean
  */

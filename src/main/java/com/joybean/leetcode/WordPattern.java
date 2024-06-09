@@ -3,7 +3,7 @@ package com.joybean.leetcode;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * <a href="https://leetcode.com/problems/word-pattern/description/">Word Pattern</a>
+ * <a href="https://leetcode.com/problems/word-pattern/">Word Pattern</a>
  *
  * @author Joybean
  */

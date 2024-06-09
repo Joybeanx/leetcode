@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/regular-expression-matching/description/">Regular Expression Matching</a>
+ * <a href="https://leetcode.com/problems/regular-expression-matching/">Regular Expression Matching</a>
  *
  * @author Joybean
  */

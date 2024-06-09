@@ -3,7 +3,7 @@ package com.joybean.leetcode;
 import java.util.Arrays;
 
 /**
- * <a href="https://leetcode.com/problems/boats-to-save-people/description/">Boats to Save People</a>
+ * <a href="https://leetcode.com/problems/boats-to-save-people/">Boats to Save People</a>
  *
  * @author Joybean
  */

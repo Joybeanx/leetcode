@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/description/">Sum Root to Leaf Numbers</a>
+ * <a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/">Sum Root to Leaf Numbers</a>
  *
  * @author Joybean
  */

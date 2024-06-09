@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/palindrome-number/description/">Palindrome Number</a>
+ * <a href="https://leetcode.com/problems/palindrome-number/">Palindrome Number</a>
  *
  * @author Joybean
  */

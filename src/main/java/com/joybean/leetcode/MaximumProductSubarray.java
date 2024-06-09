@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <a href="https://leetcode.com/problems/maximum-product-subarray/description/">Maximum Product Subarray</a>
+ * <a href="https://leetcode.com/problems/maximum-product-subarray/">Maximum Product Subarray</a>
  *
  * @author Joybean
  */

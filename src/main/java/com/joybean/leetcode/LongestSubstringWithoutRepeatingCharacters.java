@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">Longest Substring
+ * <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring
  * Without Repeating Characters</a>
  *
  * @author Joybean

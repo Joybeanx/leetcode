@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 /**
- * <a href="https://leetcode.com/problems/lru-cache/description/">LRU Cache</a>
+ * <a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a>
  *
  * @author Joybean
  */

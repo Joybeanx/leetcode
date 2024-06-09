@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
 /**
- * <a href="https://leetcode.com/problems/multiply-strings/description/">Multiply Strings</a>
+ * <a href="https://leetcode.com/problems/multiply-strings/">Multiply Strings</a>
  *
  * @author Joybean
  */

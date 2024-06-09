@@ -3,7 +3,7 @@ package com.joybean.leetcode;
 import java.util.*;
 
 /**
- * <a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a>
+ * <a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a>
  *
  * @author Joybean
  */
