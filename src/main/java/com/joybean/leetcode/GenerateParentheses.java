@@ -13,6 +13,25 @@ import java.util.Set;
  * @author Joybean
  */
 public class GenerateParentheses {
+
+    /*
+    //wrong solution, cannot generate:"(())(())" when n = 4
+    public static List<String> generateParenthesis(int n) {
+        Set<String> set = new HashSet<>();
+        generateParenthesis(n, "", set);
+        return new ArrayList<>(set);
+    }
+
+    private static void generateParenthesis(int n, String curPath, Set<String> set) {
+        if (n == 0) {
+            set.add(curPath);
+            return;
+        }
+        generateParenthesis5(n - 1, "(" + curPath + ")", set);
+        generateParenthesis5(n - 1, "()" + curPath, set);
+        generateParenthesis5(n - 1, curPath + "()", set);
+    }*/
+
     /**
      * Ugly DP
      *
