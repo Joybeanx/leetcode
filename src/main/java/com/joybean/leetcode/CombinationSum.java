@@ -55,12 +55,11 @@ public class CombinationSum {
      */
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack(candidates, target, 0, new ArrayList<>(), ans);
+        backtrack1(new ArrayList<>(), 0, candidates, target, ans);
         return ans;
     }
 
-    private static void backtrack(int[] candidates, int target, int startIndex, List<Integer> curPath,
-        List<List<Integer>> ans) {
+    private static void backtrack1(List<Integer> curPath, int startIndex, int[] candidates, int target, List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -70,7 +69,7 @@ public class CombinationSum {
         }
         for (int i = startIndex; i < candidates.length; i++) {
             curPath.add(candidates[i]);
-            backtrack(candidates, target - candidates[i], i, curPath, ans);
+            backtrack1(curPath, i, candidates, target - candidates[i], ans);
             curPath.remove(curPath.size() - 1);
         }
     }
@@ -85,12 +84,11 @@ public class CombinationSum {
     public static List<List<Integer>> combinationSum3(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack2(candidates, target, 0, new ArrayList<>(), ans);
+        backtrack2(new ArrayList<>(), 0, candidates, target, ans);
         return ans;
     }
 
-    private static void backtrack2(int[] candidates, int target, int startIndex, List<Integer> curPath,
-        List<List<Integer>> ans) {
+    private static void backtrack2(List<Integer> curPath, int startIndex, int[] candidates, int target, List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -102,8 +100,9 @@ public class CombinationSum {
                 break;
             }
             curPath.add(candidates[i]);
-            backtrack2(candidates, newTarget, i, curPath, ans);
+            backtrack2(curPath, i, candidates, newTarget, ans);
             curPath.remove(curPath.size() - 1);
         }
     }
+
 }
