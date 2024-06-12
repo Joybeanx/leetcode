@@ -61,7 +61,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     }
 
     /**
-     * Two iterative binary searches
+     * <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/14699/clean-iterative-solution-with-two-binary-searches-with-explanation/">Two iterative binary searches</a>
      *
      * @param nums
      * @param target
