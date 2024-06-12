@@ -87,6 +87,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             return ans;
         }
         ans[0] = left;
+        // We don't have to set left to 0 the second time
         right = nums.length - 1;
         //search range [left,nums.length - 1)
         while (left < right) {
@@ -127,10 +128,12 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 right = mid - 1;
             }
         }
+        //target doesn't exist in nums
         if (nums[left] != target) {
             return ans;
         }
         ans[0] = left;
+        // We don't have to set left to 0 the second time
         right = nums.length - 1;
         //search range [left,nums.length - 1)
         while (left < right) {
@@ -144,6 +147,8 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 left = mid + 1;
             }
         }
+        //we can omit condition: "left >= nums.length || nums[left] != target"， because target must exist in nums
+        // when program goes here
         ans[1] = left;
         return ans;
     }
@@ -163,7 +168,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             return ans;
         }
         int left = 0;
-        int right = nums.length - 1;
+        int right = nums.length;
         //search range [0,nums.length-1), find lower bound
         while (left < right) {
             int mid = (left + right) >>> 1;
@@ -177,6 +182,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             return ans;
         }
         ans[0] = left;
+        // We don't have to set left to 0 the second time.
         right = nums.length;
         //search range [0,nums.length), find upper bound
         while (left < right) {
@@ -234,6 +240,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
         return getTargetIndex(nums, target, mi + 1, end);
     }
+
 
     /**
      * <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11-lines-O(log-n)">Divide and Conquer</a>
