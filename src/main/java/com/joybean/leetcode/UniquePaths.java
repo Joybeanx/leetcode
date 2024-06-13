@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class UniquePaths {
     /**
-     * Iterative(bottom-up) DP using two-dimensional array
+     * Iterative(bottom-up) DP using two-dimensional array 1
      *
      * @param m
      * @param n
@@ -29,13 +29,38 @@ public class UniquePaths {
     }
 
     /**
-     * Iterative(bottom-up) DP with state compression
+     * Iterative(bottom-up) DP using two-dimensional array: initialize dp[0][j] and dp[i][0]
      *
      * @param m
      * @param n
      * @return
      */
     public static int uniquePaths2(int m, int n) {
+        //dp[i][j] represents unique paths numbers that the robot move from point (0,0) to point(i,j)
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 0; j < n; j++) {
+            dp[0][j] = 1;
+
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+    /**
+     * Iterative(bottom-up) DP with state compression 1
+     *
+     * @param m
+     * @param n
+     * @return
+     */
+    public static int uniquePaths3(int m, int n) {
         int[] dp = new int[n + 1];
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
@@ -48,4 +73,25 @@ public class UniquePaths {
         }
         return dp[n];
     }
+
+    /**
+     * Iterative(bottom-up) DP with state compression 2
+     *
+     * @param m
+     * @param n
+     * @return
+     */
+    public static int uniquePaths4(int m, int n) {
+        int[] dp = new int[n];
+        //or: Arrays.fill(dp, 1);
+        dp[0] = 1;
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[j] = dp[j] + dp[j - 1];
+            }
+        }
+        return dp[n - 1];
+    }
+
+
 }
