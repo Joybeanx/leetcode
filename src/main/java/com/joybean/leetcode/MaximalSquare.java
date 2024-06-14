@@ -12,7 +12,7 @@ public class MaximalSquare {
      * @param matrix
      * @return
      */
-    public static int maximalSquare(char[][] matrix) {
+    public static int maximalSquare1(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
         //dp[i,j] represents the side length of the maximum square whose top right corner is the cell with index (i-1,j-1) in the original matrix
@@ -57,7 +57,7 @@ public class MaximalSquare {
      * @param matrix
      * @return
      */
-    public static int maximalSquare1(char[][] matrix) {
+    public static int maximalSquare2(char[][] matrix) {
         int m = matrix.length + 1;
         int n = matrix[0].length + 1;
         //dp[i,j] represents the side length of the maximum square whose bottom right corner is the cell with index
@@ -83,7 +83,7 @@ public class MaximalSquare {
      * @param matrix
      * @return
      */
-    public static int maximalSquare2(char[][] matrix) {
+    public static int maximalSquare3(char[][] matrix) {
         int m = matrix.length + 1;
         int n = matrix[0].length + 1;
         int[] dp = new int[n];
