@@ -44,7 +44,7 @@ public class LongestConsecutiveSequence {
      */
     public static int longestConsecutive2(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        for(int n : nums) {
+        for (int n : nums) {
             set.add(n);
         }
         int ans = 0;
@@ -60,5 +60,17 @@ public class LongestConsecutiveSequence {
             }
         }
         return ans;
-    }z
+    }
+
+
+    /**
+     * Union find
+     * TODO
+     *
+     * @param nums
+     * @return
+     */
+    public static int longestConsecutive3(int[] nums) {
+        return 0;
+    }
 }
