@@ -6,6 +6,31 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class SearchA2DMatrixII {
+     /*
+    //wrong solution：search along the diagonal first
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int s = Math.min(m, n);
+        int k = 0;
+        while (k < s && matrix[k][k] < target) {
+            k++;
+        }
+        for (int i = 0; i <= k; i++) {
+            if (i < m && k < n && matrix[i][k] == target) {
+                return true;
+            }
+        }
+        if (k - 1 >= 0) {
+            for (int i = k + 1; i < m; i++) {
+                if (i < m && matrix[i][k - 1] == target) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }*/
+
     /**
      * Search from top left corner
      *
@@ -85,4 +110,6 @@ public class SearchA2DMatrixII {
         }
         return false;
     }
+
+
 }
