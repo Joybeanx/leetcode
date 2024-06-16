@@ -16,13 +16,13 @@ public class MaxAreaOfIsland {
         int m = grid.length;
         int n = grid[0].length;
         UnionFind uf = new UnionFind(grid);
-        int[][] distances = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 0) {
                     continue;
                 }
-                for (int[] d : distances) {
+                for (int[] d : directions) {
                     int x = i + d[0];
                     int y = j + d[1];
                     if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] == 0) {
@@ -90,13 +90,41 @@ public class MaxAreaOfIsland {
 
     /**
      * DFS
-     * TODO
      *
      * @param grid
      * @return
      */
     public static int maxAreaOfIsland3(int[][] grid) {
-        return 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int ans = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = Math.max(dfs(i, j, visited, grid), ans);
+            }
+        }
+        return ans;
+    }
+
+    private static int dfs(int i, int j, boolean[][] visited, int[][] grid) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length) {
+            return 0;
+        }
+        if (visited[i][j]) {
+            return 0;
+        }
+        if (grid[i][j] == 0) {
+            return 0;
+        }
+        visited[i][j] = true;
+        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int cnt = 1;
+        for (int[] dir : directions) {
+            cnt += dfs(i + dir[0], j + dir[1], visited, grid);
+        }
+        return cnt;
     }
 
     /**
@@ -109,5 +137,6 @@ public class MaxAreaOfIsland {
     public static int maxAreaOfIsland2(int[][] grid) {
         return 0;
     }
+
 
 }
