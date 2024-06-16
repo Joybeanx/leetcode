@@ -17,13 +17,13 @@ public class SurroundedRegions {
         UnionFind uf = new UnionFind(board);
         int dummy = m * n;
         //Only go forward and downward
-        int[][] distances = {{1, 0}, {0, 1}};
+        int[][] directionns = {{1, 0}, {0, 1}};
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 'O') {
-                    for (int[] distance : distances) {
-                        int x = i + distance[0];
-                        int y = j + distance[1];
+                    for (int[] d : directionns) {
+                        int x = i + d[0];
+                        int y = j + d[1];
                         if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'O') {
                             uf.union(i * n + j, x * n + y);
                         }

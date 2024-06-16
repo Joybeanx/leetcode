@@ -24,16 +24,16 @@ public class CountSubIslands {
         UnionFind uf = new UnionFind(grid2);
         //Store the points which represents land in grid2 but represents water in grid1
         List<Integer> extraLandsOfGrid2 = new ArrayList<>();
-        int[][] distances = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid2[i][j] == 1) {
                     if (grid1[i][j] == 0) {
                         extraLandsOfGrid2.add(i * n + j);
                     }
-                    for (int[] distance : distances) {
-                        int x = i + distance[0];
-                        int y = j + distance[1];
+                    for (int[] d : directions) {
+                        int x = i + d[0];
+                        int y = j + d[1];
                         if (x >= 0 && x < m && y >= 0 && y < n && grid2[x][y] == 1) {
                             uf.union(i * n + j, x * n + y);
                         }

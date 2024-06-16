@@ -17,13 +17,13 @@ public class NumberOfIslands {
         int m = grid.length;
         int n = grid[0].length;
         UnionFind uf = new UnionFind(grid);
-        int[][] distances = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '1') {
-                    for (int[] distance : distances) {
-                        int x = i + distance[0];
-                        int y = j + distance[1];
+                    for (int[] d : directions) {
+                        int x = i + d[0];
+                        int y = j + d[1];
                         if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == '1') {
                             uf.union(i * n + j, x * n + y);
                         }
