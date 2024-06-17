@@ -1,10 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/binary-tree-right-side-view/">Binary Tree Right Side View</a>
@@ -73,6 +69,33 @@ public class BinaryTreeRightSideView {
         return ans;
     }
 
+
+    /**
+     * Reverse preorder traversal: use HashSet to track levels of which right most nodes has been found
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView3(TreeNode root) {
+        Set<Integer> rightMostNodeFoundLevels = new HashSet<>();
+        List<Integer> ans = new ArrayList<>();
+        rightView(root, 0, rightMostNodeFoundLevels, ans);
+        return ans;
+    }
+
+    private void rightView(TreeNode cur, int level, Set<Integer> rightMostNodeFoundLevels, List<Integer> ans) {
+        if (cur == null) {
+            return;
+        }
+
+        if (!rightMostNodeFoundLevels.contains(level)) {
+            rightMostNodeFoundLevels.add(level);
+            ans.add(cur.val);
+        }
+        rightView(cur.right, level + 1, rightMostNodeFoundLevels, ans);
+        rightView(cur.left, level + 1, rightMostNodeFoundLevels, ans);
+    }
+
     /**
      * <a href="https://leetcode.com/problems/binary-tree-right-side-view/discuss/56012/My-simple-accepted-solution(JAVA)">
      * Reverse preorder traversal</a>
@@ -80,7 +103,7 @@ public class BinaryTreeRightSideView {
      * @param root
      * @return
      */
-    public static List<Integer> rightSideView3(TreeNode root) {
+    public static List<Integer> rightSideView4(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         rightView(root, result, 0);
         return result;
@@ -103,9 +126,12 @@ public class BinaryTreeRightSideView {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
