@@ -113,7 +113,7 @@ public class BinaryTreeRightSideView {
         if (curr == null) {
             return;
         }
-        //Make sure the right most element of that level will be added the the result list
+        //Make sure the right most element of that level will be added the result list
         if (currDepth == result.size()) {
             result.add(curr.val);
         }
