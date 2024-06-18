@@ -29,37 +29,6 @@ public class WordSearch {
         return false;
     }
 
-    public static boolean exist2(char[][] board, String word) {
-        char[] w = word.toCharArray();
-        for (int y = 0; y < board.length; y++) {
-            for (int x = 0; x < board[y].length; x++) {
-                if (exist(board, y, x, w, 0)) return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * No extra space
-     * @param board
-     * @param y
-     * @param x
-     * @param word
-     * @param i
-     * @return
-     */
-    private static boolean exist(char[][] board, int y, int x, char[] word, int i) {
-        if (i == word.length) return true;
-        if (y < 0 || x < 0 || y == board.length || x == board[y].length) return false;
-        if (board[y][x] != word[i]) return false;
-        board[y][x] ^= 256;
-        boolean exist = exist(board, y, x + 1, word, i + 1)
-                || exist(board, y, x - 1, word, i + 1)
-                || exist(board, y + 1, x, word, i + 1)
-                || exist(board, y - 1, x, word, i + 1);
-        board[y][x] ^= 256;
-        return exist;
-    }
 
     private static boolean tryAdvance(Node curNode, int index, String word, char[][] board, Set<Node> traversedNodes) {
         if (index > word.length() - 1) {
@@ -73,7 +42,7 @@ public class WordSearch {
             if (node.x >= 0 && node.x < rows && node.y >= 0 && node.y < columns) {
                 Set<Node> traversedNodesCopy = new HashSet<>(traversedNodes);
                 if (board[node.x][node.y] == target && traversedNodesCopy.add(node)) {
-                    if (tryAdvance(node, index+1, word, board, traversedNodesCopy)) {
+                    if (tryAdvance(node, index + 1, word, board, traversedNodesCopy)) {
                         return true;
                     }
                 }
@@ -81,6 +50,7 @@ public class WordSearch {
         }
         return false;
     }
+
 
     static class Node {
         private int x;
@@ -121,6 +91,102 @@ public class WordSearch {
 
             return Objects.hash(x, y);
         }
+    }
+
+
+    /**
+     * DFS using extra visited array
+     *
+     * @param board
+     * @param word
+     * @return
+     */
+    public static boolean exist2(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                if (exist2(row, col, 0, new boolean[m][n], board, word)) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+
+    private static boolean exist2(int row, int col, int wordIndex, boolean[][] visited, char[][] board, String word) {
+        //wordIndex >= word.length() is unnecessary
+        if (row < 0 || col < 0 || row >= board.length || col >= board[0].length) {
+            return false;
+        }
+        if (visited[row][col]) {
+            return false;
+        }
+        if (board[row][col] != word.charAt(wordIndex)) {
+            return false;
+        }
+        //Mark this cell visited
+        visited[row][col] = true;
+        if (wordIndex == word.length() - 1) {
+            return true;
+        }
+        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        for (int[] direction : directions) {
+            if (exist2(row + direction[0], col + direction[1], wordIndex + 1, visited, board, word)) {
+                return true;
+            }
+        }
+        //Restore this cell to unvisited
+        visited[row][col] = false;
+        return false;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/word-search/solutions/27658/accepted-very-short-java-solution-no-additional-space/">DFS without extra space</a>
+     *
+     * @param board
+     * @param word
+     * @return
+     */
+    public static boolean exist3(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                if (exist3(row, col, 0, board, word)) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+
+    private static boolean exist3(int row, int col, int wordIndex, char[][] board, String word) {
+        if (wordIndex == word.length()) {
+            return true;
+        }
+        if (row < 0 || col < 0 || row >= board.length || col >= board[0].length) {
+            return false;
+        }
+        if (board[row][col] != word.charAt(wordIndex)) {
+            return false;
+        }
+        //Mark this cell visited
+        board[row][col] ^= 1;
+        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        for (int[] direction : directions) {
+            if (exist3(row + direction[0], col + direction[1], wordIndex + 1, board, word)) {
+                return true;
+            }
+        }
+        //Apply XOR twice to get the original character back
+        board[row][col] ^= 1;
+        return false;
     }
 
 }
