@@ -62,17 +62,6 @@ public class OddEvenLinkedList {
         return head;
     }
 
-    public static ListNode oddEvenList2(ListNode head, boolean odd) {
-        ListNode oddTail = head.next;
-        ListNode node = oddEvenList2(head.next, !odd);
-        if (odd) {
-            head.next = node;
-            return head;
-        }
-
-        return
-    }
-
     public static class ListNode {
         int val;
         ListNode next;
