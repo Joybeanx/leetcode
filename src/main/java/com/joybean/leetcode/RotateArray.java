@@ -7,15 +7,18 @@ package com.joybean.leetcode;
  */
 public class RotateArray {
     /**
-     * Two pointers
+     * Two pointers: reverse thrice
      *
      * @param nums
      * @param k
      */
     public static void rotate1(int[] nums, int k) {
         k = k % nums.length;
-        reverse(nums, 0, nums.length - k - 1);
+        //[1 2 3 4 5 6] ——> [1 2 3 4 6 5]
         reverse(nums, nums.length - k, nums.length - 1);
+        //[1 2 3 4 6 5] ——> [4 3 2 1 6 5]
+        reverse(nums, 0, nums.length - k - 1);
+        //[4 3 2 1 6 5] ——> [5 6 1 2 3 4]
         reverse(nums, 0, nums.length - 1);
     }
 
@@ -41,4 +44,5 @@ public class RotateArray {
     public static void rotate2(int[] nums, int k) {
 
     }
+
 }

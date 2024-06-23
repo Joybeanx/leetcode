@@ -19,7 +19,7 @@ public class Pow {
         }
         double ans = 1d;
 
-        for (long i = 0; i < Math.abs((long) n); i++) {
+        for (long i = 0; i < Math.abs((long)n); i++) {
             ans *= x;
         }
         if (n < 0) {
@@ -30,27 +30,61 @@ public class Pow {
     }
 
     /**
-     * Recursive solution
+     * Recursive solution: double myPow
      *
      * @param x
      * @param n
      * @return
      */
     public static double myPow2(double x, int n) {
-        if (n == 1) {
-            return x;
-        }
-        if (n == -1) {
-            return 1 / x;
-        }
         if (n == 0) {
             return 1;
         }
-        double ans = myPow2(x, n / 2);
-        ans *= ans;
+        double pow = myPow2(x, n >>> 1);
+        pow *= pow;
         if ((n & 1) == 1) {
-            ans = ans * (n < 0 ? (1 / x) : x);
+            pow = pow * (n < 0 ? (1 / x) : x);
         }
-        return ans;
+        return pow;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/powx-n/solutions/19544/5-different-choices-when-talk-with-interviewers
+     * /">Recursive solution: nest myPow</a>
+     * TODO
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public static double myPow3(double x, int n) {
+        return 0d;
+    }
+
+    /**
+     * <a href=
+     * "https://leetcode.com/problems/powx-n/solutions/19544/5-different-choices-when-talk-with-interviewers/">Recursive
+     * solution: double x</a>
+     * TODO
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public static double myPow4(double x, int n) {
+        return 0d;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-log-n-easy-faster-than-100
+     * -explained/">Iterative solution</a>
+     * TODO
+     *
+     * @param x
+     * @param n
+     * @return
+     */
+    public static double myPow5(double x, int n) {
+        return 0d;
     }
 }
