@@ -95,6 +95,32 @@ public class ContainerWithMostWater {
         return ans;
     }
 
+    /*
+    //wrong solution,failed case: [2,3,4,5,18,17,6],output: 15, expected: 17
+    public static int maxArea(int[] height) {
+        int left = 1;
+        int right = height.length - 2;
+        int leftMax = 0;
+        int rightMax = height.length - 1;
+        int ans = (rightMax - leftMax) * Math.min(height[leftMax], height[rightMax]);
+        while (left < right) {
+            if (height[left] <= height[leftMax]) {
+                left++;
+            } else {
+                leftMax = left;
+                ans = Math.max((rightMax - leftMax) * Math.min(height[leftMax], height[rightMax]), ans);
+            }
+            if (height[right] <= height[rightMax]) {
+                right--;
+            } else {
+                rightMax = right;
+                ans = Math.max((rightMax - leftMax) * Math.min(height[leftMax], height[rightMax]), ans);
+            }
+        }
+        return ans;
+    }
+    */
+
     /**
      * Two pointers: more calculation, less code
      *
@@ -107,8 +133,12 @@ public class ContainerWithMostWater {
         int right = height.length - 1;
         while (left < right) {
             ans = Math.max(ans, Math.min(height[left], height[right]) * (right - left));
+            //Moving right would not increase the potential area because the height of the left container is the
+            // limiting factor.
             if (height[left] < height[right]) {
                 left++;
+            //Moving left would not increase the potential area because the height of the right container is the
+            //limiting factor.
             } else {
                 right--;
             }
