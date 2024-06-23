@@ -6,7 +6,8 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class FlattenBinaryTreeToLinkedList {
-    private static TreeNode prev = null;
+
+
 
     public static void flatten1(TreeNode root) {
         if (root == null) {
@@ -16,6 +17,27 @@ public class FlattenBinaryTreeToLinkedList {
         TreeNode right = root.right;
         flatten1(left);
         flatten1(right);
+        if (left != null) {
+            TreeNode tailOfFlattenedLeft = left;
+            while (tailOfFlattenedLeft.right != null) {
+                tailOfFlattenedLeft = tailOfFlattenedLeft.right;
+            }
+            tailOfFlattenedLeft.right = right;
+            root.right = left;
+        } else {
+            root.right = right;
+        }
+        root.left = null;
+    }
+
+    public static void flatten2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        flatten2(left);
+        flatten2(right);
         root.right = left;
         TreeNode flattenedTail = root;
         while (flattenedTail.right != null) {
@@ -25,18 +47,20 @@ public class FlattenBinaryTreeToLinkedList {
         root.left = null;
     }
 
+    private static TreeNode prev = null;
+
     /**
      * https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal
      * -Java-solution-for-share
      *
      * @param root
      */
-    public static void flatten2(TreeNode root) {
+    public static void flatten3(TreeNode root) {
         if (root == null) {
             return;
         }
-        flatten2(root.right);
-        flatten2(root.left);
+        flatten3(root.right);
+        flatten3(root.left);
         root.right = prev;
         root.left = null;
         prev = root;
@@ -47,9 +71,12 @@ public class FlattenBinaryTreeToLinkedList {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
