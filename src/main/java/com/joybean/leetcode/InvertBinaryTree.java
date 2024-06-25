@@ -14,6 +14,23 @@ public class InvertBinaryTree {
      */
     public static TreeNode invertTree1(TreeNode root) {
         if (root == null) {
+            return root;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        root.left = invertTree1(right);
+        root.right = invertTree1(left);
+        return root;
+    }
+
+    /**
+     * DFS
+     *
+     * @param root
+     * @return
+     */
+    public static TreeNode invertTree2(TreeNode root) {
+        if (root == null) {
             return null;
         }
         TreeNode left = invertTree1(root.left);
@@ -30,7 +47,7 @@ public class InvertBinaryTree {
      * @param root
      * @return
      */
-    public static TreeNode invertTree2(TreeNode root) {
+    public static TreeNode invertTree3(TreeNode root) {
         return null;
     }
 
@@ -41,7 +58,7 @@ public class InvertBinaryTree {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
