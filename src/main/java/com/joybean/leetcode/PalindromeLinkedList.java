@@ -6,6 +6,40 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class PalindromeLinkedList {
+
+    public static boolean isPalindrome3(ListNode head) {
+        ListNode cur = head;
+        int n = 0;
+        while (cur != null) {
+            cur = cur.next;
+            n++;
+        }
+        int k = n / 2;
+        cur = head;
+        ListNode dummy = new ListNode(0);
+        while (k-- > 0) {
+            ListNode next = cur.next;
+            cur.next = dummy.next;
+            dummy.next = cur;
+            cur = next;
+        }
+        if (k % 2 != 0) {
+            cur = cur.next;
+        }
+        ListNode reversedLeftHalfHead = dummy.next;
+        ListNode rightHalfHead = cur;
+        while (reversedLeftHalfHead != null && rightHalfHead != null) {
+            if (reversedLeftHalfHead.val != rightHalfHead.val) {
+                return false;
+            }
+            reversedLeftHalfHead = reversedLeftHalfHead.next;
+            rightHalfHead = rightHalfHead.next;
+        }
+        return true;
+    }
+    
+    
+    
     /**
      * Iterative solution:reversed left half == right half?
      *
@@ -62,13 +96,15 @@ public class PalindromeLinkedList {
         return false;
     }
 
+
+
     public static class ListNode {
         int val;
         ListNode next;
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;

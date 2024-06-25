@@ -1,7 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
 /**
  * <a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a>
@@ -16,12 +15,12 @@ public class DailyTemperatures {
      * @return
      */
     public static int[] dailyTemperatures1(int[] temperatures) {
-        int[] ans = new int[temperatures.length];
-        Deque<Integer> stack = new ArrayDeque<>();
-        stack.push(0);
-        for (int i = 1; i < temperatures.length; i++) {
-            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
-                ans[stack.peek()] = i - stack.poll();
+        int n = temperatures.length;
+        int[] ans = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {
+                ans[stack.peek()] = i - stack.pop();
             }
             stack.push(i);
         }
