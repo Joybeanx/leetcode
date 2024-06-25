@@ -15,7 +15,8 @@ public class MaximalSquare {
     public static int maximalSquare1(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        //dp[i,j] represents the side length of the maximum square whose top right corner is the cell with index (i-1,j-1) in the original matrix
+        //dp[i,j] represents the side length of the maximum square whose top right corner is the cell with index
+        // (i-1,j-1) in the original matrix
         int dp[][] = new int[m + 1][n + 1];
         int maxLen = 0;
         for (int i = 1; i <= m; i++) {
@@ -51,13 +52,40 @@ public class MaximalSquare {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/maximal-square/solutions/600149/python-thinking-process-diagrams-dp
-     * -approach/">Concise iterative(bottom-up) DP</a>
+     * Iterative(bottom-up) DP: calculate max side length by surrounding squares
      *
      * @param matrix
      * @return
      */
     public static int maximalSquare2(char[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        //dp[i,j] represents the side length of the maximum square whose bottom right corner is the cell with index
+        // (i,j) in the original matrix
+        int[][] dp = new int[m][n];
+        int maxSideLen = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '1') {
+                    dp[i][j] = 1;
+                    if (i >= 1 && j >= 1) {
+                        dp[i][j] = Math.min(dp[i][j - 1], Math.min(dp[i - 1][j], dp[i - 1][j - 1])) + 1;
+                    }
+                    maxSideLen = Math.max(dp[i][j], maxSideLen);
+                }
+            }
+        }
+        return maxSideLen * maxSideLen;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/maximal-square/solutions/600149/python-thinking-process-diagrams-dp
+     * -approach/">Iterative(bottom-up) DP: calculate max side length by surrounding squares</a>
+     *
+     * @param matrix
+     * @return
+     */
+    public static int maximalSquare3(char[][] matrix) {
         int m = matrix.length + 1;
         int n = matrix[0].length + 1;
         //dp[i,j] represents the side length of the maximum square whose bottom right corner is the cell with index
@@ -83,7 +111,7 @@ public class MaximalSquare {
      * @param matrix
      * @return
      */
-    public static int maximalSquare3(char[][] matrix) {
+    public static int maximalSquare4(char[][] matrix) {
         int m = matrix.length + 1;
         int n = matrix[0].length + 1;
         int[] dp = new int[n];
