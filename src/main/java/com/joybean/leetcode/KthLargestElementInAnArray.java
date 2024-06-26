@@ -51,6 +51,42 @@ public class KthLargestElementInAnArray {
     }
 
     /**
+     * <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/60294/solution-explained/">Quick
+     * select using Lomuto partition</a>
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int findKthLargest2(int[] nums, int k) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (true) {
+            int pivot = lomutoPartition(left, right, nums);
+            if (pivot < nums.length - k) {
+                left = pivot + 1;
+            } else if (pivot > nums.length - k) {
+                right = pivot - 1;
+            } else if (pivot == nums.length - k) {
+                return nums[pivot];
+            }
+        }
+    }
+
+    private static int lomutoPartition(int start, int end, int[] nums) {
+        //must not declare pivot as nums[(left + right) >>> 1]
+        int pivot = nums[end];
+        int k = start;
+        for (int i = start; i <= end; i++) {
+            if (nums[i] < pivot) {
+                swap(k++, i, nums);
+            }
+        }
+        swap(k, end, nums);
+        return k;
+    }
+
+    /**
      * Quick select using Hoare partition
      *
      * @param nums
@@ -58,22 +94,22 @@ public class KthLargestElementInAnArray {
      * @return
      * @see SortAnArray#sortArray3(int[])
      */
-    public static int findKthLargest2(int[] nums, int k) {
-        return findKthLargestInternal(nums, 0, nums.length - 1, k - 1);
+    public static int findKthLargest3(int[] nums, int k) {
+        return quickSelect(nums, 0, nums.length - 1, k - 1);
     }
 
-    static int findKthLargestInternal(int[] nums, int i, int j, int k) {
+    static int quickSelect(int[] nums, int i, int j, int k) {
         if (i == j) {
             return nums[i];
         }
-        int pi = partition2(nums, i, j);
+        int pi = hoarePartition(nums, i, j);
         if (pi < k) {
-            return findKthLargestInternal(nums, pi + 1, j, k);
+            return quickSelect(nums, pi + 1, j, k);
         }
-        return findKthLargestInternal(nums, i, pi, k);
+        return quickSelect(nums, i, pi, k);
     }
 
-    private static int partition2(int[] nums, int left, int right) {
+    private static int hoarePartition(int[] nums, int left, int right) {
         int i = left - 1;
         int j = right + 1;
         //or pivot = nums[left]
@@ -93,23 +129,10 @@ public class KthLargestElementInAnArray {
         }
     }
 
-
-    /**
-     * <a href ="https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/3906260/100-3-approaches-video-heap-quickselect-sorting/">Quick select using Lomuto partition</a>
-     *
-     * @param nums
-     * @param k
-     * @return
-     * @see BinarySearch#search4(int[], int)
-     * TODO
-     */
-    public static int findKthLargest3(int[] nums, int k) {
-        return 0;
-    }
-
     private static void swap(int i, int j, int[] nums) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
 }
