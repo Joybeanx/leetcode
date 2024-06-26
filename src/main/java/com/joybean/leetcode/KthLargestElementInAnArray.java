@@ -77,7 +77,7 @@ public class KthLargestElementInAnArray {
         //must not declare pivot as nums[(left + right) >>> 1]
         int pivot = nums[end];
         int k = start;
-        for (int i = start; i <= end; i++) {
+        for (int i = start; i < end; i++) {
             if (nums[i] < pivot) {
                 swap(k++, i, nums);
             }
