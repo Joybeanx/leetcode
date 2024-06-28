@@ -9,6 +9,7 @@ public class ProductOfArrayExceptSelf {
 
     /**
      * Prefix & Suffix product: O(n) space
+     *
      * @param nums
      * @return
      */
@@ -33,12 +34,35 @@ public class ProductOfArrayExceptSelf {
     }
 
     /**
-     * Prefix & Suffix product: O(1) space
+     * Prefix & Suffix product: O(n) space
      *
      * @param nums
      * @return
      */
     public static int[] productExceptSelf2(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        ans[0] = 1;
+        for (int i = 1; i < n; i++) {
+            ans[i] = ans[i - 1] * nums[i - 1];
+        }
+
+        int suffixProduct = 1;
+        for (int i = n - 2; i >= 0; i--) {
+            suffixProduct *= nums[i + 1];
+            ans[i] *= suffixProduct;
+
+        }
+        return ans;
+    }
+
+    /**
+     * Prefix & Suffix product: O(1) space
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] productExceptSelf3(int[] nums) {
         int[] ans = new int[nums.length];
         ans[0] = 1;
         for (int i = 1; i < nums.length; i++) {
