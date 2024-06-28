@@ -25,6 +25,7 @@ public class NumberOfIslands {
                         int x = i + d[0];
                         int y = j + d[1];
                         if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == '1') {
+                            //may union twice: (x,y) (y,x)
                             uf.union(i * n + j, x * n + y);
                         }
                     }
@@ -32,6 +33,7 @@ public class NumberOfIslands {
             }
         }
         return uf.count();
+
     }
 
     public static class UnionFind {
@@ -75,6 +77,7 @@ public class NumberOfIslands {
 
         private int find(int x) {
             while (parents[x] != x) {
+                //path compression
                 parents[x] = parents[parents[x]];
                 x = parents[x];
             }
