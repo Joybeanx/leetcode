@@ -65,6 +65,46 @@ public class IntersectionOfTwoLinkedLists {
         return curA;
     }
 
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode cur1 = headA;
+        ListNode cur2 = headB;
+        int n1 = 0;
+        int n2 = 0;
+        while (cur1 != null) {
+            cur1 = cur1.next;
+            n1++;
+        }
+
+        while (cur2 != null) {
+            cur2 = cur2.next;
+            n2++;
+        }
+        if (n1 < n2) {
+            cur1 = headB;
+            int k = n2 - n1;
+            while (k-- > 0) {
+                cur1 = cur1.next;
+            }
+            cur2=headA;
+        } else {
+            cur2 = headA;
+            int k = n1 - n2;
+            while (k-- > 0) {
+                cur2 = cur2.next;
+            }
+            cur1=headB;
+        }
+        while(cur1!=null && cur2!=null){
+            if(cur1==cur2){
+                return cur1;
+            }
+            cur1=cur1.next;
+            cur2=cur2.next;
+        }
+        return null;
+    }
+
     public static class ListNode {
         int val;
         ListNode next;
