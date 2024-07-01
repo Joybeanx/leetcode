@@ -96,7 +96,8 @@ public class MaximumProductSubarray {
             }
             return _max;
         }
-        //If count of negative numbers is odd, possible maximum product in this partition is either multiply from start index to the last index of negative number(exclusive)
+        //If count of negative numbers is odd, possible maximum product in this partition is either multiply from
+        // start index to the last index of negative number(exclusive)
         //or from end index to the first index of negative number(exclusive)
         int max1 = Integer.MIN_VALUE;
         int max2 = Integer.MIN_VALUE;
@@ -110,42 +111,48 @@ public class MaximumProductSubarray {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/maximum-product-subarray/solutions/183483/java-c-python-it-can-be-more-simple/">Calculate prefix product and suffix product</a>
+     * <a
+     * href="https://leetcode.com/problems/maximum-product-subarray/solutions/183483/java-c-python-it-can-be-more
+     * -simple/">Calculate prefix product and suffix product</a>
      *
      * @param nums
      * @return
      */
     public static int maxProduct2(int nums[]) {
         int n = nums.length;
-        int lmax = 1;
-        int rmax = 1;
-        int ans = 0;
+        //we should use double rather than long or int to avoid overflow: [0,10,10,10,10,10,10,10,10,10,-10,10,10,10,10,10,10,10,10,10,0]
+        double lmax = 1;
+        double rmax = 1;
+        Double ans = -Double.MAX_VALUE;
         for (int i = 0; i < n; i++) {
             lmax = (lmax == 0 ? 1 : lmax) * nums[i];
             rmax = (rmax == 0 ? 1 : rmax) * nums[n - i - 1];
             ans = Math.max(Math.max(lmax, rmax), ans);
         }
-        return ans;
+        return ans.intValue();
     }
 
     /**
-     * <a href="https://leetcode.cn/problems/maximum-product-subarray/solutions/69381/dpfang-fa-xiang-jie-by-yang-cong-12/?envType=problem-list-v2&envId=2cktkvj">DP solution</a>
+     * <a href="https://leetcode.cn/problems/maximum-product-subarray/solutions/69381/dpfang-fa-xiang-jie-by-yang-cong-12/">DP solution</a>
      *
      * @param nums
      * @return
      */
     public static int maxProduct3(int nums[]) {
         int n = nums.length;
-        int min = nums[0];
-        int max = nums[0];
-        int ans = nums[0];
+        //we should use double rather than long or int to avoid overflow: [0,10,10,10,10,10,10,10,10,10,-10,10,10,10,10,10,10,10,10,10,0]
+        double min = nums[0];
+        double max = nums[0];
+        Double ans = Double.valueOf(nums[0]);
         for (int i = 1; i < n; i++) {
-            int tmpMin = min;
+            double tmpMin = min;
+            //next min may be any of these cases: num[i]， num[i] * preMin，num[i] * preMax
             min = Math.min(Math.min(nums[i] * min, nums[i]), nums[i] * max);
+            //next max may be any of these cases: num[i]， num[i] * preMax，num[i] * preMin
             max = Math.max(Math.max(nums[i] * max, nums[i]), nums[i] * tmpMin);
             ans = Math.max(max, ans);
         }
-        return ans;
+        return ans.intValue();
     }
 
     /**
@@ -158,6 +165,5 @@ public class MaximumProductSubarray {
     public static int maxProduct4(int nums[]) {
         return 0;
     }
-
 
 }
