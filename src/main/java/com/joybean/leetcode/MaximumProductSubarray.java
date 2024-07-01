@@ -10,8 +10,28 @@ import java.util.List;
  * @author Joybean
  */
 public class MaximumProductSubarray {
+    /*
+    //wrong solution, cannot handle the case when nums contains 0
+    public static int maxProduct(int nums[]) {
+        int n = nums.length;
+        int[] prefixProduct = new int[n + 1];
+        prefixProduct[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            prefixProduct[i] = prefixProduct[i - 1] * nums[i - 1];
+        }
+
+        int ans = Integer.MIN_VALUE;
+        for (int i = 1; i <= n; i++) {
+            for (int j = i; j <= n; j++) {
+                ans = Math.max(prefixProduct[i - 1] == 0 ? 0 : (prefixProduct[j] / prefixProduct[i - 1]), ans);
+            }
+        }
+        return ans;
+    }
+    */
+
     /**
-     * Terrible solution:partition and compact original array,and then compute maximum product
+     * partition and compact original array,and then compute maximum product
      *
      * @param nums
      * @return
@@ -90,50 +110,42 @@ public class MaximumProductSubarray {
     }
 
     /**
-     * DP solution
+     * <a href="https://leetcode.com/problems/maximum-product-subarray/solutions/183483/java-c-python-it-can-be-more-simple/">Calculate prefix product and suffix product</a>
      *
      * @param nums
      * @return
      */
     public static int maxProduct2(int nums[]) {
-        // store the result that is the max we have found so far
-        int r = nums[0];
-
-        // imax/imin stores the max/min product of
-        // subarray that ends with the current number A[i]
-        for (int i = 1, imax = r, imin = r; i < nums.length; i++) {
-            // multiplied by a negative makes big number smaller, small number bigger
-            // so we redefine the extremums by swapping them
-            if (nums[i] < 0) {
-                int tmp = imax;
-                imax = imin;
-                imin = tmp;
-            }
-
-            // max/min product for the current number is either the current number itself
-            // or the max/min by the previous number times the current one
-            imax = Math.max(nums[i], imax * nums[i]);
-            imin = Math.min(nums[i], imin * nums[i]);
-
-            // the newly computed max value is a candidate for our global result
-            r = Math.max(r, imax);
+        int n = nums.length;
+        int lmax = 1;
+        int rmax = 1;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            lmax = (lmax == 0 ? 1 : lmax) * nums[i];
+            rmax = (rmax == 0 ? 1 : rmax) * nums[n - i - 1];
+            ans = Math.max(Math.max(lmax, rmax), ans);
         }
-        return r;
+        return ans;
     }
 
+    /**
+     * <a href="https://leetcode.cn/problems/maximum-product-subarray/solutions/69381/dpfang-fa-xiang-jie-by-yang-cong-12/?envType=problem-list-v2&envId=2cktkvj">DP solution</a>
+     *
+     * @param nums
+     * @return
+     */
     public static int maxProduct3(int nums[]) {
-        {
-            int maxEnd = nums[0];
-            int minEnd = nums[0];
-            int maxResult = nums[0];
-            for (int i = 1; i < nums.length; ++i) {
-                int end1 = maxEnd * nums[i], end2 = minEnd * nums[i];
-                maxEnd = Math.max(Math.max(end1, end2), nums[i]);
-                minEnd = Math.min(Math.min(end1, end2), nums[i]);
-                maxResult = Math.max(maxResult, maxEnd);
-            }
-            return maxResult;
+        int n = nums.length;
+        int min = nums[0];
+        int max = nums[0];
+        int ans = nums[0];
+        for (int i = 1; i < n; i++) {
+            int tmpMin = min;
+            min = Math.min(Math.min(nums[i] * min, nums[i]), nums[i] * max);
+            max = Math.max(Math.max(nums[i] * max, nums[i]), nums[i] * tmpMin);
+            ans = Math.max(max, ans);
         }
+        return ans;
     }
 
     /**
@@ -146,4 +158,6 @@ public class MaximumProductSubarray {
     public static int maxProduct4(int nums[]) {
         return 0;
     }
+
+
 }
