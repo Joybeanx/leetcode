@@ -10,7 +10,8 @@ import java.util.Stack;
 public class MinStack {
 
     /**
-     * <a href="https://leetcode.com/problems/min-stack/solutions/49010/clean-6ms-java-solution/">Associate every node with min value</a>
+     * <a href="https://leetcode.com/problems/min-stack/solutions/49010/clean-6ms-java-solution/">Associate every node
+     * with min value</a>
      */
     public MinStack() {
         stack = new Stack<>();
@@ -21,7 +22,6 @@ public class MinStack {
 
     private Stack<Integer> stack;
     private Stack<Integer> minStack;
-
 
     public void push1(int val) {
         stack.push(val);
@@ -47,21 +47,41 @@ public class MinStack {
         return minStack.peek();
     }
 
-    private Node head;
+
+    //TODO use one stack: https://leetcode.com/problems/min-stack/solutions/49014/java-accepted-solution-using-one-stack/
+    private int min;
 
     public void push2(int val) {
-        head = new Node(val, Math.min(val, head.min), head);
+
     }
 
     public void pop2() {
-        head = head.next;
+
     }
 
     public int top2() {
-        return head.value;
+        return 0;
     }
 
     public int getMin2() {
+        return 0;
+    }
+
+    private Node head;
+
+    public void push3(int val) {
+        head = new Node(val, Math.min(val, head.min), head);
+    }
+
+    public void pop3() {
+        head = head.next;
+    }
+
+    public int top3() {
+        return head.value;
+    }
+
+    public int getMin3() {
         return head.min;
     }
 
