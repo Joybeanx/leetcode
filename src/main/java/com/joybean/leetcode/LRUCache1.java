@@ -6,10 +6,11 @@ import java.util.Map;
 /**
  * <a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a>
  *
- * @author Joybean
+ * @author joybean
+ * @date 2024/7/2
  */
 public class LRUCache1 {
-    private final Map<Integer, Node> map;
+    private Map<Integer, Node> nodes;
     /**
      * head.next is the newest node
      */
@@ -18,18 +19,14 @@ public class LRUCache1 {
      * tail.prev is the oldest node
      */
     private Node tail;
-    private final int capacity;
+    private int capacity;
 
-    /**
-     * HashMap and Doubly LinkedList solution
-     * @param capacity
-     */
     public LRUCache1(int capacity) {
-        this.map = new HashMap<>(capacity);
-        this.capacity = capacity;
-        this.head = new Node();
-        this.tail = new Node();
+        nodes = new HashMap<>();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
         head.setNext(tail);
+        this.capacity = capacity;
     }
 
     public int get(int key) {
@@ -40,58 +37,52 @@ public class LRUCache1 {
         return node.val;
     }
 
-    private Node getNode(int key) {
-        Node node = map.get(key);
-        if (node == null) {
-            return null;
-        }
-        node.prev.setNext(node.next);
-        node.setNext(head.next);
-        head.setNext(node);
-        return node;
-    }
-
     public void put(int key, int value) {
         Node node = getNode(key);
         if (node != null) {
             node.val = value;
-            return;
+        } else {
+            if (nodes.size() == capacity) {
+                nodes.remove(tail.prev.key);
+                tail.prev.prev.setNext(tail);
+            }
+            node = new Node(key, value);
+            moveToHead(node);
+            nodes.put(key, node);
         }
-        node = new Node(key, value);
-        if (map.size() == capacity) {
-            Node last = tail.prev;
-            tail.setPrev(last.prev);
-            map.remove(last.key);
-        }
-        node.setNext(head.next);
-        head.setNext(node);
-        map.put(key, node);
     }
 
+    private Node getNode(int key) {
+        if (nodes.containsKey(key)) {
+            Node node = nodes.get(key);
+            node.prev.setNext(node.next);
+            moveToHead(node);
+            return node;
+        }
+        return null;
+    }
+
+    private void moveToHead(Node node) {
+        node.setNext(head.next);
+        head.setNext(node);
+    }
 
     private static class Node {
         private int key;
         private int val;
-        private Node prev;
         private Node next;
-
-        public Node() {
-
-        }
+        private Node prev;
 
         public Node(int key, int val) {
             this.key = key;
             this.val = val;
         }
 
-        public void setPrev(Node prev) {
-            this.prev = prev;
-            this.prev.next = this;
-        }
-
         public void setNext(Node next) {
             this.next = next;
-            this.next.prev = this;
+            if (next != null) {
+                next.prev = this;
+            }
         }
     }
 

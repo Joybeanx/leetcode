@@ -1,7 +1,7 @@
 package com.joybean.leetcode;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * <a href="https://leetcode.com/problems/lru-cache/">LRU Cache</a>
@@ -10,7 +10,6 @@ import java.util.LinkedHashMap;
  */
 public class LRUCache2 {
     private final LinkedHashMap<Integer, Integer> cacheHolder;
-    private int capacity;
 
 
     /**
@@ -19,31 +18,30 @@ public class LRUCache2 {
      * @param capacity
      */
     public LRUCache2(int capacity) {
-        this.cacheHolder = new LinkedHashMap(capacity);
-        this.capacity = capacity;
+        cacheHolder = new LRULinkedHashMap(capacity);
     }
 
     public int get(int key) {
-        if (cacheHolder.containsKey(key)) {
-            int val = cacheHolder.remove(key);
-            cacheHolder.put(key, val);
-            return val;
-        }
-        return -1;
+        return cacheHolder.getOrDefault(key, -1);
     }
 
     public void put(int key, int value) {
-        //remove item if it exists
-        if (cacheHolder.containsKey(key)) {
-            cacheHolder.remove(key);
-        }
-        if (cacheHolder.size() == capacity) {
-            Iterator iterator = cacheHolder.entrySet().iterator();
-            //move cursor to next before remove item
-            iterator.next();
-            iterator.remove();
-        }
         cacheHolder.put(key, value);
+    }
+
+
+    static class LRULinkedHashMap extends LinkedHashMap<Integer, Integer> {
+        private int capacity;
+
+        public LRULinkedHashMap(int capacity) {
+            super(capacity, 0.75f, true);
+            this.capacity = capacity;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+            return this.size() > capacity;
+        }
     }
 
 }
