@@ -12,7 +12,33 @@ public class LinkedListCycle2 {
      * @param head
      * @return
      */
-    public static ListNode detectCycle1(ListNode head) {
+    public ListNode detectCycle1(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                fast = head;
+                while (fast != null && slow != null) {
+                    if (fast == slow) {
+                        return fast;
+                    }
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Floyd's cycle detection algorithm
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode detectCycle2(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
         while (fast != null && fast.next != null) {
