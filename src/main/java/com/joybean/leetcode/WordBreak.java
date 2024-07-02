@@ -68,28 +68,39 @@ public class WordBreak {
     }
 
     /**
-     * <a href ="https://leetcode.com/problems/word-break/discuss/169383/solved-The-Time-Complexity-of-The-Brute-Force-Method
-     * -Should-Be-O(2n)-and-Prove-It-Below"> Brute Force </a>
+     * Recursive(top-down) DP
      *
      * @param s
      * @param wordDict
      * @return
      */
     public static boolean wordBreak3(String s, List<String> wordDict) {
-        Set<String> set = new HashSet<>(wordDict);
-        return wb(s, set);
+        Set<String> dict = new HashSet<>(wordDict);
+        int[] memo = new int[s.length()];
+        return wordBreak3(0, s, dict, memo);
     }
 
-    private static boolean wb(String s, Set<String> set) {
-        int len = s.length();
-        if (len == 0) {
+    private static boolean wordBreak3(int start, String s, Set<String> dict, int[] memo) {
+        if (start == s.length()) {
             return true;
         }
-        for (int i = 1; i <= len; ++i) {
-            if (set.contains(s.substring(0, i)) && wb(s.substring(i), set)) {
-                return true;
+        if (memo[start] == 1) {
+            return true;
+        }
+        if (memo[start] == -1) {
+            return false;
+        }
+        String word = "";
+        for (int i = start; i < s.length(); i++) {
+            word += s.charAt(i);
+            if (dict.contains(word)) {
+                if (wordBreak3(i + 1, s, dict, memo)) {
+                    memo[start] = 1;
+                    return true;
+                }
             }
         }
+        memo[start] = -1;
         return false;
     }
 }
