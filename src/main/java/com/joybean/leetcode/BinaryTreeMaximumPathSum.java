@@ -10,7 +10,7 @@ public class BinaryTreeMaximumPathSum {
     int ans = Integer.MIN_VALUE;
 
    /*
-   //wrong solution
+   //wrong solution: the path should not have forks
     public int maxPathSum(TreeNode root) {
         if (root == null) {
             return 0;
