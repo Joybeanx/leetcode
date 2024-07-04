@@ -15,7 +15,7 @@ public class CoinChange {
      * @param amount
      * @return
      */
-    public static int coinChange2(int[] coins, int amount) {
+    public static int coinChange1(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         for (int i = 1; i <= amount; i++) {
             dp[i] = -1;
@@ -33,6 +33,19 @@ public class CoinChange {
         return dp[amount];
     }
 
+    public static int coinChange2(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        for (int i = 1; i <= amount; i++) {
+            dp[i] = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                if (i >= coin && dp[i - coin] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i - coin] + 1, dp[i]);
+                }
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
     /**
      * Optimized iterative(bottom-up) DP
      *
@@ -44,6 +57,7 @@ public class CoinChange {
         int[] dp = new int[amount + 1];
         //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
         for (int i = 1; i <= amount; i++) {
             for (int coin : coins) {
                 if (i < coin) {
@@ -69,6 +83,7 @@ public class CoinChange {
         int[] dp = new int[amount + 1];
         //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
         //put coins at outer loop to avoid some dp slots
         for (int coin : coins) {
             for (int i = coin; i <= amount; i++) {
@@ -89,4 +104,5 @@ public class CoinChange {
     public static int coinChange5(int[] coins, int amount) {
         return 0;
     }
+
 }

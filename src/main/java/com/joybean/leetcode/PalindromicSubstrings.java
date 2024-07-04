@@ -70,9 +70,9 @@ public class PalindromicSubstrings {
 
     /**
      * iterative DP using two-dimensional array
-     *
+     * <p>
      * <a href="https://leetcode.com/problems/palindromic-substrings/discuss/105707/Java-Python-DP-solution-based-on
-     * -longest-palindromic-substring"> based on longest palindromic substring </a>
+     * -longest-palindromic-substring">Based on longest palindromic substring </a>
      *
      * @param s
      * @return
@@ -104,4 +104,5 @@ public class PalindromicSubstrings {
     public static int countSubstrings4(String s) {
         return 0;
     }
+
 }
