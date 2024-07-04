@@ -33,6 +33,13 @@ public class CoinChange {
         return dp[amount];
     }
 
+    /**
+     * Iterative(bottom-up) DP
+     *
+     * @param coins
+     * @param amount
+     * @return
+     */
     public static int coinChange2(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         for (int i = 1; i <= amount; i++) {
