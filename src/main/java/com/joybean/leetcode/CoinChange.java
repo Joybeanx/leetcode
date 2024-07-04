@@ -54,7 +54,9 @@ public class CoinChange {
     }
 
     /**
-     * Optimized iterative(bottom-up) DP
+     * <a
+     * href="https://leetcode.com/problems/coin-change/solutions/778548/c-dp-solution-explained-100-time-100-space
+     * /">Optimized iterative(bottom-up) DP</a>
      *
      * @param coins
      * @param amount
@@ -65,10 +67,11 @@ public class CoinChange {
         //initialize array with amount+1
         Arrays.fill(dp, amount + 1);
         dp[0] = 0;
+        Arrays.sort(coins);
         for (int i = 1; i <= amount; i++) {
             for (int coin : coins) {
                 if (i < coin) {
-                    continue;
+                    break;
                 }
                 dp[i] = Math.min(dp[i], dp[i - coin] + 1);
             }
