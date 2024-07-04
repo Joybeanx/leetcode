@@ -69,33 +69,32 @@ public class PalindromicSubstrings {
     }
 
     /**
-     * iterative DP using two-dimensional array
-     * <p>
      * <a href="https://leetcode.com/problems/palindromic-substrings/discuss/105707/Java-Python-DP-solution-based-on
-     * -longest-palindromic-substring">Based on longest palindromic substring </a>
+     * -longest-palindromic-substring">Iterative(bottom-up) DP using two-dimensional array</a>
      *
      * @param s
      * @return
      */
     public static int countSubstrings3(String s) {
         int n = s.length();
-        int res = 0;
-        //dp[i][j] represents palindromic s[i,j]
+        int ans = 0;
+        //dp[i][j] represents whether s[i,j] is a palindromic substring
         boolean[][] dp = new boolean[n][n];
         //must loop from end to start
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i; j < n; j++) {
                 dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1]);
                 if (dp[i][j]) {
-                    ++res;
+                    ++ans;
                 }
             }
         }
-        return res;
+        return ans;
     }
 
     /**
-     * Recursive expand solution
+     * <a href="https://leetcode.com/problems/palindromic-substrings/solutions/105689/java-solution-8-lines
+     * -extendpalindrome/">Expand middle</a>
      * TODO
      *
      * @param s
