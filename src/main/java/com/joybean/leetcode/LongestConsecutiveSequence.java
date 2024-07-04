@@ -37,7 +37,8 @@ public class LongestConsecutiveSequence {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/longest-consecutive-sequence/editorial/">HashSet and Intelligent Sequence Building</a>
+     * <a href="https://leetcode.com/problems/longest-consecutive-sequence/editorial/">HashSet and Intelligent Sequence
+     * Building</a>
      *
      * @param nums
      * @return
@@ -48,7 +49,8 @@ public class LongestConsecutiveSequence {
             set.add(n);
         }
         int ans = 0;
-        for (int num : nums) {
+        //iterate set instead of nums to skip duplicates
+        for (int num : set) {
             //num is the start of a streak
             if (!set.contains(num - 1)) {
                 int currentStreak = 1;
@@ -61,7 +63,6 @@ public class LongestConsecutiveSequence {
         }
         return ans;
     }
-
 
     /**
      * Union find
