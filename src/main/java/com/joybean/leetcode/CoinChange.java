@@ -89,4 +89,20 @@ public class CoinChange {
     public static int coinChange5(int[] coins, int amount) {
         return 0;
     }
+
+
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= amount; i++) {
+            for (int coin : coins) {
+                if (i >= coin) {
+                    dp[i] = Math.min(dp[i - coin] + 1, dp[i]);
+                }
+            }
+        }
+        return dp[amount] == 0 ? -1 : dp[amount];
+    }
+
+
 }
