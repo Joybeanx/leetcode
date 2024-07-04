@@ -50,6 +50,7 @@ public class WordBreak {
      * @return
      */
     public static boolean wordBreak2(String s, List<String> wordDict) {
+        //dp[i] represents whether s(0,i-1) can be segmented by word dict
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
         for (int i = 1; i <= s.length(); i++) {
