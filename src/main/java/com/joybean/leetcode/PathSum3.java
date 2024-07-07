@@ -1,11 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/path-sum-iii/">Path Sum III</a>
@@ -58,6 +53,36 @@ public class PathSum3 {
     }
 
     /**
+     * Dual DFS
+     *
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    public static int pathSum2(TreeNode root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+
+        pathSum2(root.left, targetSum);
+        pathSum2(root.right, targetSum);
+        pathSumFrom1(root, targetSum);
+        return ans;
+    }
+
+    private static void pathSumFrom1(TreeNode root, long targetSum) {
+
+        if (root == null) {
+            return;
+        }
+        if (targetSum == root.val) {
+            ans++;
+        }
+        pathSumFrom1(root.left, targetSum - root.val);
+        pathSumFrom1(root.right, targetSum - root.val);
+    }
+
+    /**
      * <a href="https://leetcode.com/problems/path-sum-iii/discuss/91889/Simple-Java-DFS">Dual DFS</a><br/>
      * Time complexity analysis: pathSumFrom takes O(n)
      * <ul>
@@ -69,14 +94,14 @@ public class PathSum3 {
      * @param targetSum
      * @return
      */
-    public static int pathSum2(TreeNode root, int targetSum) {
+    public static int pathSum3(TreeNode root, int targetSum) {
         if (root == null) {
             return 0;
         }
-        return pathSumFrom(root, targetSum) + pathSum2(root.left, targetSum) + pathSum2(root.right, targetSum);
+        return pathSumFrom2(root, targetSum) + pathSum3(root.left, targetSum) + pathSum3(root.right, targetSum);
     }
 
-    private static Integer pathSumFrom(TreeNode root, int targetSum) {
+    private static Integer pathSumFrom2(TreeNode root, int targetSum) {
         if (root == null) {
             return 0;
         }
@@ -85,7 +110,7 @@ public class PathSum3 {
         if (nextTargetSum == 0) {
             ans = 1;
         }
-        ans += pathSumFrom(root.left, nextTargetSum) + pathSumFrom(root.right, nextTargetSum);
+        ans += pathSumFrom2(root.left, nextTargetSum) + pathSumFrom2(root.right, nextTargetSum);
         return ans;
     }
 
@@ -97,7 +122,7 @@ public class PathSum3 {
      * @param targetSum
      * @return
      */
-    public static int pathSum3(TreeNode root, int targetSum) {
+    public static int pathSum4(TreeNode root, int targetSum) {
         Map<Integer, Integer> prefixSum = new HashMap();
         prefixSum.put(0, 1);
         return helper(root, 0, targetSum, prefixSum);
@@ -121,9 +146,12 @@ public class PathSum3 {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
@@ -131,4 +159,6 @@ public class PathSum3 {
             this.right = right;
         }
     }
+
+
 }
