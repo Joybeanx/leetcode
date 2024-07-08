@@ -89,7 +89,7 @@ public class ValidParenthesisString {
 
     /**
      * <a href="https://leetcode.com/problems/valid-parenthesis-string/discuss/543521/Java-Count-Open-Parenthesis-O
-     * (n)-time-O(1)-space-Picture-Explain">Greedy</a>
+     * (n)-time-O(1)-space-Picture-Explain">Greedy algorithm</a>
      *
      * @param s
      * @return

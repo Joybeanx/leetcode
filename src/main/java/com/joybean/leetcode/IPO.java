@@ -50,7 +50,7 @@ public class IPO {
 
     /**
      * <a href="https://leetcode.com/problems/ipo/discuss/98210/Very-Simple-(Greedy)
-     * -Java-Solution-using-two-PriorityQueues">Greedy solution using two priority queues</a>
+     * -Java-Solution-using-two-PriorityQueues">Greedy algorithm using two priority queues</a>
      *
      * @param k
      * @param w

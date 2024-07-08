@@ -12,7 +12,7 @@ import java.util.Queue;
 public class AdvantageShuffle {
     /**
      * <a href="https://leetcode.com/problems/advantage-shuffle/discuss/149822/JAVA-Greedy-6-lines-with-Explanation">
-     * Greedy solution using priority queue</a>
+     * Greedy algorithm using priority queue</a>
      *
      * @param nums1
      * @param nums2

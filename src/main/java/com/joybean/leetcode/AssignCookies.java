@@ -35,7 +35,7 @@ public class AssignCookies {
 
     /**
      * <a href="https://leetcode.com/problems/assign-cookies/discuss/93987/Simple-Greedy-Java-Solution">Concise
-     * greedy solution</a>
+     * greedy algorithm</a>
      *
      * @param g
      * @param s
