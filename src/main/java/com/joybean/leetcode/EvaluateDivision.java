@@ -35,12 +35,13 @@ public class EvaluateDivision {
         double[] ans = new double[queries.size()];
         for (int i = 0; i < queries.size(); i++) {
             List<String> query = queries.get(i);
-            ans[i] = calc(query.get(0), query.get(1), new HashSet<>(), equationMap);
+            ans[i] = dfs1(query.get(0), query.get(1), new HashSet<>(), equationMap);
         }
         return ans;
     }
 
-    private double calc(String from, String to, Set<String> visited, Map<String, List<List<Object>>> equationMap) {
+    private static double dfs1(String from, String to, Set<String> visited,
+        Map<String, List<List<Object>>> equationMap) {
         if (visited.contains(from)) {
             return -1;
         }
@@ -52,7 +53,7 @@ public class EvaluateDivision {
         }
         visited.add(from);
         for (List<Object> list : equationMap.get(from)) {
-            double r = calc((String)list.get(0), to, visited, equationMap);
+            double r = dfs1((String)list.get(0), to, visited, equationMap);
             if (r > 0) {
                 return r * (Double)list.get(1);
             }
