@@ -63,20 +63,21 @@ public class BestTimeToBuyAndSellStock {
      * @return
      */
     public static int maxProfit4(int[] prices) {
-        int minprice = Integer.MAX_VALUE;
+        int minPrice = Integer.MAX_VALUE;
         int ans = 0;
-        for (int i = 0; i < prices.length; i++) {
-            if (prices[i] < minprice) {
-                minprice = prices[i];
-            } else if (prices[i] - minprice > ans) {
-                ans = prices[i] - minprice;
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price;
+            } else {
+                ans = Math.max(price - minPrice, ans);
             }
         }
         return ans;
     }
 
     /**
-     * Kadane's algorithm
+     * <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/39038/kadane-s-algorithm
+     * -since-no-one-has-mentioned-about-this-so-far-in-case-if-interviewer-twists-the-input/">Kadane's algorithm</a>
      * TODO
      *
      * @param prices
