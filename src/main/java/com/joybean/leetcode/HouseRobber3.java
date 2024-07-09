@@ -10,17 +10,17 @@ import java.util.Map;
  */
 public class HouseRobber3 {
     /**
-     * recursive(top-down) DP
+     * Recursive(top-down) DP with memo
      *
      * @param root
      * @return
      */
     public static int rob1(TreeNode root) {
         Map<TreeNode, Integer> memo = new HashMap<>();
-        return robInternal(root, memo);
+        return rob(root, memo);
     }
 
-    private static int robInternal(TreeNode node, Map<TreeNode, Integer> memo) {
+    private static int rob(TreeNode node, Map<TreeNode, Integer> memo) {
         if (node == null) {
             return 0;
         }
@@ -31,15 +31,26 @@ public class HouseRobber3 {
         TreeNode left = node.left;
         TreeNode right = node.right;
         if (left != null) {
-            rob = rob + robInternal(left.left, memo) + robInternal(left.right, memo);
+            rob = rob + rob(left.left, memo) + rob(left.right, memo);
         }
         if (right != null) {
-            rob = rob + robInternal(right.left, memo) + robInternal(right.right, memo);
+            rob = rob + rob(right.left, memo) + rob(right.right, memo);
         }
-        int notRob = robInternal(left, memo) + robInternal(right, memo);
-        int res = Math.max(rob, notRob);
-        memo.put(node, res);
-        return res;
+        int skip = rob(left, memo) + rob(right, memo);
+        int ans = Math.max(rob, skip);
+        memo.put(node, ans);
+        return ans;
+    }
+
+    /**
+     * Greedy algorithm
+     * TODO
+     *
+     * @param root
+     * @return
+     */
+    public static int rob2(TreeNode root) {
+        return 0;
     }
 
     public static class TreeNode {
@@ -51,7 +62,7 @@ public class HouseRobber3 {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
