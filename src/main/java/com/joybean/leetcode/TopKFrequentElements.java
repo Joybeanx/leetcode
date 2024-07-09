@@ -1,7 +1,11 @@
 package com.joybean.leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * <a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a>
@@ -69,5 +73,54 @@ public class TopKFrequentElements {
         int temp = nums[p];
         nums[p] = nums[i];
         nums[i] = temp;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/top-k-frequent-elements/solutions/81602/java-o-n-solution-bucket-sort
+     * /">Bucket Sort</a>
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] topKFrequent2(int[] nums, int k) {
+        int[] ans = new int[k];
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int num : nums) {
+            counter.put(num, counter.getOrDefault(num, 0) + 1);
+        }
+        List<Integer>[] buckets = new ArrayList[nums.length + 1];
+        counter.forEach((key, value) -> {
+            if (buckets[value] == null) {
+                buckets[value] = new ArrayList<>();
+            }
+            buckets[value].add(key);
+        });
+        for (int i = buckets.length - 1, j = 0; i >= 1; i--) {
+            List<Integer> bucket = buckets[i];
+            if (bucket != null) {
+                for (Integer num : bucket) {
+                    if (j < k) {
+                        ans[j++] = num;
+                    } else {
+                        return ans;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/top-k-frequent-elements/solutions/81635/3-java-solution-using-array
+     * -maxheap-treemap/">Min Heap using PriorityQueue (by fluency03)</a>
+     * TODO
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] topKFrequent3(int[] nums, int k) {
+        return null;
     }
 }
