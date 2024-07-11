@@ -1,7 +1,10 @@
 package com.joybean.leetcode;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 /**
@@ -11,7 +14,6 @@ import java.util.stream.Collectors;
  * @author Joybean
  */
 public class SerializeAndDeserializeBinaryTree {
-    private static int index;
 
     /**
      * Fill perfect binary tree:Memory Limit Exceeded
@@ -68,6 +70,8 @@ public class SerializeAndDeserializeBinaryTree {
         return 1 + Math.max(getHeight(root.left), getHeight(root.right));
     }
 
+    private static int index;
+
     /**
      * Preorder traversal
      *
@@ -75,68 +79,80 @@ public class SerializeAndDeserializeBinaryTree {
      * @return
      */
     public static String serialize2(TreeNode root) {
-        if (root == null) {
-            return "";
-        }
         StringBuilder sb = new StringBuilder();
-        inorderSerialize(root, sb);
+        //1 2 # # 3 4 # # 5 # #
+        preorderSerialize(root, sb);
         return sb.toString();
 
     }
 
-    private static void inorderSerialize(TreeNode root, StringBuilder sb) {
+    private static void preorderSerialize(TreeNode root, StringBuilder sb) {
         if (root == null) {
-            sb.append("#,");
+            sb.append("# ");
             return;
         }
-        sb.append(root.val);
-        sb.append(",");
-        inorderSerialize(root.left, sb);
-        inorderSerialize(root.right, sb);
+        sb.append(root.val + " ");
+        preorderSerialize(root.left, sb);
+        preorderSerialize(root.right, sb);
     }
 
     public static TreeNode deserialize2(String data) {
-        String[] values = data.split(",");
-        return inorderDeserialize(values);
-    }
-
-    private static TreeNode inorderDeserialize(String[] values) {
-        if (index > values.length - 1) {
+        if (data.isEmpty()) {
             return null;
         }
-        String val = values[index];
-        index++;
+        String[] values = data.split(" ");
+        return preorderDeserialize(values);
+    }
+
+    private static TreeNode preorderDeserialize(String[] values) {
+        String val = values[index++];
         if (val.equals("#")) {
             return null;
         }
         TreeNode parent = new TreeNode(Integer.parseInt(val));
-        parent.left = inorderDeserialize(values);
-        parent.right = inorderDeserialize(values);
+        parent.left = preorderDeserialize(values);
+        parent.right = preorderDeserialize(values);
         return parent;
     }
 
     /**
-     * Postorder traversal
+     * Preorder traversal using queue
      *
      * @param root
      * @return
      */
     public static String serialize3(TreeNode root) {
-        return null;
-
+        StringBuilder sb = new StringBuilder();
+        //1 2 # # 3 4 # # 5 # #
+        preorderSerialize(root, sb);
+        return sb.toString();
     }
 
     public static TreeNode deserialize3(String data) {
-        return null;
+        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(" ")));
+        return preorderDeserialize(queue);
+    }
+
+    private static TreeNode preorderDeserialize(Queue<String> queue) {
+        String value = queue.poll();
+        if (value.equals("#")) {
+            return null;
+        }
+        TreeNode node = new TreeNode(Integer.valueOf(value));
+        node.left = preorderDeserialize(queue);
+        node.right = preorderDeserialize(queue);
+        return node;
     }
 
     /**
-     * Level order traversal
-     *
+     * <a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/solutions/74264/short-and
+     * -straight-forward-bfs-java-code-with-a-queue/">BFS: level order travel</a>
+     * TODO
      * @param root
      * @return
      */
     public static String serialize4(TreeNode root) {
+        //1 2 3 # # 4 5 # # # #
         return null;
 
     }
@@ -152,6 +168,7 @@ public class SerializeAndDeserializeBinaryTree {
 
         TreeNode() {}
 
-        TreeNode(int x) { val = x; }
+        TreeNode(int x) {val = x;}
     }
+
 }
