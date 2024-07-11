@@ -6,30 +6,10 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class FindTheDuplicateNumber {
-    /**
-     * <a href="https://leetcode.com/problems/find-the-duplicate-number/editorial/">Sum of Set Bits</a>
-     * TODO
-     *
-     * @param nums
-     * @return
-     */
-    public static int findDuplicate1(int[] nums) {
-        return 0;
-    }
 
     /**
-     * <a href="https://leetcode.com/problems/find-the-duplicate-number/solutions/1892921/9-approaches-count-hash-in-place-marked-sort-binary-search-bit-mask-fast-slow-pointers">Binary search using Pigeonhole Principle</a>
-     * TODO
-     *
-     * @param nums
-     * @return
-     */
-    public static int findDuplicate2(int[] nums) {
-        return 0;
-    }
-
-    /**
-     * <a href="https://leetcode.com/problems/find-the-duplicate-number/editorial/">Floyd's cycle detection algorithm</a>
+     * <a href="https://leetcode.com/problems/find-the-duplicate-number/solutions/72846/my-easy-understood-solution
+     * -with-o-n-time-and-o-1-space-without-modifying-the-array-with-clear-explanation/">Floyd's cycle detection algorithm</a>
      *
      * @param nums
      * @return
@@ -47,10 +27,5 @@ public class FindTheDuplicateNumber {
             fast = nums[fast];
         }
         return slow;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(findDuplicate2(new int[]{1, 3, 4, 2, 2}));
-        System.out.println(findDuplicate2(new int[]{3, 1, 3, 4, 2}));
     }
 }
