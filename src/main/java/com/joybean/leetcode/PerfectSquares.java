@@ -1,5 +1,7 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.com/problems/perfect-squares/">Perfect Squares</a>
  *
@@ -24,13 +26,42 @@ public class PerfectSquares {
     }
 
     /**
+     * Recursive(top-down) DP with memo
+     *
+     * @param n
+     * @return
+     */
+    public static int numSquares2(int n) {
+        int[] memo = new int[10001];
+        Arrays.fill(memo, -1);
+        return numSquares2(n, memo);
+    }
+    private static int numSquares2(int n, int[] memo) {
+        if (n == 0) {
+            return 0;
+        }
+        //if (n == 1) {
+        //   return 1;
+        //}
+        if (memo[n] != -1) {
+            return memo[n];
+        }
+        int ans = n;
+        for (int i = 1; i * i <= n; i++) {
+            ans = Math.min(numSquares2(n - i * i, memo) + 1, ans);
+        }
+        memo[n] = ans;
+        return ans;
+    }
+
+    /**
      * BFS
      * TODO
      *
      * @param n
      * @return
      */
-    public static int numSquares2(int n) {
+    public static int numSquares3(int n) {
         return 0;
     }
 }
