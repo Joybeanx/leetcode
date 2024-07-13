@@ -56,13 +56,6 @@ public class MeetingRoomII {
         return rooms.size();
     }
 
-    public static void main(String[] args) {
-        List<Interval> intervals = Arrays.asList(new Interval(0, 9), new Interval(5, 10), new Interval(15,
-                20), new Interval(10, 12));
-        System.out.println(minMeetingRooms2(intervals));
-        System.out.println(minMeetingRooms1(intervals));
-    }
-
 
     public static class Interval {
         public int start;
