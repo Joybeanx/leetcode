@@ -1,10 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/meeting-rooms-ii/description/">Meeting Rooms II</a>
@@ -14,26 +10,59 @@ import java.util.Queue;
 public class MeetingRoomII {
 
     /**
-     * Greedy algorithm
+     * Greedy algorithm: merge intervals
+     *
      * @param intervals
      * @return
      * @see https://www.lintcode.com/problem/919/
      */
-    public int minMeetingRooms(List<Interval> intervals) {
+    public static int minMeetingRooms1(List<Interval> intervals) {
+        //Sort the intervals based on their start times. This ensures that we process them in chronological order.
         Collections.sort(intervals, Comparator.comparingInt(a -> a.start));
+        //Use min heap to keep track of the intervals of the ongoing meetings. The heap will store the end times in
+        //ascending order.
         Queue<Interval> rooms = new PriorityQueue<>(Comparator.comparingInt(a -> a.end));
         for (Interval interval : intervals) {
-            if (!rooms.isEmpty()) {
-                Interval room = rooms.peek();
-                if (interval.start >= room.end) {
-                    room.end = interval.end;
-                    continue;
-                }
+            if (!rooms.isEmpty() && interval.start >= rooms.peek().end) {
+                rooms.peek().end = interval.end;
+                continue;
             }
             rooms.offer(interval);
         }
         return rooms.size();
     }
+
+    /**
+     * Greedy algorithm 2
+     *
+     * @param intervals
+     * @return
+     * @see https://www.lintcode.com/problem/919/
+     */
+    public static int minMeetingRooms2(List<Interval> intervals) {
+        //Sort the intervals based on their start times. This ensures that we process them in chronological order.
+        Collections.sort(intervals, Comparator.comparingInt(a -> a.start));
+        //Use min heap to keep track of the end times of the ongoing meetings. The heap will store the end times in
+        //ascending order.
+        Queue<Integer> rooms = new PriorityQueue<>();
+        rooms.offer(intervals.get(0).end);
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval interval = intervals.get(i);
+            if (interval.start >= rooms.peek()) {
+                rooms.poll();
+            }
+            rooms.offer(interval.end);
+        }
+        return rooms.size();
+    }
+
+    public static void main(String[] args) {
+        List<Interval> intervals = Arrays.asList(new Interval(0, 9), new Interval(5, 10), new Interval(15,
+                20), new Interval(10, 12));
+        System.out.println(minMeetingRooms2(intervals));
+        System.out.println(minMeetingRooms1(intervals));
+    }
+
 
     public static class Interval {
         public int start;
