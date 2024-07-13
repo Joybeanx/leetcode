@@ -97,9 +97,7 @@ public class SearchA2DMatrixII {
     public static boolean searchMatrix2(int[][] matrix, int target) {
         int rows = matrix.length;
         int cols = matrix[0].length;
-        int curRow = 0;
-        int curCol = cols - 1;
-        while (curRow < rows && curCol >= 0) {
+        for (int curRow = 0, curCol = cols - 1; curRow < rows && curCol >= 0; ) {
             if (matrix[curRow][curCol] > target) {
                 curCol--;
             } else if (matrix[curRow][curCol] < target) {
@@ -110,6 +108,4 @@ public class SearchA2DMatrixII {
         }
         return false;
     }
-
-
 }
