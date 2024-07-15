@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class SlidingWindowMaximum {
     /**
-     * Monotonic queue
+     * Monotonic deque
      *
      * @param nums
      * @param k
@@ -26,6 +26,7 @@ public class SlidingWindowMaximum {
         int index = 0;
         for (int right = 0; right < nums.length; right++) {
             windowCounts.merge(nums[right], 1, Integer::sum);
+            //pop nums that less than or equals to current num, don't use ">="
             while (!deque.isEmpty() && deque.peekLast() <= nums[right]) {
                 deque.pollLast();
             }
@@ -43,14 +44,57 @@ public class SlidingWindowMaximum {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/sliding-window-maximum/discuss/65884/Java-O(n)
-     * -solution-using-deque-with-explanation">Optimized sliding window</a>
-     * TODO
+     * Optimized monotonic deque
+     *
      * @param nums
      * @param k
      * @return
      */
     public static int[] maxSlidingWindow2(int[] nums, int k) {
+        Deque<Integer> deque = new LinkedList<>();
+        int n = nums.length;
+        int[] ans = new int[n - k + 1];
+        for (int left = 0, right = 0; right < n; right++) {
+            //pop nums that less than current num, shouldn't use ">="
+            while (!deque.isEmpty() && deque.peek() < nums[right]) {
+                deque.pop();
+            }
+            deque.push(nums[right]);
+            if (right >= k - 1) {
+                ans[left] = deque.peekLast();
+                if (nums[left] == deque.peekLast()) {
+                    deque.pollLast();
+                }
+                left++;
+            }
+
+        }
+        return ans;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/sliding-window-maximum/submissions/1321337689/">Monotonic deque: store
+     * index in deque</a>
+     * TODO
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] maxSlidingWindow3(int[] nums, int k) {
+        return null;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/sliding-window-maximum/solutions/65881/o-n-solution-in-java-with-two
+     * -simple-pass-in-the-array/">Calculate max so far</a>
+     * TODO
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] maxSlidingWindow4(int[] nums, int k) {
         return null;
     }
 }
