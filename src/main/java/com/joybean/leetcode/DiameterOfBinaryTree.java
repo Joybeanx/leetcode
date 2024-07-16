@@ -9,7 +9,7 @@ public class DiameterOfBinaryTree {
     private static int ans;
 
     /**
-     * DFS
+     * DFS: longest path nodes
      *
      * @param root
      * @return
@@ -30,8 +30,8 @@ public class DiameterOfBinaryTree {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/diameter-of-binary-tree/discuss/101132/Java-Solution-MaxDepth">More
-     * concise DFS solution</a>
+     * <a href="https://leetcode.com/problems/diameter-of-binary-tree/discuss/101132/Java-Solution-MaxDepth">DFS: max
+     * depth</a>
      *
      * @param root
      * @return
@@ -51,6 +51,27 @@ public class DiameterOfBinaryTree {
         return Math.max(leftMaxDepth, rightMaxDepth) + 1;
     }
 
+    /**
+     * DFS: single side diameter
+     *
+     * @param root
+     * @return
+     */
+    public static int diameterOfBinaryTree3(TreeNode root) {
+        singleSideDiameter(root);
+        return ans;
+    }
+
+    public static int singleSideDiameter(TreeNode root) {
+        if (root == null) {
+            return -1;
+        }
+        int leftDiameter = singleSideDiameter(root.left);
+        int rightDiameter = singleSideDiameter(root.right);
+        ans = Math.max(leftDiameter + rightDiameter + 2, ans);
+        return Math.max(leftDiameter, rightDiameter) + 1;
+    }
+
     public static class TreeNode {
         int val;
         TreeNode left;
@@ -58,7 +79,7 @@ public class DiameterOfBinaryTree {
 
         TreeNode() {}
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {this.val = val;}
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
