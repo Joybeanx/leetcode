@@ -96,7 +96,7 @@ public class ContainerWithMostWater {
     }
 
     /*
-    //wrong solution,failed case: [2,3,4,5,18,17,6],output: 15, expected: 17
+    //wrong solution, failed case: [2,3,4,5,18,17,6],output: 15, expected: 17
     public static int maxArea(int[] height) {
         int left = 1;
         int right = height.length - 2;
