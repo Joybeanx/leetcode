@@ -181,12 +181,12 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 right = mid;
             }
         }
-        //must check whether the index is out of bounds, case: nums=[2,2], target=3
+        //should check whether the index is out of bounds, case: nums=[2,2], target=3
         if (left == nums.length || nums[left] != target) {
             return ans;
         }
         ans[0] = left;
-        // We don't have to set left to 0 the second time.
+        //We don't have to set left to 0 the second time.
         right = nums.length;
         //search range [left,nums.length), find upper bound
         while (left < right) {
@@ -219,10 +219,10 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         int right = n - 1;
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (nums[mid] >= target) {
-                right = mid;
-            } else {
+            if (nums[mid] < target) {
                 left = mid + 1;
+            } else {
+                right = mid;
             }
         }
         if (nums[left] != target) {
@@ -233,10 +233,10 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         //search range [left,nums.length), find upper bound
         while (left < right) {
             int mid = (left + right) >>> 1;
-            if (nums[mid] > target) {
-                right = mid;
-            } else {
+            if (nums[mid] <= target) {
                 left = mid + 1;
+            } else {
+                right = mid;
             }
         }
         ans[1] = left - 1;
