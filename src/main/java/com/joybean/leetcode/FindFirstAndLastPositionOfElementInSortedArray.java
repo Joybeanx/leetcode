@@ -32,7 +32,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             }
         }
         if (t == -1) {
-            return new int[]{-1, -1};
+            return new int[] {-1, -1};
         }
         int i = left;
         int j = t;
@@ -57,18 +57,21 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 q = mid - 1;
             }
         }
-        return new int[]{i, q};
+        return new int[] {i, q};
     }
 
     /**
-     * <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/14699/clean-iterative-solution-with-two-binary-searches-with-explanation/">Two iterative binary searches</a>
+     * <a
+     * href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/14699
+     * /clean-iterative-solution-with-two-binary-searches-with-explanation/">Two
+     * iterative binary searches</a>
      *
      * @param nums
      * @param target
      * @return
      */
     public static int[] searchRange2(int[] nums, int target) {
-        int[] ans = new int[]{-1, -1};
+        int[] ans = new int[] {-1, -1};
         if (nums.length == 0) {
             return ans;
         }
@@ -111,7 +114,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @return
      */
     public static int[] searchRange3(int[] nums, int target) {
-        int[] ans = new int[]{-1, -1};
+        int[] ans = new int[] {-1, -1};
         if (nums.length == 0) {
             return ans;
         }
@@ -163,13 +166,13 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @see <a href ="https://github.com/python/cpython/blob/3.9/Lib/bisect.py#L15">Python bisect_right</a>
      */
     public static int[] searchRange4(int[] nums, int target) {
-        int[] ans = new int[]{-1, -1};
+        int[] ans = new int[] {-1, -1};
         if (nums.length == 0) {
             return ans;
         }
         int left = 0;
         int right = nums.length;
-        //search range [0,nums.length-1), find lower bound
+        //search range [0,nums.length), find lower bound
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (nums[mid] < target) {
@@ -178,13 +181,14 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 right = mid;
             }
         }
-        if (nums[left] != target) {
+        //must check whether the index is out of bounds, case: nums=[2,2], target=3
+        if (left == nums.length || nums[left] != target) {
             return ans;
         }
         ans[0] = left;
         // We don't have to set left to 0 the second time.
         right = nums.length;
-        //search range [0,nums.length), find upper bound
+        //search range [left,nums.length), find upper bound
         while (left < right) {
             int mid = (left + right) >>> 1;
             if (nums[mid] <= target) {
@@ -197,6 +201,47 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         return ans;
     }
 
+    /**
+     * Two iterative binary searches 4
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] searchRange5(int[] nums, int target) {
+        int n = nums.length;
+        int[] ans = new int[] {-1, -1};
+        if (n == 0) {
+            return ans;
+        }
+        int left = 0;
+        //search range [0,nums.length-1)
+        int right = n - 1;
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] >= target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        if (nums[left] != target) {
+            return ans;
+        }
+        ans[0] = left;
+        right = n;
+        //search range [left,nums.length), find upper bound
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] > target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        ans[1] = left - 1;
+        return ans;
+    }
 
     /**
      * Recursive binary search
@@ -205,7 +250,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @param target
      * @return
      */
-    public static int[] searchRange5(int[] nums, int target) {
+    public static int[] searchRange6(int[] nums, int target) {
         //Find any position that holds target
         int idx = getTargetIndex(nums, target, 0, nums.length - 1);
         int i = idx;
@@ -220,7 +265,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 j++;
             }
         }
-        return new int[]{i, j};
+        return new int[] {i, j};
     }
 
     public static int getTargetIndex(int[] nums, int target, int start, int end) {
@@ -241,16 +286,17 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         return getTargetIndex(nums, target, mi + 1, end);
     }
 
-
     /**
-     * <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11-lines-O(log-n)">Divide and Conquer</a>
+     * <a
+     * href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11
+     * -lines-O(log-n)">Divide and Conquer</a>
      * TODO
      *
      * @param nums
      * @param target
      * @return
      */
-    public static int[] searchRange6(int[] nums, int target) {
+    public static int[] searchRange7(int[] nums, int target) {
         return null;
     }
 
