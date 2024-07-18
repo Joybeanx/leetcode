@@ -43,6 +43,36 @@ public class MergeKSortedLists {
         return mergedListNode;
     }
 
+    private static void shiftDown(ListNode[] heapNodes, int heapSize) {
+        int p = 0;
+        int c;
+        while ((c = 2 * p + 1) < heapSize) {
+            //Swap with the less child
+            if (c + 1 < heapSize && heapNodes[c].val > heapNodes[c + 1].val) {
+                c++;
+            }
+            if (heapNodes[c].val < heapNodes[p].val) {
+                swap(c, p, heapNodes);
+                p = c;
+                continue;
+            }
+            break;
+        }
+    }
+
+    private static void shiftUp(int i, ListNode[] lists) {
+        int p = i;
+        while (p != 0) {
+            p = (i - 1) / 2;
+            if (lists[p].val > lists[i].val) {
+                swap(p, i, lists);
+                i = p;
+                continue;
+            }
+            break;
+        }
+    }
+
     /**
      * Priority Queue
      *
@@ -85,17 +115,18 @@ public class MergeKSortedLists {
         return mergeSort(0, lists.length - 1, lists);
     }
 
-    private static ListNode mergeSort(int left, int right, ListNode[] lists) {
-        if (left == right) {
-            return lists[left];
+    private static ListNode mergeSort(int start, int end, ListNode[] lists) {
+        //never happen
+        //if (start > end) {
+        //    return null;
+        //}
+        if (start == end) {
+            return lists[start];
         }
-        if (right == left + 1) {
-            return merge2(lists[left], lists[right]);
-        }
-        int mid = (left + right) >>> 1;
-        ListNode leftPart = mergeSort(left, mid, lists);
-        ListNode rightPart = mergeSort(mid + 1, right, lists);
-        return merge2(leftPart, rightPart);
+        int mid = (start + end) >>> 1;
+        ListNode leftPart = mergeSort(start, mid, lists);
+        ListNode rightPart = mergeSort(mid + 1, end, lists);
+        return merge1(leftPart, rightPart);
     }
 
     /**
@@ -107,6 +138,12 @@ public class MergeKSortedLists {
      * @see MergeTwoSortedLists
      */
     private static ListNode merge1(ListNode leftPart, ListNode rightPart) {
+        //if (leftPart == null) {
+        //    return rightPart;
+        //}
+        //if (rightPart == null) {
+        //    return leftPart;
+        //}
         ListNode dummy = new ListNode();
         ListNode tail = dummy;
         while (leftPart != null && rightPart != null) {
@@ -144,36 +181,6 @@ public class MergeKSortedLists {
         }
         rightPart.next = merge2(leftPart, rightPart.next);
         return rightPart;
-    }
-
-    private static void shiftDown(ListNode[] heapNodes, int heapSize) {
-        int p = 0;
-        int c;
-        while ((c = 2 * p + 1) < heapSize) {
-            //Swap with the less child
-            if (c + 1 < heapSize && heapNodes[c].val > heapNodes[c + 1].val) {
-                c++;
-            }
-            if (heapNodes[c].val < heapNodes[p].val) {
-                swap(c, p, heapNodes);
-                p = c;
-                continue;
-            }
-            break;
-        }
-    }
-
-    private static void shiftUp(int i, ListNode[] lists) {
-        int p = i;
-        while (p != 0) {
-            p = (i - 1) / 2;
-            if (lists[p].val > lists[i].val) {
-                swap(p, i, lists);
-                i = p;
-                continue;
-            }
-            break;
-        }
     }
 
     private static void swap(int a, int b, ListNode[] lists) {
