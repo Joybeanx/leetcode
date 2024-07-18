@@ -28,50 +28,94 @@ public class NextPermutation {
         reverse(nums, i == j ? 0 : i + 1, n - 1);
     }
 
+    private static void reverse(int[] nums, int start, int end) {
+        int i = start;
+        int j = end;
+        while (i < j) {
+            swap(nums, i++, j--);
+        }
+    }
+
     /**
-     * <a href="https://leetcode.com/problems/next-permutation/solutions/13867/c-from-wikipedia/?orderBy=most_votes">Two pointers using next lexicographical permutation algorithm</a>
+     * <a href="https://leetcode.com/problems/next-permutation/solutions/13867/c-from-wikipedia/?orderBy=most_votes">Two
+     * pointers using next lexicographical permutation algorithm</a>
      *
      * @param nums
      */
     public static void nextPermutation2(int[] nums) {
-        int i = nums.length - 1;
-        int j = i - 1;
-        while (j >= 0 && nums[j] >= nums[i]) {
-            i--;
+        //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
+        int j = nums.length - 1;
+        int i = j - 1;
+        while (i >= 0 && nums[i] >= nums[j]) {
             j--;
+            i--;
         }
-        if (j == -1) {
+        if (i == -1) {
             reverse(nums, 0);
             return;
         }
-        while (i + 1 < nums.length && nums[j] < nums[i + 1]) {
-            i++;
+        //2. Find the largest index j > i such that  nums[j] > nums[i]
+        while (j + 1 < nums.length && nums[i] < nums[j + 1]) {
+            j++;
         }
-        swap(nums, i, j);
-        reverse(nums, j + 1);
+        //3. Swap nums[i] and nums[j]
+        swap(nums,i, j);
+        //4. Reverse the sub-array nums[i + 1:]
+        reverse(nums, i + 1);
     }
 
     /**
-     * Optimized two pointers
+     * Two pointers
      *
      * @param nums
      */
     public static void nextPermutation3(int[] nums) {
+        //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
         int n = nums.length;
-        int k = n - 2;
-        while (k >= 0 && nums[k] >= nums[k + 1]) {
-            k--;
+        int i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
         }
-        if (k == -1) {
+        if (i == -1) {
             reverse(nums, 0);
             return;
         }
-        int l = k;
-        while (l + 1 < n && nums[k] < nums[l + 1]) {
-            l++;
+        int j = i;
+        //2. Find the largest index j > i such that  nums[j] > nums[i]
+        while (j + 1 < n && nums[i] < nums[j + 1]) {
+            j++;
         }
-        swap(nums, k, l);
-        reverse(nums, k + 1);
+        //3. Swap nums[i] and nums[j]
+        swap(nums, i, j);
+        //4. Reverse the sub-array nums[i + 1:]
+        reverse(nums, i + 1);
+    }
+
+    /**
+     * Two pointers
+     * @param nums
+     */
+    public void nextPermutation4(int[] nums) {
+        //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i + 1] <= nums[i]) {
+            i--;
+        }
+        if (i == -1) {
+            reverse(nums, 0);
+            return;
+        }
+        //2. Find the largest index j > i such that  nums[j] > nums[i]
+        for (int j = nums.length - 1; j > 0; j--) {
+            if (nums[j] > nums[i]) {
+                //3. Swap nums[i] and nums[j]
+                swap(nums, i, j);
+                //4. Reverse the sub-array nums[i + 1:]
+                reverse(nums, i + 1);
+                return;
+            }
+        }
+
     }
 
     private static void swap(int[] a, int i, int j) {
@@ -88,12 +132,5 @@ public class NextPermutation {
         }
     }
 
-    private static void reverse(int[] nums, int start, int end) {
-        int i = start;
-        int j = end;
-        while (i < j) {
-            swap(nums, i++, j--);
-        }
-    }
 
 }
