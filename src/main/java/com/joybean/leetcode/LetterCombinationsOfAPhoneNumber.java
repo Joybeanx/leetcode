@@ -71,7 +71,7 @@ public class LetterCombinationsOfAPhoneNumber {
      */
     public static List<String> letterCombinations2(String digits) {
         List<String> ans = new ArrayList<>();
-        if (digits.length() == 0) {
+        if (digits.isEmpty()) {
             return ans;
         }
         Map<Character, List<String>> map = new HashMap<>();
@@ -83,11 +83,11 @@ public class LetterCombinationsOfAPhoneNumber {
         map.put('7', Arrays.asList("p", "q", "r", "s"));
         map.put('8', Arrays.asList("t", "u", "v"));
         map.put('9', Arrays.asList("w", "x", "y", "z"));
-        backtrack("", digits,0, map, ans);
+        backtrack("", 0, digits, map, ans);
         return ans;
     }
 
-    private static void backtrack(String curPath, String digits, int offset, Map<Character, List<String>> map,
+    private static void backtrack(String curPath, int offset, String digits,  Map<Character, List<String>> map,
         List<String> ans) {
         if (curPath.length() == digits.length()) {
             ans.add(curPath);
@@ -95,7 +95,7 @@ public class LetterCombinationsOfAPhoneNumber {
         }
         Character digit = digits.charAt(offset);
         for (String letter : map.get(digit)) {
-            backtrack(curPath + letter,  digits, offset + 1, map, ans);
+            backtrack(curPath + letter, offset + 1, digits,  map, ans);
         }
     }
 
@@ -108,19 +108,23 @@ public class LetterCombinationsOfAPhoneNumber {
      * @return
      */
     public static List<String> letterCombinations3(String digits) {
-        List<String> ret = new LinkedList<>();
-        backtrack("", digits, 0, ret);
-        return ret;
+        //use LinkedList rather than ArrayList
+        List<String> ans = new LinkedList<>();
+        if (digits.isEmpty()) {
+            return ans;
+        }
+        backtrack("", 0, digits,  ans);
+        return ans;
     }
 
-    private static void backtrack(String prefix, String digits, int offset, List<String> ret) {
-        if (offset >= digits.length()) {
-            ret.add(prefix);
+    private static void backtrack(String curPath, int offset, String digits, List<String> ans) {
+        if (offset == digits.length()) {
+            ans.add(curPath);
             return;
         }
         String letters = LETTERS[(digits.charAt(offset) - '0')];
         for (int i = 0; i < letters.length(); i++) {
-            backtrack(prefix + letters.charAt(i), digits, offset + 1, ret);
+            backtrack(curPath + letters.charAt(i), offset + 1, digits, ans);
         }
     }
 
@@ -145,6 +149,87 @@ public class LetterCombinationsOfAPhoneNumber {
             }
         }
         return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public List<String> letterCombinations(String digits) {
+
+        List<String> ans = new ArrayList<>();
+        if(digits.isEmpty()){
+            return ans;
+        }
+        Map<Character, List<String>> map = new HashMap<>();
+        map.put('2', Arrays.asList("a", "b", "c"));
+        map.put('3', Arrays.asList("d", "e", "f"));
+        map.put('4', Arrays.asList("g", "h", "i"));
+        map.put('5', Arrays.asList("j", "k", "l"));
+        map.put('6', Arrays.asList("m", "n", "o"));
+        map.put('7', Arrays.asList("p", "q", "r", "s"));
+        map.put('8', Arrays.asList("t", "u", "v"));
+        map.put('9', Arrays.asList("w", "x", "y", "z"));
+        letterCombinations("",0, map,digits, ans);
+        return ans;
+    }
+
+    private void letterCombinations(String curPath, int startIdx, Map<Character, List<String>> map, String digits,
+        List<String> ans) {
+        if(curPath.length()==digits.length()){
+            ans.add(curPath);
+            return;
+        }
+        for (int i = startIdx; i < digits.length(); i++) {
+            for(String s:map.get(digits.charAt(i))){
+                letterCombinations(curPath+s,i+1,map,digits,ans);
+            }
+        }
     }
 
 }
