@@ -15,6 +15,34 @@ import java.util.Set;
  * @author Joybean
  */
 public class ThreeSum {
+    /*
+    //wrong solution, failed case:[0,0,0]
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            twoSum(nums[i], i + 1, nums, ans);
+        }
+        return ans;
+
+    }
+
+    private static void twoSum(int target, int startIdx, int[] nums, List<List<Integer>> ans) {
+        Set<Integer> set = new HashSet<>();
+        for (int i = startIdx; i < nums.length; i++) {
+            if (i > startIdx && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            if (set.contains(target - nums[i])) {
+                ans.add(Arrays.asList(target, nums[i], target - nums[i]));
+            }
+            set.add(nums[i]);
+        }
+    }
+    */
 
     /**
      * Time exceed limit
@@ -161,4 +189,5 @@ public class ThreeSum {
     public static List<List<Integer>> threeSum5(int[] nums) {
         return KSum.kSum(nums, 3, 0);
     }
+
 }
