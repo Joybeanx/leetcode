@@ -8,7 +8,7 @@ package com.joybean.leetcode;
 public class LongestPalindromicSubstring {
 
     /**
-     * DP
+     * Iterative(bottom-up) DP
      *
      * @param s
      * @return
@@ -40,7 +40,7 @@ public class LongestPalindromicSubstring {
 
     /**
      * <a href="https://leetcode.com/problems/longest-palindromic-substring/discuss/2921/Share-my-Java-solution-using
-     * -dynamic-programming">Concise DP</a>
+     * -dynamic-programming">Iterative(bottom-up) DP</a>
      *
      * @param s
      * @return
@@ -66,12 +66,38 @@ public class LongestPalindromicSubstring {
     }
 
     /**
-     * Two pointers
+     * Concise iterative(bottom-up) DP
      *
      * @param s
      * @return
      */
     public static String longestPalindrome3(String s) {
+        int maxLen = 0;
+        int startIdx = 0;
+        int endIdx = 0;
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                dp[i][j] = (s.charAt(i) == s.charAt(j)) && (j - i < 2 || dp[i + 1][j - 1]);
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1;
+                    startIdx = i;
+                    endIdx = j;
+
+                }
+            }
+        }
+        return s.substring(startIdx, endIdx + 1);
+    }
+
+    /**
+     * Two pointers
+     *
+     * @param s
+     * @return
+     */
+    public static String longestPalindrome4(String s) {
         int targetStartIdx = 0;
         int maxLen = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -102,7 +128,7 @@ public class LongestPalindromicSubstring {
      * @param s
      * @return
      */
-    public static String longestPalindrome4(String s) {
+    public static String longestPalindrome5(String s) {
         int targetStartIdx = 0;
         int maxLen = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -134,8 +160,9 @@ public class LongestPalindromicSubstring {
      * @param s
      * @return
      */
-    public static String longestPalindrome5(String s) {
+    public static String longestPalindrome6(String s) {
         return null;
     }
+
 
 }
