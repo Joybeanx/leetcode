@@ -86,7 +86,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
     }
 
     /**
-     * Sliding window 3: move left pointer to last occurred position + 1 when found repeating characters
+     * Sliding window 3: move left pointer to last occurred position + 1 when repeating characters found
      *
      * @param s
      * @return
