@@ -67,7 +67,31 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @param s
      * @return
      */
-    public static int lengthOfLongestSubstring3(String s) {
+    public int lengthOfLongestSubstring3(String s) {
+        int n = s.length();
+        int left = 0;
+        int right = 0;
+        int ans = 0;
+        Set<Character> set = new HashSet<>();
+        while (right < n) {
+            while (right < n && !set.contains(s.charAt(right))) {
+                set.add(s.charAt(right++));
+            }
+            ans = Math.max(set.size(), ans);
+            while (right < n && set.contains(s.charAt(right))) {
+                set.remove(s.charAt(left++));
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * Sliding window 3: move left pointer to last occurred position + 1 when found repeating characters
+     *
+     * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstring4(String s) {
         int ans = 0;
         int left = 0;
         int right = 0;
@@ -87,5 +111,4 @@ public class LongestSubstringWithoutRepeatingCharacters {
         }
         return ans;
     }
-
 }
