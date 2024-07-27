@@ -167,6 +167,7 @@ public class WordSearch {
 
 
     private static boolean exist3(int row, int col, int wordIndex, char[][] board, String word) {
+        //wordIndex should be checked  before row and col, otherwise this case would fail: board = [["a"]] word = "a"
         if (wordIndex == word.length()) {
             return true;
         }
@@ -188,5 +189,4 @@ public class WordSearch {
         board[row][col] ^= 1;
         return false;
     }
-
 }
