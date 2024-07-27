@@ -26,7 +26,7 @@ public class RotateImage {
     }
 
     private static void swap(int fromRowIdx, int fromColIdx, int fromVal, int[][] matrix, int startRowIdx,
-                             int startColIdx) {
+        int startColIdx) {
         int toRowIdx = fromColIdx;
         int toColIdx = matrix.length - fromRowIdx - 1;
         int tmp = matrix[toRowIdx][toColIdx];
@@ -38,7 +38,8 @@ public class RotateImage {
     }
 
     /**
-     * <a href ="https://leetcode.com/problems/rotate-image/solutions/18872/a-common-method-to-rotate-the-image/">Flip flip solution</a>
+     * <a href ="https://leetcode.com/problems/rotate-image/solutions/18872/a-common-method-to-rotate-the-image/">Flip
+     * flip solution</a>
      * 1 2 3     7 8 9     7 4 1
      * 4 5 6  => 4 5 6  => 8 5 2
      * 7 8 9     1 2 3     9 6 3
@@ -47,28 +48,23 @@ public class RotateImage {
      */
     public static void rotate2(int[][] matrix) {
         int m = matrix.length;
-        int top = 0;
-        int bottom = m - 1;
-        //reverse up to down
-        while (top < bottom) {
-            int[] tmp = matrix[top];
-            matrix[top] = matrix[bottom];
-            matrix[bottom] = tmp;
-            top++;
-            bottom--;
+        int n = matrix[0].length;
+        for (int i = 0; i < m / 2; i++) {
+            int[] tmp = matrix[i];
+            matrix[i] = matrix[m - i - 1];
+            matrix[m - i - 1] = tmp;
         }
-        //swap the symmetry
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < i; j++) {
-                swap(i, j, j, i, matrix);
+            for (int j = i + 1; j < n; j++) {
+                swap(i, j, matrix);
             }
         }
     }
 
-    private static void swap(int r1, int c1, int r2, int c2, int[][] matrix) {
-        int tmp = matrix[r1][c1];
-        matrix[r1][c1] = matrix[r2][c2];
-        matrix[r2][c2] = tmp;
+    private static void swap(int i, int j, int[][] matrix) {
+        int tmp = matrix[i][j];
+        matrix[i][j] = matrix[j][i];
+        matrix[j][i] = tmp;
     }
 
 }

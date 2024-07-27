@@ -33,7 +33,7 @@ public class GenerateParentheses {
     }*/
 
     /**
-     * Ugly DP
+     * Iterative(bottom-up) DP
      *
      * @param n
      * @return
@@ -62,7 +62,8 @@ public class GenerateParentheses {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/generate-parentheses/discuss/10127/An-iterative-method.">Better DP</a>
+     * <a href="https://leetcode.com/problems/generate-parentheses/discuss/10127/An-iterative-method.">Optimized
+     * iterative(bottom-up) DP</a>
      *
      * @param n
      * @return
@@ -85,18 +86,43 @@ public class GenerateParentheses {
     }
 
     /**
-     * backtracking (by labuladong)
+     * backtracking
      *
      * @param n
      * @return
      */
     public static List<String> generateParenthesis3(int n) {
         List<String> ans = new ArrayList<>();
-        backtrack1(n - 1, n, "(", ans);
+        backtrack1("", n, n, ans);
         return ans;
     }
 
-    private static void backtrack1(int availableOpen, int availableClose, String curPath, List<String> ans) {
+    private static void backtrack1(String curPath, int availableOpen, int availableClose,
+        List<String> ans) {
+        if (availableOpen < 0 || availableClose < 0 || availableOpen > availableClose) {
+            return;
+        }
+        if (availableOpen == 0 && availableClose == 0) {
+            ans.add(curPath);
+            return;
+        }
+        backtrack1(curPath + "(", availableOpen - 1, availableClose, ans);
+        backtrack1(curPath + ")", availableOpen, availableClose - 1, ans);
+    }
+
+    /**
+     * backtracking (by labuladong)
+     *
+     * @param n
+     * @return
+     */
+    public static List<String> generateParenthesis4(int n) {
+        List<String> ans = new ArrayList<>();
+        backtrack2("(", n - 1, n, ans);
+        return ans;
+    }
+
+    private static void backtrack2(String curPath, int availableOpen, int availableClose, List<String> ans) {
         if (availableOpen == 0 && availableClose == 0) {
             ans.add(curPath);
             return;
@@ -105,10 +131,10 @@ public class GenerateParentheses {
             return;
         }
         if (availableOpen > 0) {
-            backtrack1(availableOpen - 1, availableClose, curPath + "(", ans);
+            backtrack2(curPath + "(", availableOpen - 1, availableClose, ans);
         }
         if (availableClose > 0) {
-            backtrack1(availableOpen, availableClose - 1, curPath + ")", ans);
+            backtrack2(curPath + ")", availableOpen, availableClose - 1, ans);
         }
     }
 
@@ -116,28 +142,40 @@ public class GenerateParentheses {
      * <a href="https://leetcode.com/problems/generate-parentheses/discuss/10100/Easy-to-understand-Java-backtracking
      * -solution">Optimized backtracking</a>
      *
+     *                                  (0, 0, '')
+     * 								 	    |
+     * 									(1, 0, '(')
+     * 								   /           \
+     * 							(2, 0, '((')      (1, 1, '()')
+     * 							   /                 \
+     * 						(2, 1, '(()')           (2, 1, '()(')
+     * 						   /                       \
+     * 					(2, 2, '(())')                (2, 2, '()()')
+     * 						      |	                             |
+     * 					res.append('(())')             res.append('()()')
+     *
      * @param n
      * @return
      */
-    public static List<String> generateParenthesis4(int n) {
+    public static List<String> generateParenthesis5(int n) {
         List<String> ans = new ArrayList<>();
-        backtrack2(0, 0, n, new StringBuilder(), ans);
+        backtrack3(new StringBuilder(), 0, 0, n, ans);
         return ans;
     }
 
-    private static void backtrack2(int open, int close, int n, StringBuilder curPath, List<String> ans) {
+    private static void backtrack3(StringBuilder curPath, int open, int close, int n, List<String> ans) {
         if (curPath.length() == 2 * n) {
             ans.add(curPath.toString());
             return;
         }
         if (open < n) {
             curPath.append("(");
-            backtrack2(open + 1, close, n, curPath, ans);
+            backtrack3(curPath, open + 1, close, n, ans);
             curPath.deleteCharAt(curPath.length() - 1);
         }
         if (open > close) {
             curPath.append(")");
-            backtrack2(open, close + 1, n, curPath, ans);
+            backtrack3(curPath, open, close + 1, n, ans);
             curPath.deleteCharAt(curPath.length() - 1);
         }
     }
@@ -149,7 +187,8 @@ public class GenerateParentheses {
      * @param n
      * @return
      */
-    public static List<String> generateParenthesis5(int n) {
+    public static List<String> generateParenthesis6(int n) {
         return null;
     }
+
 }

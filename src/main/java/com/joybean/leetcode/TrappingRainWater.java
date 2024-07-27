@@ -35,9 +35,42 @@ public class TrappingRainWater {
         }
         return ans;
     }
+    /**
+     * Two pointers
+     *
+     * @param height
+     * @return
+     */
+    public static int trap3(int[] height) {
+        int n = height.length;
+        int ans = 0;
+        int left = 0;
+        int right = n - 1;
+        int leftMax = 0;
+        int rightMax = 0;
+        while (left < right) {
+            if (leftMax < rightMax) {
+                if (height[left] > leftMax) {
+                    leftMax = height[left];
+                } else {
+                    ans += leftMax - height[left];
+                    left++;
+                }
+            } else {
+                if (height[right] > rightMax) {
+                    rightMax = height[right];
+                } else {
+                    ans += rightMax - height[right];
+                    right--;
+                }
+            }
+        }
+        return ans;
+    }
 
     /**
-     * <a href="https://leetcode.com/problems/trapping-rain-water/solution/">Using two pointers</a>
+     * <a href="https://leetcode.com/problems/trapping-rain-water/solutions/1374608/c-java-python-maxleft-maxright-so
+     * -far-with-picture-o-1-space-clean-concise/">Two pointers</a>
      *
      * @param height
      * @return
@@ -48,6 +81,7 @@ public class TrappingRainWater {
         int right = height.length - 1;
         int leftMax = 0;
         int rightMax = 0;
+        //should not use left < right, failed case: [4, 2, 0, 3, 2, 5]
         while (left <= right) {
             if (leftMax < rightMax) {
                 if (height[left] < leftMax) {
@@ -75,7 +109,8 @@ public class TrappingRainWater {
      * @param height
      * @return
      */
-    public static int trap3(int[] height) {
+    public static int trap4(int[] height) {
         return 0;
     }
+
 }

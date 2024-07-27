@@ -43,6 +43,35 @@ public class ReverseNodesInKGroup {
     }
 
     /**
+     * <a href="https://leetcode.com/problems/reverse-nodes-in-k-group/solutions/11423/short-but-recursive-java-code
+     * -with-comments/">Recursive solution</a>
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKGroup2(ListNode head, int k) {
+        ListNode cur = head;
+        int n = 0;
+        while (cur != null && n != k) {
+            cur = cur.next;
+            n++;
+        }
+        if (n == k) {
+            cur = reverseKGroup2(cur, k);
+            ListNode newHead = cur;
+            while (n-- > 0) {
+                ListNode tmp = head.next;
+                head.next = newHead;
+                newHead = head;
+                head = tmp;
+            }
+            return newHead;
+        }
+        return head;
+    }
+
+    /**
      * Iterative solution
      * TODO
      *
@@ -50,7 +79,7 @@ public class ReverseNodesInKGroup {
      * @param k
      * @return
      */
-    public static ListNode reverseKGroup2(ListNode head, int k) {
+    public static ListNode reverseKGroup3(ListNode head, int k) {
         return null;
     }
 
@@ -60,7 +89,7 @@ public class ReverseNodesInKGroup {
 
         ListNode() {}
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {this.val = val;}
 
         ListNode(int val, ListNode next) {
             this.val = val;

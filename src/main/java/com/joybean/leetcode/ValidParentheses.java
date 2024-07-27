@@ -10,6 +10,33 @@ import java.util.Stack;
  * @author Joybean
  */
 public class ValidParentheses {
+
+   /*
+    //wrong solution, failed case: ([)]
+    public boolean isValid(String s) {
+        int[] counter = new int[3];
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                counter[0]++;
+            } else if (c == ')') {
+                counter[0]--;
+
+            } else if (c == '[') {
+                counter[1]++;
+            } else if (c == ']') {
+                counter[1]--;
+
+            } else if (c == '{') {
+                counter[2]++;
+            } else if (c == '}') {
+                counter[2]--;
+            }
+        }
+        return counter[0] == 0 && counter[1] == 0 && counter[2] == 0;
+    }
+    */
+
+
     /**
      * Straightforward stack solution
      *
@@ -36,14 +63,37 @@ public class ValidParentheses {
     }
 
     /**
-     * <a
-     * href="https://leetcode.com/problems/valid-parentheses/discuss/9178/Short-java-solution">Concise
-     * stack solution</a>
+     * Straightforward stack solution
+     * @param s
+     * @return
+     */
+    public boolean isValid2(String s) {
+        Map<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put(']', '[');
+        map.put('}', '{');
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (!map.containsKey(c)) {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty() || stack.peek() != map.get(c)) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    /**
+     *
+     * <a href="https://leetcode.com/problems/valid-parentheses/discuss/9178/Short-java-solution">Concise stack solution</a>
      *
      * @param s
      * @return
      */
-    public static boolean isValid2(String s) {
+    public static boolean isValid3(String s) {
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) {
             if (c == '(') {
@@ -58,4 +108,5 @@ public class ValidParentheses {
         }
         return stack.isEmpty();
     }
+
 }

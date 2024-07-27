@@ -43,6 +43,23 @@ public class ReverseLinkedList {
     }
 
     /**
+     * Iterative solution 3
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList3(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode tmp = cur.next;
+            cur.next = dummy.next;
+            dummy.next = cur;
+            cur = tmp;
+        }
+        return dummy.next;
+    }
+
+    /**
      * Recursive solution: start from head, reverse the pointer between previous node and current node
      *
      * @param head
@@ -73,17 +90,17 @@ public class ReverseLinkedList {
      * @param head
      * @return
      */
-    public static ListNode reverseList3(ListNode head) {
-        return reverseList3(null, head);
+    public static ListNode reverseList5(ListNode head) {
+        return reverseList5(null, head);
     }
 
-    private static ListNode reverseList3(ListNode prev, ListNode cur) {
+    private static ListNode reverseList5(ListNode prev, ListNode cur) {
         if (cur == null) {
             return prev;
         }
         ListNode next = cur.next;
         cur.next = prev;
-        return reverseList3(cur, next);
+        return reverseList5(cur, next);
     }
 
     /**
@@ -92,13 +109,13 @@ public class ReverseLinkedList {
      * @param head
      * @return
      */
-    public static ListNode reverseList5(ListNode head) {
+    public static ListNode reverseList6(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
         //head.next become the tail of reversed list after each recursion
         //newHead must be the tail of original list
-        ListNode newHead = reverseList5(head.next);
+        ListNode newHead = reverseList6(head.next);
         head.next.next = head;
         //head <—> n1 <— n2 ... <— tail
         head.next = null;
@@ -111,20 +128,20 @@ public class ReverseLinkedList {
      * @param head
      * @return
      */
-    public static ListNode reverseList6(ListNode head) {
+    public static ListNode reverseList7(ListNode head) {
         ListNode dummy = new ListNode(0, null);
-        reverseList6(dummy, head);
+        reverseList7(dummy, head);
         return dummy.next;
     }
 
-    private static void reverseList6(ListNode dummy, ListNode cur) {
+    private static void reverseList7(ListNode dummy, ListNode cur) {
         if (cur == null) {
             return;
         }
         ListNode next = cur.next;
         cur.next = dummy.next;
         dummy.next = cur;
-        reverseList6(dummy, next);
+        reverseList7(dummy, next);
     }
 
     public static class ListNode {
@@ -140,4 +157,5 @@ public class ReverseLinkedList {
             this.next = next;
         }
     }
+
 }

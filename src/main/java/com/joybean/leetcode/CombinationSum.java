@@ -59,7 +59,8 @@ public class CombinationSum {
         return ans;
     }
 
-    private static void backtrack1(List<Integer> curPath, int startIndex, int[] candidates, int target, List<List<Integer>> ans) {
+    private static void backtrack1(List<Integer> curPath, int startIndex, int[] candidates, int target,
+        List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -83,12 +84,14 @@ public class CombinationSum {
      */
     public static List<List<Integer>> combinationSum3(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
+        //sort candidates for pruning
         Arrays.sort(candidates);
         backtrack2(new ArrayList<>(), 0, candidates, target, ans);
         return ans;
     }
 
-    private static void backtrack2(List<Integer> curPath, int startIndex, int[] candidates, int target, List<List<Integer>> ans) {
+    private static void backtrack2(List<Integer> curPath, int startIndex, int[] candidates, int target,
+        List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -103,6 +106,19 @@ public class CombinationSum {
             backtrack2(curPath, i, candidates, newTarget, ans);
             curPath.remove(curPath.size() - 1);
         }
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/combination-sum/solutions/16509/iterative-java-dp-solution/">Iterative
+     * (bottom-up) DP</a>
+     * TODO
+     *
+     * @param candidates
+     * @param target
+     * @return
+     */
+    public static List<List<Integer>> combinationSum4(int[] candidates, int target) {
+        return null;
     }
 
 }

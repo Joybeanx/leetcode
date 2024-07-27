@@ -1,5 +1,7 @@
 package com.joybean.leetcode;
 
+import java.util.Stack;
+
 /**
  * <a href="https://leetcode.com/problems/longest-valid-parentheses/">Longest Valid Parentheses</a>
  *
@@ -7,7 +9,7 @@ package com.joybean.leetcode;
  */
 public class LongestValidParentheses {
     /**
-     * DP
+     * Iterative(bottom-up) DP
      *
      * @param s
      * @return
@@ -33,8 +35,7 @@ public class LongestValidParentheses {
     }
 
     /**
-     * DP:
-     * <a href="https://leetcode.com/problems/longest-valid-parentheses/solution/">More graceful approach</a>
+     * <a href="https://leetcode.com/problems/longest-valid-parentheses/solution/">Iterative(bottom-up) DP</a>
      *
      * @param s
      * @return
@@ -56,13 +57,56 @@ public class LongestValidParentheses {
     }
 
     /**
-     * Using Stack
-     * TODO
+     * Stack + array
      *
      * @param s
      * @return
      */
     public static int longestValidParentheses3(String s) {
-        return 0;
+        int n = s.length();
+        Stack<Integer> stack = new Stack<>();
+        int[] arr = new int[n];
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ')' && !stack.isEmpty() && s.charAt(stack.peek()) == '(') {
+                arr[stack.pop()] = 1;
+                arr[i] = 1;
+            } else {
+                stack.push(i);
+            }
+        }
+        //find the longest substring that all items are 1
+        int ans = 0;
+        int streak = 0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 1) {
+                streak++;
+                ans = Math.max(streak, ans);
+            } else {
+                streak = 0;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * Stack
+     *
+     * @param s
+     * @return
+     */
+    public int longestValidParentheses4(String s) {
+        int ans = 0;
+        Stack<Integer> stack = new Stack<>();
+        //use -1 as bottom of stack
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ')' && !stack.isEmpty() && stack.peek() >= 0 && s.charAt(stack.peek()) == '(') {
+                stack.pop();
+                ans = Math.max(i - stack.peek(), ans);
+            } else {
+                stack.push(i);
+            }
+        }
+        return ans;
     }
 }
