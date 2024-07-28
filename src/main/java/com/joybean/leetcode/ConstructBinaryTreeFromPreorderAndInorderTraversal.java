@@ -11,8 +11,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Joybean
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
+
+
+    private static int preorderIdx = 0;
+
     /**
-     * Recursive solution: keep track of current preorder index
+     * Recursive solution: use global preorder index
      *
      * @param preorder
      * @param inorder
@@ -23,10 +27,37 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
-        return buildTree1(preorder, new AtomicInteger(0), 0, inorder.length - 1, inorderMap);
+        return buildTree1(0, inorder.length - 1, preorder, inorderMap);
     }
 
-    private static TreeNode buildTree1(int[] preorder, AtomicInteger preorderIndex, int inorderStart, int inorderEnd,
+    private static TreeNode buildTree1(int inorderStart, int inorderEnd, int[] preorder,
+                                                          Map<Integer, Integer> inorderMap) {
+        if (inorderStart > inorderEnd) {
+            return null;
+        }
+        int val = preorder[preorderIdx++];
+       TreeNode root = new TreeNode(val);
+        root.left = buildTree1(inorderStart, inorderMap.get(val) - 1, preorder, inorderMap);
+        root.right = buildTree1(inorderMap.get(val) + 1, inorderEnd,
+                preorder, inorderMap);
+        return root;
+    }
+    /**
+     * Recursive solution: keep track of current preorder index
+     *
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public static TreeNode buildTree2(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> inorderMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inorderMap.put(inorder[i], i);
+        }
+        return buildTree2(preorder, new AtomicInteger(0), 0, inorder.length - 1, inorderMap);
+    }
+
+    private static TreeNode buildTree2(int[] preorder, AtomicInteger preorderIndex, int inorderStart, int inorderEnd,
         Map<Integer, Integer> inorderMap) {
         if (inorderStart > inorderEnd) {
             return null;
@@ -34,8 +65,8 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         int parentVal = preorder[preorderIndex.getAndIncrement()];
         TreeNode parent = new TreeNode(parentVal);
         int inorderParentIdx = inorderMap.get(parentVal);
-        parent.left = buildTree1(preorder, preorderIndex, inorderStart, inorderParentIdx - 1, inorderMap);
-        parent.right = buildTree1(preorder, preorderIndex, inorderParentIdx + 1, inorderEnd, inorderMap);
+        parent.left = buildTree2(preorder, preorderIndex, inorderStart, inorderParentIdx - 1, inorderMap);
+        parent.right = buildTree2(preorder, preorderIndex, inorderParentIdx + 1, inorderEnd, inorderMap);
         return parent;
     }
 
@@ -47,15 +78,15 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
      * @param inorder
      * @return
      */
-    public static TreeNode buildTree2(int[] preorder, int[] inorder) {
+    public static TreeNode buildTree3(int[] preorder, int[] inorder) {
         Map<Integer, Integer> inorderMap = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
-        return buildTree2(preorder, 0, 0, inorder.length - 1, inorderMap);
+        return buildTree3(preorder, 0, 0, inorder.length - 1, inorderMap);
     }
 
-    private static TreeNode buildTree2(int[] preorder, int preorderIndex, int inorderStart, int inorderEnd,
+    private static TreeNode buildTree3(int[] preorder, int preorderIndex, int inorderStart, int inorderEnd,
         Map<Integer, Integer> inorderMap) {
         if (inorderStart > inorderEnd) {
             return null;
@@ -63,7 +94,7 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         int parentVal = preorder[preorderIndex];
         TreeNode parent = new TreeNode(parentVal);
         int inorderParentIdx = inorderMap.get(parentVal);
-        parent.left = buildTree2(preorder, preorderIndex + 1, inorderStart, inorderParentIdx - 1, inorderMap);
+        parent.left = buildTree3(preorder, preorderIndex + 1, inorderStart, inorderParentIdx - 1, inorderMap);
         //calculate preorderIndex for right subtree after left subtree is built
         //     3
         //    / \
@@ -72,7 +103,7 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         // 1
         //inorder = {1,2,3,4}
         //preorder = {3,2,1,4}
-        parent.right = buildTree2(preorder, preorderIndex + inorderParentIdx - inorderStart + 1, inorderParentIdx + 1,
+        parent.right = buildTree3(preorder, preorderIndex + inorderParentIdx - inorderStart + 1, inorderParentIdx + 1,
             inorderEnd, inorderMap);
         return parent;
     }
