@@ -7,8 +7,10 @@ package com.joybean.leetcode;
  */
 public class FlattenBinaryTreeToLinkedList {
 
-
-
+    /**
+     * Postorder traversal
+     * @param root
+     */
     public static void flatten1(TreeNode root) {
         if (root == null) {
             return;
@@ -30,6 +32,10 @@ public class FlattenBinaryTreeToLinkedList {
         root.left = null;
     }
 
+    /**
+     * Postorder traversal
+     * @param root
+     */
     public static void flatten2(TreeNode root) {
         if (root == null) {
             return;
@@ -50,8 +56,8 @@ public class FlattenBinaryTreeToLinkedList {
     private static TreeNode prev = null;
 
     /**
-     * https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal
-     * -Java-solution-for-share
+     * <a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/36977/My-short-post-order-traversal
+     * -Java-solution-for-share">Reversed postorder traversal</a>
      *
      * @param root
      */
@@ -84,4 +90,19 @@ public class FlattenBinaryTreeToLinkedList {
             this.right = right;
         }
     }
+
+    private static TreeNode pre;
+
+    public static void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        flatten(root.right);
+        flatten(root.left);
+        root.right = pre;
+        root.left = null;
+        pre = root;
+    }
+
 }
