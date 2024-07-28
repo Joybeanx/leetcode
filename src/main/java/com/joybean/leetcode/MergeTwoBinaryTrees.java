@@ -7,7 +7,7 @@ package com.joybean.leetcode;
  */
 public class MergeTwoBinaryTrees {
     /**
-     * DFS using new TreeNode
+     * DFS: always create new TreeNode
      *
      * @param root1
      * @param root2
@@ -39,13 +39,33 @@ public class MergeTwoBinaryTrees {
     }
 
     /**
-     * DFS using original TreeNode
-     *
+     * DFS: create new TreeNode only if two merging nodes exist
      * @param root1
      * @param root2
      * @return
      */
     public static TreeNode mergeTrees2(TreeNode root1, TreeNode root2) {
+
+        if (root1 == null) {
+            return root2;
+        }
+        if (root2 == null) {
+            return root1;
+        }
+        TreeNode root = new TreeNode(root1.val + root2.val);
+        root.left = mergeTrees2(root1.left, root2.left);
+        root.right = mergeTrees2(root1.right, root2.right);
+        return root;
+    }
+
+    /**
+     * DFS: use original TreeNode
+     *
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public static TreeNode mergeTrees3(TreeNode root1, TreeNode root2) {
         if (root1 == null) {
             return root2;
         }
@@ -66,7 +86,7 @@ public class MergeTwoBinaryTrees {
      * @param root2
      * @return
      */
-    public static TreeNode mergeTrees3(TreeNode root1, TreeNode root2) {
+    public static TreeNode mergeTrees4(TreeNode root1, TreeNode root2) {
         return null;
     }
 
@@ -75,9 +95,12 @@ public class MergeTwoBinaryTrees {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
@@ -85,4 +108,5 @@ public class MergeTwoBinaryTrees {
             this.right = right;
         }
     }
+
 }
