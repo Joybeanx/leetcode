@@ -13,7 +13,7 @@ public class SymmetricTree {
     private static int index;
 
     /**
-     * DFS:cache one side first
+     * DFS: cache one side first
      *
      * @param root
      * @return
@@ -46,23 +46,44 @@ public class SymmetricTree {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">Better DFS</a>
+     * DFS: compare the left and right subtrees at each level
      *
      * @param root
      * @return
      */
-    public static boolean isSymmetric2(TreeNode root) {
-        return isMirror(root.left, root.right);
+    public boolean isSymmetric2(TreeNode root) {
+        return isSymmetric2(root.left, root.right);
     }
 
-    public static boolean isMirror(TreeNode t1, TreeNode t2) {
-        //It's pretty nifty here
-        if (t1 == null || t2 == null) {
-            return t1 == t2;
+    private boolean isSymmetric2(TreeNode node1, TreeNode node2) {
+        if (node1 != null && node2 != null) {
+            return node1.val == node2.val && isSymmetric2(node1.left, node2.right) && isSymmetric2(node1.right, node2.left);
         }
-        return (t1.val == t2.val)
-            && isMirror(t1.right, t2.left)
-            && isMirror(t1.left, t2.right);
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/minimum-height-trees/solution/">DFS: compare the left and right subtrees at each level</a>
+     *
+     * @param root
+     * @return
+     */
+    public static boolean isSymmetric3(TreeNode root) {
+        return isSymmetric3(root.left, root.right);
+    }
+
+    public static boolean isSymmetric3(TreeNode node1, TreeNode node2) {
+        //It's pretty nifty here
+        if (node1 == null || node2 == null) {
+            return node1 == node2;
+        }
+        return (node1.val == node2.val)
+                && isSymmetric3(node1.right, node2.left)
+                && isSymmetric3(node1.left, node2.right);
     }
 
     /**
@@ -72,7 +93,7 @@ public class SymmetricTree {
      * @param root
      * @return
      */
-    public static boolean isSymmetric3(TreeNode root) {
+    public static boolean isSymmetric4(TreeNode root) {
         return false;
     }
 
@@ -81,9 +102,12 @@ public class SymmetricTree {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
