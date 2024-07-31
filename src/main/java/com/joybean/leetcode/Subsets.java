@@ -1,9 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,8 +12,8 @@ import java.util.stream.IntStream;
 public class Subsets {
     public static List<List<Integer>> subsets1(int[] nums) {
         return IntStream.range(0, 2 << nums.length - 1).mapToObj(Integer::toBinaryString)
-            .map(bs -> buildSubset(bs, nums))
-            .collect(Collectors.toList());
+                        .map(bs -> buildSubset(bs, nums))
+                        .collect(Collectors.toList());
     }
 
     private static List<Integer> buildSubset(String bs, int[] nums) {
@@ -108,12 +105,39 @@ public class Subsets {
         for (int i = 0; i < max_res; i++) {
             List<Integer> subset = new LinkedList<>();
             for (int bit = 0; bit < nums.length; bit++) {
-                if (((i >> bit) & 1) == 1) {subset.add(nums[bit]);}
+                if (((i >> bit) & 1) == 1) {
+                    subset.add(nums[bit]);
+                }
             }
             answer.add(subset);
         }
 
         return answer;
+    }
+
+
+    /**
+     * backtracking
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsets6(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        subsets(new HashSet<>(), 0, nums, ans);
+        return ans;
+    }
+
+    private void subsets(Set<Integer> curPath, int startIdx, int[] nums, List<List<Integer>> ans) {
+        ans.add(new ArrayList<>(curPath));
+        for (int i = startIdx; i < nums.length; i++) {
+            if (curPath.contains(nums[i])) {
+                continue;
+            }
+            curPath.add(nums[i]);
+            subsets(curPath, i, nums, ans);
+            curPath.remove(nums[i]);
+        }
     }
 
     /**
@@ -122,18 +146,18 @@ public class Subsets {
      * @param nums
      * @return
      */
-    public static List<List<Integer>> subsets6(int[] nums) {
+    public static List<List<Integer>> subsets7(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack(nums, 0, new ArrayList<>(), ans);
+        backtrack2(new LinkedList<>(), 0, nums, ans);
         return ans;
     }
 
-    private static void backtrack(int[] nums, int start, List<Integer> curPath, List<List<Integer>> ans) {
+    private static void backtrack2(LinkedList<Integer> curPath, int start, int[] nums, List<List<Integer>> ans) {
         ans.add(new ArrayList<>(curPath));
         for (int i = start; i < nums.length; i++) {
             curPath.add(nums[i]);
-            backtrack(nums, i + 1, curPath, ans);
-            curPath.remove(curPath.size() - 1);
+            backtrack2(curPath, i + 1, nums, ans);
+            curPath.removeLast();
         }
     }
 
