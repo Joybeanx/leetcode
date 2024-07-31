@@ -45,9 +45,9 @@ public class EditDistance {
         }
 
         int res = Math.min(minDistanceInternal1(subStrSafely(rest1, 1), rest2, memo),
-            minDistanceInternal1(rest1, subStrSafely(rest2, 1), memo));
+                minDistanceInternal1(rest1, subStrSafely(rest2, 1), memo));
         res = Math.min(res, minDistanceInternal1(subStrSafely(rest1, 1),
-            subStrSafely(rest2, 1), memo)) + 1;
+                subStrSafely(rest2, 1), memo)) + 1;
         memo.put(key, res);
         return res;
     }
@@ -83,12 +83,40 @@ public class EditDistance {
             return minDistanceInternal2(word1, word2, i + 1, j + 1, memo);
         } else {
             int res = Math.min(minDistanceInternal2(word1, word2, i, j + 1, memo),
-                minDistanceInternal2(word1, word2, i + 1, j, memo));
+                    minDistanceInternal2(word1, word2, i + 1, j, memo));
             res = Math.min(res,
-                minDistanceInternal2(word1, word2, i + 1, j + 1, memo)) + 1;
+                    minDistanceInternal2(word1, word2, i + 1, j + 1, memo)) + 1;
             memo.put(key, res);
             return res;
         }
+    }
+
+
+    /**
+     * Iterative(bottom-up) DP
+     *
+     * @param word1
+     * @param word2
+     * @return
+     */
+    public static int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        int dp[][] = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = j;
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + 1;
+                dp[i][j] = Math.min(word1.charAt(i - 1) == word2.charAt(j - 1) ? dp[i - 1][j - 1] :
+                        dp[i - 1][j - 1] + 1, dp[i][j]);
+            }
+        }
+        return dp[m][n];
     }
 
     /**
@@ -98,7 +126,7 @@ public class EditDistance {
      * @param word2
      * @return
      */
-    public static int minDistance3(String word1, String word2) {
+    public static int minDistance4(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();
         //offset
