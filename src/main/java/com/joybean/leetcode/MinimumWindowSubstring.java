@@ -62,67 +62,43 @@ public class MinimumWindowSubstring {
      * @return
      */
     public String minWindow2(String s, String t) {
-        // Dictionary which keeps a count of all the unique characters in t.
-        Map<Character, Integer> dict = new HashMap<>();
-        for (int i = 0; i < t.length(); i++) {
-            dict.merge(t.charAt(i), 1, Integer::sum);
+        Map<Character, Integer> targetCounter = new HashMap<>();
+        for (Character c : t.toCharArray()) {
+            targetCounter.put(c, targetCounter.getOrDefault(c, 0) + 1);
         }
-
-        // Number of unique characters in t, which need to be present in the desired window.
-        int required = dict.size();
-
-        // Left and Right pointer
-        int l = 0, r = 0;
-
-        // formed is used to keep track of how many unique characters in t
-        // are present in the current window in its desired frequency.
-        // e.g. if t is "AABC" then the window must have two A's, one B and one C.
-        // Thus formed would be = 3 when all these conditions are met.
-        int formed = 0;
-
-        // Dictionary which keeps a count of all the unique characters in the current window.
-        Map<Character, Integer> windowCounts = new HashMap<>();
-
-        // ans list of the form (window length, left, right)
-        int[] ans = {-1, 0, 0};
-
-        while (r < s.length()) {
-            // Add one character from the right to the window
-            char c = s.charAt(r);
-            windowCounts.merge(c, 1, Integer::sum);
-
-            // If the frequency of the current character added equals to the
-            // desired count in t then increment the formed count by 1.
-            if (dict.containsKey(c) && windowCounts.get(c).intValue() == dict.get(c).intValue()) {
-                formed++;
-            }
-
-            // Try and contract the window till the point where it ceases to be 'desirable'.
-            while (l <= r && formed == required) {
-                c = s.charAt(l);
-                // Save the smallest window until now.
-                if (ans[0] == -1 || r - l + 1 < ans[0]) {
-                    ans[0] = r - l + 1;
-                    ans[1] = l;
-                    ans[2] = r;
+        Map<Character, Integer> windowCounter = new HashMap<>();
+        int left = 0;
+        int right = 0;
+        int valid = 0;
+        int minStart = 0;
+        int minLength = Integer.MAX_VALUE;
+        while (right < s.length()) {
+            Character c = s.charAt(right);
+            if (targetCounter.containsKey(c)) {
+                windowCounter.put(c, windowCounter.getOrDefault(c, 0) + 1);
+                //should not use windowCounter.get(c)  == targetCounter.get(c)
+                //https://leetcode.com/problems/minimum-window-substring/submissions/1339139071/
+                if (windowCounter.get(c).intValue() == targetCounter.get(c).intValue()) {
+                    valid++;
                 }
-
-                // The character at the position pointed by the
-                // `Left` pointer is no longer a part of the window.
-                windowCounts.put(c, windowCounts.get(c) - 1);
-                if (dict.containsKey(c) && windowCounts.get(c).intValue() < dict.get(c).intValue()) {
-                    formed--;
-                }
-
-                // Move the left pointer ahead, this would help to look for a new window.
-                l++;
             }
-
-            // Keep expanding the window once we are done contracting.
-            r++;
+            while (valid == targetCounter.size()) {
+                Character lc = s.charAt(left);
+                if (targetCounter.containsKey(lc)) {
+                    windowCounter.put(lc, windowCounter.get(lc) - 1);
+                    if (windowCounter.get(lc) < targetCounter.get(lc)) {
+                        valid--;
+                        if (right - left + 1 < minLength) {
+                            minStart = left;
+                            minLength = right - left + 1;
+                        }
+                    }
+                }
+                left++;
+            }
+            right++;
         }
-
-        return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLength);
     }
 
     /**
@@ -133,18 +109,18 @@ public class MinimumWindowSubstring {
      * @return
      */
     public static String minWindow3(String s, String t) {
-        HashMap<Character, Integer> requiredCounts = new HashMap<>();
+        Map<Character, Integer> requiredCounter = new HashMap<>();
         for (char c : t.toCharArray()) {
-            requiredCounts.merge(c, 1, Integer::sum);
+            requiredCounter.merge(c, 1, Integer::sum);
         }
         int left = 0;
         int minLeft = 0;
-        int minLen = s.length() + 1;
+        int minLen = Integer.MAX_VALUE;
         int formed = 0;
         for (int right = 0; right < s.length(); right++) {
-            if (requiredCounts.containsKey(s.charAt(right))) {
-                requiredCounts.merge(s.charAt(right), -1, Integer::sum);
-                if (requiredCounts.get(s.charAt(right)) >= 0) {
+            if (requiredCounter.containsKey(s.charAt(right))) {
+                requiredCounter.merge(s.charAt(right), -1, Integer::sum);
+                if (requiredCounter.get(s.charAt(right)) >= 0) {
                     formed++;
                 }
                 while (formed == t.length()) {
@@ -152,9 +128,9 @@ public class MinimumWindowSubstring {
                         minLeft = left;
                         minLen = right - left + 1;
                     }
-                    if (requiredCounts.containsKey(s.charAt(left))) {
-                        requiredCounts.merge(s.charAt(left), 1, Integer::sum);
-                        if (requiredCounts.get(s.charAt(left)) > 0) {
+                    if (requiredCounter.containsKey(s.charAt(left))) {
+                        requiredCounter.merge(s.charAt(left), 1, Integer::sum);
+                        if (requiredCounter.get(s.charAt(left)) > 0) {
                             formed--;
                         }
                     }
@@ -162,10 +138,7 @@ public class MinimumWindowSubstring {
                 }
             }
         }
-        if (minLen > s.length()) {
-            return "";
-        }
-        return s.substring(minLeft, minLeft + minLen);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
 
     /**
@@ -177,9 +150,9 @@ public class MinimumWindowSubstring {
      * @return
      */
     public static String minWindow4(String s, String t) {
-        int[] requiredCounts = new int[128];
+        int[] requiredCounter = new int[128];
         for (char c : t.toCharArray()) {
-            requiredCounts[c]++;
+            requiredCounter[c]++;
         }
         int left = 0;
         int minLeft = 0;
@@ -188,8 +161,8 @@ public class MinimumWindowSubstring {
         int remainingChars = t.length();
         for (int right = 0; right < s.length(); right++) {
             char rc = s.charAt(right);
-            requiredCounts[rc]--;
-            if (requiredCounts[rc] >= 0) {
+            requiredCounter[rc]--;
+            if (requiredCounter[rc] >= 0) {
                 remainingChars--;
             }
             while (remainingChars == 0) {
@@ -198,12 +171,14 @@ public class MinimumWindowSubstring {
                     minLeft = left;
                 }
                 char lc = s.charAt(left++);
-                requiredCounts[lc]++;
-                if (requiredCounts[lc] > 0) {
+                requiredCounter[lc]++;
+                if (requiredCounter[lc] > 0) {
                     remainingChars++;
                 }
             }
         }
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
+
+
 }
