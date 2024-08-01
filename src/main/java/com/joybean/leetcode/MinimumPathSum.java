@@ -41,6 +41,31 @@ public class MinimumPathSum {
      * @param grid
      * @return
      */
+    public static int minPathSum2(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 2; i <= m; i++) {
+            dp[i][0] = Integer.MAX_VALUE;
+        }
+        for (int j = 2; j <= n; j++) {
+            dp[0][j] = Integer.MAX_VALUE;
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i - 1][j - 1];
+            }
+        }
+        return dp[m][n];
+    }
+
+
+    /**
+     * Iterative(bottom-up) DP
+     *
+     * @param grid
+     * @return
+     */
     public static int minPathSum3(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
@@ -58,9 +83,8 @@ public class MinimumPathSum {
         return dp[m - 1][n - 1];
     }
 
-
     /**
-     * <a href="https://leetcode.com/problems/minimum-path-sum/">Iterative(bottom-up) DP: initialize dp[0][j] and dp[i][0]</a>
+     * Iterative(bottom-up) DP: initialize first row（dp[0][j]） and first column（dp[i][0]）
      *
      * @param grid
      * @return
@@ -85,6 +109,30 @@ public class MinimumPathSum {
         return dp[m - 1][n - 1];
     }
 
+    /**
+     * <a href="https://leetcode.com/problems/minimum-path-sum/solutions/23457/c-dp/">Iterative(bottom-up) DP with state compression(by caraxin)</a>
+     *
+     * @param grid
+     * @return
+     */
+    public static int minPathSum5(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        //dp[j] represents min path sum ends with grid[i][j]
+        int[] dp = new int[n];
+        dp[0] = grid[0][0];
+        for (int j = 1; j < n; j++) {
+            dp[j] = dp[j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < m; i++) {
+            dp[0] += grid[i][0];
+            for (int j = 1; j < n; j++) {
+                dp[j] = Math.min(dp[j], dp[j - 1]) + grid[i][j];
+            }
+        }
+        return dp[n - 1];
+    }
+
 
     /**
      * Recursive(top-down) DP
@@ -93,7 +141,7 @@ public class MinimumPathSum {
      * @param grid
      * @return
      */
-    public static int minPathSum5(int[][] grid) {
+    public static int minPathSum7(int[][] grid) {
         return 0;
     }
 
