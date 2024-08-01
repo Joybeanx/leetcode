@@ -35,13 +35,35 @@ public class JumpGame {
         return false;
     }
 
+
     /**
-     * Iterative(bottom-up) DP using one-dimensional array
+     * Iterative(bottom-up) DP using one-dimensional array: calculate dp[i+k] based on dp[i]
      *
      * @param nums
      * @return
      */
-    public static boolean canJump2(int[] nums) {
+    public boolean canJump2(int[] nums) {
+        int n = nums.length;
+        //dp[i] represents whether we can jump from 0 to i
+        boolean[] dp = new boolean[n];
+        dp[0] = true;
+        for (int i = 0; i < n; i++) {
+            if (dp[i]) {
+                for (int j = 1; j <= nums[i] && i + j < n; j++) {
+                    dp[i + j] = dp[i];
+                }
+            }
+        }
+        return dp[n - 1];
+    }
+
+    /**
+     * Iterative(bottom-up) DP using one-dimensional array: calculate dp[i] based on dp[i-k]
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean canJump3(int[] nums) {
         int n = nums.length;
         //dp[i] represents whether we can jump from 0 to i
         boolean[] dp = new boolean[n];
@@ -59,23 +81,25 @@ public class JumpGame {
     }
 
     /**
-     * <a href="https://leetcode-cn.com/problems/jump-game/solution/tiao-yue-you-xi-by-leetcode-solution/">Greedy
+     * <a href="https://leetcode.com/problems/jump-game/solutions/3758301/java-easy-solution-with-explanation/">Greedy
      * algorithm</a>
      *
      * @param nums
      * @return
      */
-    public static boolean canJump3(int[] nums) {
+    public static boolean canJump4(int[] nums) {
         int n = nums.length;
-        int rightmost = 0;
+        int maxReachable = 0;
         for (int i = 0; i < n; ++i) {
-            if (i <= rightmost) {
-                rightmost = Math.max(rightmost, i + nums[i]);
-                if (rightmost >= n - 1) {
-                    return true;
-                }
+            if (i > maxReachable) {
+                return false;
+            }
+            maxReachable = Math.max(maxReachable, i + nums[i]);
+            //below judgement is not necessary, however it can improve performance
+            if (maxReachable >= n - 1) {
+                return true;
             }
         }
-        return false;
+        return true;
     }
 }
