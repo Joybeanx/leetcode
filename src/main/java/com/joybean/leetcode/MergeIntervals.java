@@ -60,4 +60,15 @@ public class MergeIntervals {
         }
         return merged.toArray(new int[merged.size()][]);
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/merge-intervals/solutions/355318/fully-explained-and-clean-interval-tree-for-facebook-follow-up-no-sorting/">Interval Tree</a>
+     * TODO
+     *
+     * @param intervals
+     * @return
+     */
+    public int[][] merge(int[][] intervals) {
+        return null;
+    }
 }
