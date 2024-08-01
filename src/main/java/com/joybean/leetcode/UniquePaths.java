@@ -1,5 +1,7 @@
 package com.joybean.leetcode;
 
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.com/problems/unique-paths/">Unique Paths</a>
  *
@@ -7,7 +9,7 @@ package com.joybean.leetcode;
  */
 public class UniquePaths {
     /**
-     * Iterative(bottom-up) DP using two-dimensional array 1
+     * Iterative(bottom-up) DP using two-dimensional array
      *
      * @param m
      * @param n
@@ -28,6 +30,29 @@ public class UniquePaths {
         return dp[m][n];
     }
 
+
+    /**
+     * Iterative(bottom-up) DP using two-dimensional array
+     *
+     * @param m
+     * @param n
+     * @return
+     */
+    public static int uniquePaths2(int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+        dp[1][1] = 1;
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (i != 1 || j != 1) {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
+
+
     /**
      * Iterative(bottom-up) DP using two-dimensional array: initialize dp[0][j] and dp[i][0]
      *
@@ -35,7 +60,7 @@ public class UniquePaths {
      * @param n
      * @return
      */
-    public static int uniquePaths2(int m, int n) {
+    public static int uniquePaths3(int m, int n) {
         //dp[i][j] represents unique paths numbers that the robot move from point (0,0) to point(i,j)
         int[][] dp = new int[m][n];
         for (int i = 0; i < m; i++) {
@@ -60,7 +85,7 @@ public class UniquePaths {
      * @param n
      * @return
      */
-    public static int uniquePaths3(int m, int n) {
+    public static int uniquePaths4(int m, int n) {
         int[] dp = new int[n + 1];
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
@@ -81,10 +106,10 @@ public class UniquePaths {
      * @param n
      * @return
      */
-    public static int uniquePaths4(int m, int n) {
+    public static int uniquePaths5(int m, int n) {
+        //dp[j] represents unique paths numbers that the robot move from point (0,0) to point(i,j)
         int[] dp = new int[n];
-        //or: Arrays.fill(dp, 1);
-        dp[0] = 1;
+        Arrays.fill(dp,1);
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
                 dp[j] = dp[j] + dp[j - 1];
@@ -92,6 +117,5 @@ public class UniquePaths {
         }
         return dp[n - 1];
     }
-
 
 }
