@@ -89,6 +89,7 @@ public class JumpGame {
      */
     public static boolean canJump4(int[] nums) {
         int n = nums.length;
+        //keep track of the max reachable index
         int maxReachable = 0;
         for (int i = 0; i < n; ++i) {
             if (i > maxReachable) {
@@ -99,6 +100,18 @@ public class JumpGame {
             if (maxReachable >= n - 1) {
                 return true;
             }
+        }
+        return true;
+    }
+
+
+    public boolean canJump(int[] nums) {
+        int maxReachable = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > maxReachable) {
+                return false;
+            }
+            maxReachable = Math.max(i + nums[i], maxReachable);
         }
         return true;
     }
