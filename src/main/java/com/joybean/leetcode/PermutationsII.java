@@ -1,10 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/permutations-ii/">Permutations II</a>
@@ -35,9 +31,9 @@ public class PermutationsII {
         return ans;
     }
 
-    private static void backtrack1(LinkedList<Integer> curPath, Map<Integer, Integer> uniqueNums, int length,
-        List<List<Integer>> ans) {
-        if (curPath.size() == length) {
+    private static void backtrack1(LinkedList<Integer> curPath, Map<Integer, Integer> uniqueNums, int n,
+                                   List<List<Integer>> ans) {
+        if (curPath.size() == n) {
             ans.add(new ArrayList<>(curPath));
         }
         //A key insight to avoid generating any redundant permutation is that at each step rather than viewing each
@@ -49,7 +45,7 @@ public class PermutationsII {
             }
             uniqueNums.put(num, count - 1);
             curPath.add(num);
-            backtrack1(curPath, uniqueNums, length, ans);
+            backtrack1(curPath, uniqueNums, n, ans);
             uniqueNums.put(num, count);
             curPath.removeLast();
         }
@@ -57,35 +53,35 @@ public class PermutationsII {
 
     public static List<List<Integer>> permuteUnique2(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        int[] count = new int[21];
-        List<Integer> uniqueNums = new ArrayList<>();
+        int[] counter = new int[21];
+        Set<Integer> uniqueNums = new HashSet<>();
         for (int num : nums) {
-            count[num + 10]++;
+            counter[num + 10]++;
             if (!uniqueNums.contains(num)) {
                 uniqueNums.add(num);
             }
         }
-        backtrack2(uniqueNums, new ArrayList<>(), count, nums.length, ans);
+        backtrack2(new ArrayList<>(), uniqueNums, counter, nums.length, ans);
         return ans;
     }
 
-    private static void backtrack2(List<Integer> curPath, List<Integer> uniqueNums, int[] count, int length,
-        List<List<Integer>> ans) {
-        if (curPath.size() == length) {
+    private static void backtrack2(List<Integer> curPath, Set<Integer> uniqueNums, int[] counter, int n,
+                                   List<List<Integer>> ans) {
+        if (curPath.size() == n) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
         //A key insight to avoid generating any redundant permutation is that at each step rather than viewing each
         // number as a candidate, we consider each unique number as the true candidate.
         for (int num : uniqueNums) {
-            if (count[num + 10] == 0) {
+            if (counter[num + 10] == 0) {
                 continue;
             }
             curPath.add(num);
-            count[num + 10]--;
-            backtrack2(curPath, uniqueNums, count, length, ans);
+            counter[num + 10]--;
+            backtrack2(curPath, uniqueNums, counter, n, ans);
             curPath.remove(curPath.size() - 1);
-            count[num + 10]++;
+            counter[num + 10]++;
         }
     }
 
