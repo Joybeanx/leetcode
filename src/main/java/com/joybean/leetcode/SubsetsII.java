@@ -2,6 +2,7 @@ package com.joybean.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,19 +20,19 @@ public class SubsetsII {
     public static List<List<Integer>> subsetsWithDup1(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
-        backtrack1(nums, 0, new ArrayList<>(), ans);
+        backtrack1(new LinkedList<>(), 0, nums, ans);
         return ans;
     }
 
-    private static void backtrack1(int[] nums, int startIndex, List<Integer> curPath, List<List<Integer>> ans) {
+    private static void backtrack1(LinkedList<Integer> curPath, int startIdx, int[] nums, List<List<Integer>> ans) {
         ans.add(new ArrayList<>(curPath));
-        for (int i = startIndex; i < nums.length; i++) {
-            if (i > startIndex && nums[i] == nums[i - 1]) {
+        for (int i = startIdx; i < nums.length; i++) {
+            if (i != startIdx && nums[i] == nums[i - 1]) {
                 continue;
             }
             curPath.add(nums[i]);
-            backtrack1(nums, i + 1, curPath, ans);
-            curPath.remove(curPath.size() - 1);
+            backtrack1(curPath, startIdx + 1, nums, ans);
+            curPath.removeLast();
         }
     }
 
@@ -56,4 +57,7 @@ public class SubsetsII {
     public static List<List<Integer>> subsetsWithDup3(int[] nums) {
         return null;
     }
+
+
+
 }
