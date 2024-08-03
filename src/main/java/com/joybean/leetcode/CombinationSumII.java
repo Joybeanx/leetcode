@@ -29,7 +29,7 @@ public class CombinationSumII {
     }
 
     private static void backtrack1(int[] candidates, int target, int startIndex,
-        List<Integer> curPath, Set<List<Integer>> set) {
+                                   List<Integer> curPath, Set<List<Integer>> set) {
         if (target == 0 && !set.contains(curPath)) {
             set.add(new ArrayList<>(curPath));
             return;
@@ -64,7 +64,7 @@ public class CombinationSumII {
     }
 
     private static void backtrack2(LinkedList<Integer> curPath, int startIdx, int target,
-        int[] counter, List<List<Integer>> ans) {
+                                   int[] counter, List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -109,7 +109,7 @@ public class CombinationSumII {
     }
 
     private static void backtrack3(List<Integer> candidates, int target, int startIndex,
-        List<Integer> curPath, int[] remainingCount, List<List<Integer>> ans) {
+                                   List<Integer> curPath, int[] remainingCount, List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -143,12 +143,12 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum4(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(candidates);
-        backtrack4(new ArrayList<>(), 0, target, candidates, ans);
+        backtrack4(new LinkedList<>(), 0, target, candidates, ans);
         return ans;
     }
 
-    private static void backtrack4(List<Integer> curPath, int startIndex, int target, int[] candidates,
-        List<List<Integer>> ans) {
+    private static void backtrack4(LinkedList<Integer> curPath, int startIndex, int target, int[] candidates,
+                                   List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -165,9 +165,8 @@ public class CombinationSumII {
             }
             curPath.add(candidates[i]);
             backtrack4(curPath, i + 1, newTarget, candidates, ans);
-            curPath.remove(curPath.size() - 1);
+            curPath.removeLast();
         }
     }
-
 
 }
