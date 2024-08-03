@@ -1,7 +1,5 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
-
 /**
  * <a href="https://leetcode.com/problems/fibonacci-number/">Fibonacci Number</a>
  *
