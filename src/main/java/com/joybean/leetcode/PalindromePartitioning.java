@@ -1,6 +1,7 @@
 package com.joybean.leetcode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,21 +18,21 @@ public class PalindromePartitioning {
      */
     public static List<List<String>> partition1(String s) {
         List<List<String>> ans = new ArrayList<>();
-        backtrack1(s, 0, new ArrayList<>(), ans);
+        backtrack1(new LinkedList<>(), 0, s, ans);
         return ans;
     }
 
-    private static void backtrack1(String s, int start, List<String> curPath,
-        List<List<String>> ans) {
-        if (start == s.length()) {
+    private static void backtrack1(LinkedList<String> curPath, int startIdx, String s,
+                                   List<List<String>> ans) {
+        if (startIdx == s.length()) {
             ans.add(new ArrayList<>(curPath));
             return;
         }
-        for (int end = start; end < s.length(); end++) {
-            if (isPalindrome(s, start, end)) {
-                curPath.add(s.substring(start, end + 1));
-                backtrack1(s, end + 1, curPath, ans);
-                curPath.remove(curPath.size() - 1);
+        for (int i = startIdx; i < s.length(); i++) {
+            if (isPalindrome(s, startIdx, i)) {
+                curPath.add(s.substring(startIdx, i + 1));
+                backtrack1(curPath, i + 1, s, ans);
+                curPath.removeLast();
             }
         }
 
