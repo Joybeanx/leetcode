@@ -1,9 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -55,12 +52,12 @@ public class CombinationSum {
      */
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
-        backtrack1(new ArrayList<>(), 0, candidates, target, ans);
+        backtrack1(new LinkedList<>(), 0, candidates, target, ans);
         return ans;
     }
 
-    private static void backtrack1(List<Integer> curPath, int startIndex, int[] candidates, int target,
-        List<List<Integer>> ans) {
+    private static void backtrack1(LinkedList<Integer> curPath, int startIndex, int[] candidates, int target,
+                                   List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -71,7 +68,7 @@ public class CombinationSum {
         for (int i = startIndex; i < candidates.length; i++) {
             curPath.add(candidates[i]);
             backtrack1(curPath, i, candidates, target - candidates[i], ans);
-            curPath.remove(curPath.size() - 1);
+            curPath.removeLast();
         }
     }
 
@@ -86,12 +83,12 @@ public class CombinationSum {
         List<List<Integer>> ans = new ArrayList<>();
         //sort candidates for pruning
         Arrays.sort(candidates);
-        backtrack2(new ArrayList<>(), 0, candidates, target, ans);
+        backtrack2(new LinkedList<>(), 0, candidates, target, ans);
         return ans;
     }
 
-    private static void backtrack2(List<Integer> curPath, int startIndex, int[] candidates, int target,
-        List<List<Integer>> ans) {
+    private static void backtrack2(LinkedList<Integer> curPath, int startIndex, int[] candidates, int target,
+                                   List<List<Integer>> ans) {
         if (target == 0) {
             ans.add(new ArrayList<>(curPath));
             return;
@@ -104,7 +101,7 @@ public class CombinationSum {
             }
             curPath.add(candidates[i]);
             backtrack2(curPath, i, candidates, newTarget, ans);
-            curPath.remove(curPath.size() - 1);
+            curPath.removeLast();
         }
     }
 
