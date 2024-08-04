@@ -48,11 +48,8 @@ public class ClimbingStairs {
      * @return
      */
     public static int climbStairs3(int n) {
-        if (n == 1) {
-            return 1;
-        }
-        if (n == 2) {
-            return 2;
+        if (n < 3) {
+            return n;
         }
         return climbStairs3(n - 1) + climbStairs3(n - 2);
     }
@@ -65,22 +62,19 @@ public class ClimbingStairs {
      * @return
      */
     public static int climbStairs4(int n) {
-        if (n == 1) {
-            return 1;
-        }
         int memo[] = new int[n + 1];
-        memo[1] = 1;
-        memo[2] = 2;
         return climbStairs(n, memo);
     }
 
     private static int climbStairs(int n, int[] memo) {
+        if (n < 3) {
+            return n;
+        }
         if (memo[n] != 0) {
             return memo[n];
         }
-        int ways = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);
-        memo[n] = ways;
-        return ways;
+
+        return memo[n] = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);
     }
 
     /**
@@ -106,5 +100,16 @@ public class ClimbingStairs {
         }
         memo[i] = climbStairs(i + 1, n, memo) + climbStairs(i + 2, n, memo);
         return memo[i];
+    }
+
+
+    public int climbStairs(int n) {
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        dp[0] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
     }
 }
