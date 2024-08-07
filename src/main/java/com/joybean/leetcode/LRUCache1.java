@@ -43,8 +43,7 @@ public class LRUCache1 {
             node.val = value;
         } else {
             if (nodes.size() == capacity) {
-                nodes.remove(tail.prev.key);
-                tail.prev.prev.setNext(tail);
+                removeLast();
             }
             node = new Node(key, value);
             moveToHead(node);
@@ -67,6 +66,12 @@ public class LRUCache1 {
         head.setNext(node);
     }
 
+
+    private void removeLast() {
+        nodes.remove(tail.prev.key);
+        tail.prev.prev.setNext(tail);
+    }
+
     private static class Node {
         private int key;
         private int val;
@@ -80,9 +85,7 @@ public class LRUCache1 {
 
         public void setNext(Node next) {
             this.next = next;
-            if (next != null) {
-                next.prev = this;
-            }
+            next.prev = this;
         }
     }
 
