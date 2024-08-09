@@ -94,20 +94,18 @@ public class LongestSubstringWithoutRepeatingCharacters {
     public static int lengthOfLongestSubstring4(String s) {
         int ans = 0;
         int left = 0;
-        int right = 0;
-        //key:current character, value: current index of character
-        Map<Character, Integer> map = new HashMap<>();
+        //key: character, value: maximum index of this character so far
+        Map<Character, Integer> visited = new HashMap<>();
         //abba
-        while (right < s.length()) {
+        for (int right = 0; right < s.length(); right++) {
             Character c = s.charAt(right);
-            if (map.containsKey(c)) {
+            if (visited.containsKey(c)) {
                 //An example is abba, if we do not do this, at the end a was already in map and will update left, but it
                 // should not update it. aka left pointer should always move forward.
-                left = Math.max(map.get(c) + 1, left);
+                left = Math.max(visited.get(c) + 1, left);
             }
             ans = Math.max(right - left + 1, ans);
-            map.put(c, right);
-            right++;
+            visited.put(c, right);
         }
         return ans;
     }
