@@ -52,38 +52,40 @@ public class KthLargestElementInAnArray {
 
     /**
      * <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/60294/solution-explained/">Quick
-     * select using Lomuto partition</a>
+     * select using Lomuto partition: possible TLE for case 40</a>
      *
      * @param nums
      * @param k
      * @return
      */
     public static int findKthLargest2(int[] nums, int k) {
+        int n = nums.length;
         int left = 0;
-        int right = nums.length - 1;
-        while (true) {
+        int right = n - 1;
+        while (left <= right) {
             int pivot = lomutoPartition(left, right, nums);
-            if (pivot < nums.length - k) {
+            if (pivot < n - k) {
                 left = pivot + 1;
-            } else if (pivot > nums.length - k) {
+            } else if (pivot > n - k) {
                 right = pivot - 1;
-            } else if (pivot == nums.length - k) {
+            } else {
                 return nums[pivot];
             }
         }
+        return -1;
     }
 
     private static int lomutoPartition(int start, int end, int[] nums) {
         //must not declare pivot as nums[(left + right) >>> 1]
         int pivot = nums[end];
-        int k = start;
+        int j = start;
         for (int i = start; i < end; i++) {
             if (nums[i] < pivot) {
-                swap(k++, i, nums);
+                swap(i, j++, nums);
             }
         }
-        swap(k, end, nums);
-        return k;
+        swap(j, end, nums);
+        return j;
     }
 
     /**
@@ -134,5 +136,4 @@ public class KthLargestElementInAnArray {
         nums[i] = nums[j];
         nums[j] = temp;
     }
-
 }
