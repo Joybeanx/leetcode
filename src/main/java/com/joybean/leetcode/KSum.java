@@ -57,7 +57,11 @@ public class KSum {
         int right = nums.length - 1;
         while (left < right) {
             int sum = nums[left] + nums[right];
-            if (sum == target) {
+            if (sum < target) {
+                left++;
+            } else if (sum > target) {
+                right--;
+            } else {
                 ans.add(Stream.of(nums[left], nums[right]).collect(Collectors.toList()));
                 left++;
                 right--;
@@ -67,10 +71,6 @@ public class KSum {
                 while (left < right && nums[right] == nums[right + 1]) {
                     right--;
                 }
-            } else if (sum < target) {
-                left++;
-            } else {
-                right--;
             }
         }
         return ans;
