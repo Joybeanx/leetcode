@@ -43,32 +43,61 @@ public class ReverseNodesInKGroup {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/reverse-nodes-in-k-group/solutions/11423/short-but-recursive-java-code
-     * -with-comments/">Recursive solution</a>
+     * Recursive solution: reverse first k and then append subsequent reversed head
      *
      * @param head
      * @param k
      * @return
      */
+
     public static ListNode reverseKGroup2(ListNode head, int k) {
+        ListNode cur = head;
+        int n = 0;
+        while (n != k && cur != null) {
+            cur = cur.next;
+            n++;
+        }
+        if (n < k) {
+            return head;
+        }
+        ListNode reversed = reverseKGroup2(cur, k);
+        ListNode dummy = new ListNode(0);
+        while (head != cur) {
+            ListNode tmp = head.next;
+            head.next = dummy.next;
+            dummy.next = head;
+            head = tmp;
+        }
+        head.next = reversed;
+        return dummy.next;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/reverse-nodes-in-k-group/solutions/11423/short-but-recursive-java-code
+     * -with-comments/">Optimized recursive solution</a>
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode reverseKGroup3(ListNode head, int k) {
         ListNode cur = head;
         int n = 0;
         while (cur != null && n != k) {
             cur = cur.next;
             n++;
         }
-        if (n == k) {
-            cur = reverseKGroup2(cur, k);
-            ListNode newHead = cur;
-            while (n-- > 0) {
-                ListNode tmp = head.next;
-                head.next = newHead;
-                newHead = head;
-                head = tmp;
-            }
-            return newHead;
+        if (n < k) {
+            return head;
         }
-        return head;
+        ListNode newHead = reverseKGroup2(cur, k);
+        while (n-- > 0) {
+            ListNode tmp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = tmp;
+        }
+        return newHead;
     }
 
     /**
@@ -79,7 +108,7 @@ public class ReverseNodesInKGroup {
      * @param k
      * @return
      */
-    public static ListNode reverseKGroup3(ListNode head, int k) {
+    public static ListNode reverseKGroup4(ListNode head, int k) {
         return null;
     }
 
@@ -87,13 +116,17 @@ public class ReverseNodesInKGroup {
         int val;
         ListNode next;
 
-        ListNode() {}
+        ListNode() {
+        }
 
-        ListNode(int val) {this.val = val;}
+        ListNode(int val) {
+            this.val = val;
+        }
 
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
     }
+
 }
