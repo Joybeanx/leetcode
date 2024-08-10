@@ -91,7 +91,8 @@ public class ReverseNodesInKGroup {
             return head;
         }
         ListNode newHead = reverseKGroup2(cur, k);
-        //see ReverseLinkedList.reverseList3
+        //insert current node before old head and make current node become new head
+        // see ReverseLinkedList.reverseList2
         while (n-- > 0) {
             ListNode tmp = head.next;
             head.next = newHead;
