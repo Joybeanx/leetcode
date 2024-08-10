@@ -1,13 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/3sum/">3Sum</a>
@@ -108,7 +101,7 @@ public class ThreeSum {
      * @return
      */
     public List<List<Integer>> threeSum3(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
             // Skip equal elements to avoid duplicates
@@ -121,7 +114,7 @@ public class ThreeSum {
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
-                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     // Skip equal elements to avoid duplicates
                     while (left + 1 < right && nums[left] == nums[left + 1]) {
                         left++;
@@ -139,7 +132,7 @@ public class ThreeSum {
                 }
             }
         }
-        return res;
+        return ans;
     }
 
     /**
@@ -150,17 +143,64 @@ public class ThreeSum {
      */
     public static List<List<Integer>> threeSum4(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length - 2; i++) {
+        for (int i = 0; i < n - 2; i++) {
+            // Skip equal elements to avoid duplicates
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int target = -nums[i];
+            int left = i + 1;
+            int right = n - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum < target) {
+                    left++;
+                } else if (sum > target) {
+                    right--;
+                } else {
+                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    left++;
+                    // Skip equal elements to avoid duplicates
+                    while (left <= n - 1 && nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+                    right--;
+                    // Skip equal elements to avoid duplicates
+                    while (right >= 0 && nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * Optimized two pointers
+     *
+     * @param nums
+     * @return
+     */
+    public static List<List<Integer>> threeSum5(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        Arrays.sort(nums);
+        for (int i = 0; i < n - 2; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
             int left = i + 1;
-            int right = nums.length - 1;
+            int right = n - 1;
             int target = -nums[i];
             while (left < right) {
                 int twoSum = nums[left] + nums[right];
-                if (twoSum == target) {
+                if (twoSum < target) {
+                    left++;
+                } else if (twoSum > target) {
+                    right--;
+                } else {
                     ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
                     right--;
@@ -170,10 +210,6 @@ public class ThreeSum {
                     while (left < right && nums[right] == nums[right + 1]) {
                         right--;
                     }
-                } else if (twoSum < target) {
-                    left++;
-                } else {
-                    right--;
                 }
             }
         }
@@ -186,8 +222,7 @@ public class ThreeSum {
      * @param nums
      * @return
      */
-    public static List<List<Integer>> threeSum5(int[] nums) {
+    public static List<List<Integer>> threeSum6(int[] nums) {
         return KSum.kSum(nums, 3, 0);
     }
-
 }
