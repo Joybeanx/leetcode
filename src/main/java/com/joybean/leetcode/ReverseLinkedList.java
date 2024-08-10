@@ -27,7 +27,7 @@ public class ReverseLinkedList {
     }
 
     /**
-     * Iterative solution: insert current node before old head and make current node become new head (recommended)
+     * Iterative solution: insert current node before head and make current node become new head (recommended)
      *
      * @param head
      * @return
