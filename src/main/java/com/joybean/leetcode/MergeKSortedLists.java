@@ -103,41 +103,40 @@ public class MergeKSortedLists {
     }
 
     /**
-     * Divide and conquer
+     * Divide and conquer<br/>
+     * Time complexity: O(N log k), where N is the total number of nodes in all the linked lists,
+     * and k is the number of linked lists
      *
      * @param lists
      * @return
      */
     public static ListNode mergeKLists3(ListNode[] lists) {
-        if (lists == null || lists.length == 0) {
-            return null;
-        }
         return mergeSort(0, lists.length - 1, lists);
     }
 
     private static ListNode mergeSort(int start, int end, ListNode[] lists) {
-        //never happen
-        //if (start > end) {
-        //    return null;
-        //}
+        //only if lists.length is 0
+        if (start > end) {
+            return null;
+        }
         if (start == end) {
             return lists[start];
         }
         int mid = (start + end) >>> 1;
-        ListNode leftPart = mergeSort(start, mid, lists);
-        ListNode rightPart = mergeSort(mid + 1, end, lists);
-        return merge1(leftPart, rightPart);
+        ListNode l1 = mergeSort(start, mid, lists);
+        ListNode l2 = mergeSort(mid + 1, end, lists);
+        return merge1(l1, l2);
     }
 
     /**
-     * Iterative merge
+     * Iterative merge 1
      *
-     * @param leftPart
-     * @param rightPart
+     * @param l1
+     * @param l2
      * @return
      * @see MergeTwoSortedLists
      */
-    private static ListNode merge1(ListNode leftPart, ListNode rightPart) {
+    private static ListNode merge1(ListNode l1, ListNode l2) {
         //if (leftPart == null) {
         //    return rightPart;
         //}
@@ -146,41 +145,59 @@ public class MergeKSortedLists {
         //}
         ListNode dummy = new ListNode();
         ListNode tail = dummy;
-        while (leftPart != null && rightPart != null) {
-            if (leftPart.val <= rightPart.val) {
-                tail.next = leftPart;
-                leftPart = leftPart.next;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                tail.next = l1;
+                l1 = l1.next;
             } else {
-                tail.next = rightPart;
-                rightPart = rightPart.next;
+                tail.next = l2;
+                l2 = l2.next;
             }
             tail = tail.next;
         }
-        tail.next = leftPart != null ? leftPart : rightPart;
+        tail.next = l1 != null ? l1 : l2;
+        return dummy.next;
+    }
+
+    private static ListNode merge2(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        while (l1 != null || l2 != null) {
+            int val1 = l1 == null ? Integer.MAX_VALUE : l1.val;
+            int val2 = l2 == null ? Integer.MAX_VALUE : l2.val;
+            if (val1 < val2) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else if (val1 > val2) {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
         return dummy.next;
     }
 
     /**
      * Recursive merge
      *
-     * @param leftPart
-     * @param rightPart
+     * @param l1
+     * @param l2
      * @return
      * @see MergeTwoSortedLists
      */
-    private static ListNode merge2(ListNode leftPart, ListNode rightPart) {
-        if (leftPart == null) {
-            return rightPart;
+    private static ListNode merge3(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
         }
-        if (rightPart == null) {
-            return leftPart;
+        if (l2 == null) {
+            return l1;
         }
-        if (leftPart.val <= rightPart.val) {
-            leftPart.next = merge2(leftPart.next, rightPart);
-            return leftPart;
+        if (l1.val <= l2.val) {
+            l1.next = merge3(l1.next, l2);
+            return l1;
         }
-        rightPart.next = merge2(leftPart, rightPart.next);
-        return rightPart;
+        l2.next = merge3(l1, l2.next);
+        return l2;
     }
 
     private static void swap(int a, int b, ListNode[] lists) {
@@ -204,5 +221,41 @@ public class MergeKSortedLists {
             this.val = val;
             this.next = next;
         }
+    }
+
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        return mergeSortx(0, lists.length - 1, lists);
+    }
+
+    private ListNode mergeSortx(int start, int end, ListNode[] lists) {
+        if (start == end) {
+            return lists[start];
+        }
+        if (start > end) {
+            return null;
+        }
+        int pivot = (start + end) >>> 1;
+        ListNode l1 = mergeSortx(start, pivot, lists);
+        ListNode l2 = mergeSortx(pivot + 1, end, lists);
+        return mergex(l1, l2);
+    }
+
+    private ListNode mergex(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy;
+        while (l1 != null || l2 != null) {
+            int val1 = l1 == null ? Integer.MAX_VALUE : l1.val;
+            int val2 = l2 == null ? Integer.MAX_VALUE : l2.val;
+            if (val1 < val2) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else if (val1 > val2) {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
     }
 }
