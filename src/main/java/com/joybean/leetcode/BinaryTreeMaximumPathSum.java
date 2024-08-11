@@ -25,25 +25,30 @@ public class BinaryTreeMaximumPathSum {
     */
 
     public int maxPathSum(TreeNode root) {
-        singleSideMaxPathSum(root);
+        oneSideMaxPathSum(root);
         return ans;
     }
 
     /**
-     * Calculate max single side path sum start from root
+     * Calculate max one side path sum start from root
      *
      * @param root
      * @return
      */
-    private int singleSideMaxPathSum(TreeNode root) {
+    private int oneSideMaxPathSum(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        //We don't use negative value
-        int left = Math.max(0, singleSideMaxPathSum(root.left));
-        int right = Math.max(0, singleSideMaxPathSum(root.right));
+        // We don't use negative value
+        int left = Math.max(0, oneSideMaxPathSum(root.left));
+        int right = Math.max(0, oneSideMaxPathSum(root.right));
         //postorder traversal
         ans = Math.max(ans, left + right + root.val);
+        //possible max path sum we can form involving root as parent:
+        // 1. root itself
+        // 2. max path sum from left
+        // 3. max path sum from right
+        // 4. sum(max path sum from left, max path sum from right, root.val)
         return Math.max(left + root.val, right + root.val);
     }
 
@@ -52,9 +57,12 @@ public class BinaryTreeMaximumPathSum {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) {this.val = val;}
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
@@ -62,7 +70,4 @@ public class BinaryTreeMaximumPathSum {
             this.right = right;
         }
     }
-
-
-
 }
