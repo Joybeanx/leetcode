@@ -88,6 +88,33 @@ public class LongestValidParentheses {
         return ans;
     }
 
+
+    /**
+     * Stack
+     *
+     * @param s
+     * @return
+     */
+    public int longestValidParentheses(String s) {
+        int ans = 0;
+        Stack<Integer> stack = new Stack<>();
+        //use -1 as bottom of stack
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if (c == ')') {
+                if (stack.peek() != -1 && s.charAt(stack.peek()) == ')') {
+                    ans = Math.max(i - stack.pop(), ans);
+                } else {
+                    stack.push(i);
+                }
+            } else {
+                stack.push(i);
+            }
+        }
+        return ans;
+    }
+
     /**
      * Stack
      *
@@ -100,7 +127,7 @@ public class LongestValidParentheses {
         //use -1 as bottom of stack
         stack.push(-1);
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ')' && !stack.isEmpty() && stack.peek() >= 0 && s.charAt(stack.peek()) == '(') {
+            if (s.charAt(i) == ')' && stack.peek() >= 0 && s.charAt(stack.peek()) == '(') {
                 stack.pop();
                 ans = Math.max(i - stack.peek(), ans);
             } else {
