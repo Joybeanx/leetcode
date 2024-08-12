@@ -3,7 +3,6 @@ package com.joybean.leetcode;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class SerializeAndDeserializeBinaryTree {
         }
 
         int height = getHeight(root);
-        String[] arr = new String[(int)Math.pow(2, height) - 1];
+        String[] arr = new String[(int) Math.pow(2, height) - 1];
         List<String> list = Arrays.asList(arr);
         serialize(root, 0, Arrays.asList(arr));
         return list.stream().collect(Collectors.joining(","));
@@ -97,9 +96,6 @@ public class SerializeAndDeserializeBinaryTree {
     }
 
     public static TreeNode deserialize2(String data) {
-        if (data.isEmpty()) {
-            return null;
-        }
         String[] values = data.split(" ");
         return preorderDeserialize(values);
     }
@@ -148,6 +144,7 @@ public class SerializeAndDeserializeBinaryTree {
      * <a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/solutions/74264/short-and
      * -straight-forward-bfs-java-code-with-a-queue/">BFS: level order travel</a>
      * TODO
+     *
      * @param root
      * @return
      */
@@ -166,9 +163,13 @@ public class SerializeAndDeserializeBinaryTree {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int x) {val = x;}
+        TreeNode(int x) {
+            val = x;
+        }
     }
+
 
 }
