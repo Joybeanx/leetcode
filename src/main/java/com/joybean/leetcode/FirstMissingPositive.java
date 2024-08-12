@@ -1,22 +1,32 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
-
 /**
  * <a href="https://leetcode.com/problems/first-missing-positive/">First Missing Positive</a>
  *
  * @author Joybean
  */
 public class FirstMissingPositive {
-
     /**
-     * The first missing positive number must be within [1, n+1].
-     * The basic idea is to traversal and try to move the current value v to position whose index is v-1.
-     * Then traversal again to find the first unusual value, which can not be corresponding to its index.
+     * use seen array
+     * TODO
+     *
      * @param nums
      * @return
      */
-    public static int firstMissingPositive(int[] nums) {
+    public static int firstMissingPositive1(int[] nums) {
+        return 0;
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/first-missing-positive/editorial/">Cycle Sort</a>
+     * The first missing positive number must be within [1, n+1].
+     * The basic idea is to traversal and try to move the current value v to position whose index is v-1.
+     * Then traversal again to find the first unusual value, which can not be corresponding to its index.
+     *
+     * @param nums
+     * @return
+     */
+    public static int firstMissingPositive2(int[] nums) {
 
         int i = 0;
         while (i < nums.length) {
@@ -29,13 +39,41 @@ public class FirstMissingPositive {
             }
         }
         int k = 0;
-        while (k < nums.length && nums[k] == k + 1) { k++; }
+        while (k < nums.length && nums[k] == k + 1) {
+            k++;
+        }
         return k + 1;
     }
 
-    private static void swap(int[] A, int i, int j) {
-        int temp = A[i];
-        A[i] = A[j];
-        A[j] = temp;
+    /**
+     * <a href="https://leetcode.com/problems/first-missing-positive/solutions/17071/my-short-c-solution-o-1-space-and-o-n-time/">Cycle Sort</a>
+     *
+     * @param nums
+     * @return
+     */
+    public static int firstMissingPositive3(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            //unnecessary
+            //if (nums[i] == i + 1) {
+            //    continue;
+            //}
+            while (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
+                swap(nums, nums[i] - 1, i);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
