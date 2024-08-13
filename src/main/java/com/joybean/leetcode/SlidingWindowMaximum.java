@@ -26,8 +26,8 @@ public class SlidingWindowMaximum {
         int index = 0;
         for (int right = 0; right < nums.length; right++) {
             windowCounts.merge(nums[right], 1, Integer::sum);
-            //pop nums that less than or equals to current num, don't use ">="
-            while (!deque.isEmpty() && deque.peekLast() <= nums[right]) {
+            //pop nums that less than or equals to current num
+            while (!deque.isEmpty() && nums[right] >= deque.peekLast()) {
                 deque.pollLast();
             }
             deque.offerLast(nums[right]);
@@ -55,13 +55,15 @@ public class SlidingWindowMaximum {
         int n = nums.length;
         int[] ans = new int[n - k + 1];
         for (int left = 0, right = 0; right < n; right++) {
-            //pop nums that less than current num, shouldn't use ">="
-            while (!deque.isEmpty() && deque.peek() < nums[right]) {
+            //pop nums that less than current num
+            //should not use ">=", case: nums=[-7,-8,7,5,7,1,6,0], k=4
+            while (!deque.isEmpty() && nums[right] > deque.peek()) {
                 deque.pop();
             }
             deque.push(nums[right]);
             if (right >= k - 1) {
                 ans[left] = deque.peekLast();
+                //when left is maximum and left start to move out of window
                 if (nums[left] == deque.peekLast()) {
                     deque.pollLast();
                 }
@@ -73,16 +75,33 @@ public class SlidingWindowMaximum {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/sliding-window-maximum/submissions/1321337689/">Monotonic deque: store
+     * <a href="https://leetcode.com/problems/sliding-window-maximum/solutions/65884/java-o-n-solution-using-deque-with-explanation/">Monotonic deque: store
      * index in deque</a>
-     * TODO
      *
      * @param nums
      * @param k
      * @return
      */
     public static int[] maxSlidingWindow3(int[] nums, int k) {
-        return null;
+        int n = nums.length;
+        int[] ans = new int[n - k + 1];
+        int j = 0;
+        Deque<Integer> deque = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            //pop smaller numbers as they are useless
+            while (!deque.isEmpty() && nums[i] >= nums[deque.peek()]) {
+                deque.pop();
+            }
+            deque.push(i);
+            //always keep deque.top - deque.bottom == k
+            if (i - deque.peekLast() + 1 > k) {
+                deque.pollLast();
+            }
+            if (i - 1 >= k) {
+                ans[j++] = nums[deque.peekLast()];
+            }
+        }
+        return ans;
     }
 
     /**
@@ -97,4 +116,5 @@ public class SlidingWindowMaximum {
     public static int[] maxSlidingWindow4(int[] nums, int k) {
         return null;
     }
+
 }
