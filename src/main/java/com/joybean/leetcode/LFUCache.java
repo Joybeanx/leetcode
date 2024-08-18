@@ -89,11 +89,11 @@ public class LFUCache {
      * @return
      */
     public int get2(int key) {
-        if (!keyToValue.containsKey(key)) {
-            return -1;
+        if (keyToValue.containsKey(key)) {
+            increaseFreq2(key);
+            return keyToValue.get(key);
         }
-        increaseFreq2(key);
-        return keyToValue.get(key);
+        return -1;
     }
 
     public void put2(int key, int value) {
@@ -113,12 +113,13 @@ public class LFUCache {
 
     private void removeLFUKey() {
         LinkedHashSet<Integer> minFreqKeys = freqToKeys.get(minFreq);
-        int lfuKey = minFreqKeys.iterator().next();
-        minFreqKeys.remove(lfuKey);
+        int minFreqKey = minFreqKeys.iterator().next();
+        minFreqKeys.remove(minFreqKey);
         if (minFreqKeys.isEmpty()) {
             freqToKeys.remove(minFreq);
         }
-        keyToValue.remove(lfuKey);
+        keyToValue.remove(minFreqKey);
+        keyToFreq.remove(minFreqKey);
     }
 
     private void increaseFreq2(int key) {
@@ -136,20 +137,4 @@ public class LFUCache {
         freqToKeys.putIfAbsent(newFreq, new LinkedHashSet<>());
         freqToKeys.get(newFreq).add(key);
     }
-
-
-    /**
-     * <a href="https://leetcode.com/problems/lfu-cache/solutions/207673/python-concise-solution-detailed-explanation-two-dict-doubly-linked-list/">Custom doubly linked list (by mullen00)</a>
-     * TODO
-     *
-     * @param key
-     * @return
-     */
-    public int get3(int key) {
-        return 0;
-    }
-
-    public void put3(int key, int value) {
-    }
-
 }
