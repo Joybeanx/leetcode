@@ -102,23 +102,23 @@ public class SortAnArray {
         quickSort3(nums, pi + 1, right);
     }
 
-    private static int partition3(int[] nums, int left, int right) {
-        //or pivot = nums[left];
-        //must not be pivot = nums[right],because it would cause infinite loop in some case,such as:[1,3,5,7]
-        int pivot = nums[(left + right) >>> 1];
-        int i = left - 1;
-        int j = right + 1;
+    private static int partition3(int[] nums, int start, int end) {
+        //or pivot = nums[(start + end) >>> 1];
+        //must not be pivot = nums[right], because it would cause infinite loop in some case,such as:[1,3,5,7]
+        int pivot = nums[start];
+        int left = start - 1;
+        int right = end + 1;
         while (true) {
             do {
-                i++;
-            } while (nums[i] < pivot);
+                left++;
+            } while (nums[left] < pivot);
             do {
-                j--;
-            } while (nums[j] > pivot);
-            if (i >= j) {
-                return j;
+                right--;
+            } while (nums[right] > pivot);
+            if (left >= right) {
+                return right;
             }
-            swap(nums, i, j);
+            swap(nums, left, right);
         }
     }
 
@@ -179,7 +179,7 @@ public class SortAnArray {
         if (left == right) {
             return new int[]{nums[left]};
         }
-        int mid = (left + right) >> 1;
+        int mid = (left + right) >>> 1;
         int[] leftPart = mergeSort1(nums, left, mid);
         int[] rightPart = mergeSort1(nums, mid + 1, right);
         return merge1(leftPart, rightPart);
@@ -222,7 +222,7 @@ public class SortAnArray {
         if (start >= end) {
             return;
         }
-        int mid = (start + end) >> 1;
+        int mid = (start + end) >>> 1;
         mergeSort2(nums, start, mid, tmp);
         mergeSort2(nums, mid + 1, end, tmp);
         merge2(nums, start, mid, end, tmp);
