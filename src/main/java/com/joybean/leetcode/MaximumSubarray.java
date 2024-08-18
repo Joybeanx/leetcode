@@ -40,17 +40,38 @@ public class MaximumSubarray {
     }
 
     /**
-     * <a href="https://en.wikipedia.org/wiki/Maximum_subarray_problem">Kadane's algorithm</a>
+     * Kadane's algorithm
      *
      * @param nums
      * @return
      */
     public static int maxSubArray4(int[] nums) {
         int ans = Integer.MIN_VALUE;
-        int curSum = 0;
+        int maxSoFar = 0;
         for (int num : nums) {
-            curSum = Math.max(num, curSum + num);
-            ans = Math.max(curSum, ans);
+            if (maxSoFar < 0) {
+                maxSoFar = num;
+            } else {
+                maxSoFar += num;
+            }
+            ans = Math.max(maxSoFar, ans);
+
+        }
+        return ans;
+    }
+
+    /**
+     * <a href="https://en.wikipedia.org/wiki/Maximum_subarray_problem">Kadane's algorithm</a>
+     *
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray5(int[] nums) {
+        int ans = Integer.MIN_VALUE;
+        int maxSoFar = 0;
+        for (int num : nums) {
+            maxSoFar = Math.max(num, maxSoFar + num);
+            ans = Math.max(maxSoFar, ans);
         }
         return ans;
     }
@@ -62,7 +83,7 @@ public class MaximumSubarray {
      * @param nums
      * @return
      */
-    public static int maxSubArray5(int[] nums) {
+    public static int maxSubArray6(int[] nums) {
         return 0;
     }
 
