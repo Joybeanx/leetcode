@@ -72,7 +72,6 @@ public class LongestPalindromicSubstring {
      * @return
      */
     public static String longestPalindrome3(String s) {
-        int maxLen = 0;
         int startIdx = 0;
         int endIdx = 0;
         int n = s.length();
@@ -80,8 +79,7 @@ public class LongestPalindromicSubstring {
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i; j < n; j++) {
                 dp[i][j] = (s.charAt(i) == s.charAt(j)) && (j - i < 2 || dp[i + 1][j - 1]);
-                if (dp[i][j] && j - i + 1 > maxLen) {
-                    maxLen = j - i + 1;
+                if (dp[i][j] && j - i > endIdx - startIdx) {
                     startIdx = i;
                     endIdx = j;
 
@@ -163,6 +161,5 @@ public class LongestPalindromicSubstring {
     public static String longestPalindrome6(String s) {
         return null;
     }
-
 
 }
