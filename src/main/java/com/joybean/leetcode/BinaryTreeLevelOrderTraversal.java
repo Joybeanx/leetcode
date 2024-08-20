@@ -1,7 +1,6 @@
 package com.joybean.leetcode;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a>
@@ -49,11 +48,11 @@ public class BinaryTreeLevelOrderTraversal {
      */
     public static List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
-        helper(root, 0, ans);
+        dfs(root, 0, ans);
         return ans;
     }
 
-    private static void helper(TreeNode root, int level, List<List<Integer>> ans) {
+    private static void dfs(TreeNode root, int level, List<List<Integer>> ans) {
         if (root == null) {
             return;
         }
@@ -61,8 +60,8 @@ public class BinaryTreeLevelOrderTraversal {
             ans.add(new ArrayList<>());
         }
         ans.get(level).add(root.val);
-        helper(root.left, level + 1, ans);
-        helper(root.right, level + 1, ans);
+        dfs(root.left, level + 1, ans);
+        dfs(root.right, level + 1, ans);
     }
 
     public static class TreeNode {
