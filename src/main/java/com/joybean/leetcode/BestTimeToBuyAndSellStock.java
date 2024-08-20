@@ -30,8 +30,8 @@ public class BestTimeToBuyAndSellStock {
      * @return
      */
     public static int maxProfit2(int[] prices) {
+        //dp[i] represents max profit can achieve on the ith day
         int dp[] = new int[prices.length];
-        dp[0] = 0;
         int minPrice = prices[0];
         for (int i = 1; i < prices.length; i++) {
             dp[i] = Math.max(dp[i - 1], prices[i] - minPrice);
@@ -76,14 +76,45 @@ public class BestTimeToBuyAndSellStock {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/39038/kadane-s-algorithm
-     * -since-no-one-has-mentioned-about-this-so-far-in-case-if-interviewer-twists-the-input/">Kadane's algorithm</a>
-     * TODO
+     * Kadane's algorithm
      *
      * @param prices
      * @return
+     * @see MaximumSubarray
      */
     public static int maxProfit5(int[] prices) {
-        return 0;
+        int n = prices.length;
+        int[] profits = new int[n];
+        profits[0] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            profits[i] = prices[i] - prices[i - 1];
+        }
+        int ans = 0;
+        int maxSoFar = 0;
+        for (int profit : profits) {
+            maxSoFar = Math.max(profit, maxSoFar + profit);
+            ans = Math.max(maxSoFar, ans);
+        }
+        return ans;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/39038/kadane-s-algorithm
+     * -since-no-one-has-mentioned-about-this-so-far-in-case-if-interviewer-twists-the-input/">Kadane's algorithm</a>
+     *
+     * @param prices
+     * @return
+     * @see MaximumSubarray
+     */
+    public static int maxProfit6(int[] prices) {
+        int ans = 0;
+        int maxSoFar = 0;
+        for (int i = 1; i < prices.length; i++) {
+            maxSoFar = Math.max(prices[i] - prices[i - 1], maxSoFar + prices[i] - prices[i - 1]);
+            ans = Math.max(maxSoFar, ans);
+        }
+        return ans;
+    }
+
+
 }
