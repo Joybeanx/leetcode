@@ -70,7 +70,7 @@ public class Permutations {
 
 
     /**
-     * <a href="https://leetcode.cn/problems/permutations/?envType=problem-list-v2&envId=2cktkvj">Optimized backtracking based on swap</a>
+     * <a href="https://leetcode.cn/problems/permutations/solutions/2363882/46-quan-pai-lie-hui-su-qing-xi-tu-jie-by-6o7h/">Optimized backtracking based on swap</a>
      *
      * @param nums
      * @return
@@ -111,6 +111,4 @@ public class Permutations {
     public static List<List<Integer>> permute4(int[] nums) {
         return null;
     }
-
-
 }
