@@ -36,9 +36,8 @@ public class ValidParentheses {
     }
     */
 
-
     /**
-     * Straightforward stack solution
+     * Stack + Map
      *
      * @param s
      * @return
@@ -63,7 +62,8 @@ public class ValidParentheses {
     }
 
     /**
-     * Straightforward stack solution
+     * Stack + Map
+     *
      * @param s
      * @return
      */
@@ -87,13 +87,37 @@ public class ValidParentheses {
     }
 
     /**
-     *
-     * <a href="https://leetcode.com/problems/valid-parentheses/discuss/9178/Short-java-solution">Concise stack solution</a>
+     * Stack
      *
      * @param s
      * @return
      */
-    public static boolean isValid3(String s) {
+    public boolean isValid3(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                stack.push(')');
+            } else if (c == '{') {
+                stack.push('}');
+            } else if (c == '[') {
+                stack.push(']');
+            } else {
+                if (stack.isEmpty() || c != stack.peek()) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    /**
+     * <a href="https://leetcode.com/problems/valid-parentheses/discuss/9178/Short-java-solution">Stack</a>
+     *
+     * @param s
+     * @return
+     */
+    public static boolean isValid4(String s) {
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) {
             if (c == '(') {
