@@ -91,7 +91,7 @@ public class NumberOfIslands {
 
     /**
      * <a href="https://leetcode.com/problems/number-of-islands/discuss/1284203/C%2B%2BPython-DFS-Solution">Flood
-     * Filling</a>
+     * Fill,Time complexity:O(M*N)</a>
      *
      * @param grid
      * @return
@@ -102,21 +102,21 @@ public class NumberOfIslands {
         int ans = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                ans += helper(i, j, grid);
+                ans += dfs(i, j, grid);
             }
         }
         return ans;
     }
 
-    private static int helper(int i, int j, char[][] grid) {
-        if (i >= grid.length || i < 0 || j >= grid[0].length || j < 0 || grid[i][j] == '0') {
+    private static int dfs(int i, int j, char[][] grid) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') {
             return 0;
         }
         grid[i][j] = '0';
-        helper(i + 1, j, grid);
-        helper(i - 1, j, grid);
-        helper(i, j + 1, grid);
-        helper(i, j - 1, grid);
+        dfs(i + 1, j, grid);
+        dfs(i - 1, j, grid);
+        dfs(i, j + 1, grid);
+        dfs(i, j - 1, grid);
         return 1;
     }
 
