@@ -6,8 +6,25 @@ package com.joybean.leetcode;
  * @author Joybean
  */
 public class IntersectionOfTwoLinkedLists {
+   /*
+   //wrong solution: dead loop occurs when there is no intersection node
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode cur1 = headA;
+        ListNode cur2 = headB;
+        while (cur1 != null || cur2 != null) {
+            if (cur1 == cur2) {
+                return cur1;
+            }
+            cur1 = cur1.next == null ? headB : cur1.next;
+            cur2 = cur2.next == null ? headA : cur2.next;
+
+        }
+        return null;
+    }
+    */
+
     /**
-     * Straight forward solution
+     * Skip nodes
      *
      * @param headA
      * @param headB
@@ -47,26 +64,13 @@ public class IntersectionOfTwoLinkedLists {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without
-     * -knowing-the-difference-in-len!">Two pointers without knowing the difference in length</a>
+     * Skip nodes
      *
      * @param headA
      * @param headB
      * @return
      */
-    public static ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
-        ListNode curA = headA;
-        ListNode curB = headB;
-        while (curA != curB) {
-            //At the end of first iteration, we just reset the pointer to the head of another linked list
-            curA = curA != null ? curA.next : headB;
-            curB = curB != null ? curB.next : headA;
-        }
-        return curA;
-    }
-
-
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
         ListNode cur1 = headA;
         ListNode cur2 = headB;
         int n1 = 0;
@@ -86,24 +90,44 @@ public class IntersectionOfTwoLinkedLists {
             while (k-- > 0) {
                 cur1 = cur1.next;
             }
-            cur2=headA;
+            cur2 = headA;
         } else {
             cur2 = headA;
             int k = n1 - n2;
             while (k-- > 0) {
                 cur2 = cur2.next;
             }
-            cur1=headB;
+            cur1 = headB;
         }
-        while(cur1!=null && cur2!=null){
-            if(cur1==cur2){
+        while (cur1 != null && cur2 != null) {
+            if (cur1 == cur2) {
                 return cur1;
             }
-            cur1=cur1.next;
-            cur2=cur2.next;
+            cur1 = cur1.next;
+            cur2 = cur2.next;
         }
         return null;
     }
+
+    /**
+     * <a href="https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49785/Java-solution-without
+     * -knowing-the-difference-in-len!">Two pointers without knowing the difference in length</a>
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public static ListNode getIntersectionNode3(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+        while (curA != curB) {
+            //At the end of first iteration, we just reset the pointer to the head of another linked list
+            curA = curA != null ? curA.next : headB;
+            curB = curB != null ? curB.next : headA;
+        }
+        return curA;
+    }
+
 
     public static class ListNode {
         int val;
