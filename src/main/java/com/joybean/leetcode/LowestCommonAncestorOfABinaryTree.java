@@ -8,7 +8,7 @@ package com.joybean.leetcode;
  */
 public class LowestCommonAncestorOfABinaryTree {
     /**
-     * Recursive solution
+     * DFS
      *
      * @param root
      * @param p
@@ -45,7 +45,7 @@ public class LowestCommonAncestorOfABinaryTree {
 
     /**
      * <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/solutions/65226/my-java
-     * -solution-which-is-easy-to-understand/">Optimized recursive solution</a>
+     * -solution-which-is-easy-to-understand/">Optimized DFS solution</a>
      * <ul>
      *  <li>if both p and q exist in Tree rooted at root, then return their LCA</li>
      *  <li>if neither p and q exist in Tree rooted at root, then return null</li>
@@ -67,11 +67,14 @@ public class LowestCommonAncestorOfABinaryTree {
         }
         TreeNode leftLca = lowestCommonAncestor2(root.left, p, q);
         TreeNode rightLca = lowestCommonAncestor2(root.right, p, q);
-        //Root is the lca when targets were found both in the left tree and right tree
-        if (leftLca != null && rightLca != null) {
-            return root;
+        if (leftLca == null) {
+            return rightLca;
         }
-        return leftLca == null ? rightLca : leftLca;
+        if (rightLca == null) {
+            return leftLca;
+        }
+        //Root is the lca when targets were found both in the left tree and right tree
+        return root;
     }
 
     /**
@@ -92,7 +95,9 @@ public class LowestCommonAncestorOfABinaryTree {
         TreeNode left;
         TreeNode right;
 
-        TreeNode(int val) {this.val = val;}
+        TreeNode(int val) {
+            this.val = val;
+        }
     }
 
 }
