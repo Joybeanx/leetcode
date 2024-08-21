@@ -1,13 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/">Binary Tree Zigzag Level Order
@@ -57,7 +50,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
     }
 
     /**
-     * BFS using Deque
+     * BFS using Deque: poll/offer from two sides
      *
      * @param root
      * @return
@@ -67,31 +60,76 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         if (root == null) {
             return ans;
         }
-        Queue<TreeNode> nodeQueue = new LinkedList<>();
-        nodeQueue.offer(root);
-        boolean isOrderLeft = true;
-
-        while (!nodeQueue.isEmpty()) {
-            Deque<Integer> levelList = new LinkedList<>();
-            int size = nodeQueue.size();
-            for (int i = 0; i < size; ++i) {
-                TreeNode curNode = nodeQueue.poll();
-                if (isOrderLeft) {
-                    levelList.offerLast(curNode.val);
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> levelNodes = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = null;
+                if (((ans.size()) & 1) == 0) {
+                    cur = queue.poll();
+                    if (cur.left != null) {
+                        queue.offer(cur.left);
+                    }
+                    if (cur.right != null) {
+                        queue.offer(cur.right);
+                    }
                 } else {
-                    levelList.offerFirst(curNode.val);
+                    cur = queue.pollLast();
+                    if (cur.right != null) {
+                        queue.offerFirst(cur.right);
+                    }
+                    if (cur.left != null) {
+                        queue.offerFirst(cur.left);
+                    }
                 }
-                if (curNode.left != null) {
-                    nodeQueue.offer(curNode.left);
-                }
-                if (curNode.right != null) {
-                    nodeQueue.offer(curNode.right);
-                }
+
+                levelNodes.add(cur.val);
             }
-            ans.add(new LinkedList<>(levelList));
-            isOrderLeft = !isOrderLeft;
+            ans.add(levelNodes);
         }
         return ans;
+    }
+
+    /**
+     * BFS using Queue: add levelNodes from two directions
+     *
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> zigzagLevelOrder3(TreeNode root) {
+        List<List<Integer>> ans = new LinkedList<>();
+        if (root == null) {
+            return ans;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<Integer> levelNodes = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.poll();
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+                if ((ans.size() & 1) == 0) {
+                    levelNodes.add(cur.val);
+                } else {
+                    levelNodes.addFirst(cur.val);
+                }
+
+            }
+            ans.add(levelNodes);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        zigzagLevelOrder3(new TreeNode(3, new TreeNode(9), new TreeNode(20)));
     }
 
     /**
@@ -101,7 +139,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
      * @param root
      * @return
      */
-    public static List<List<Integer>> zigzagLevelOrder3(TreeNode root) {
+    public static List<List<Integer>> zigzagLevelOrder4(TreeNode root) {
         return null;
     }
 
@@ -110,9 +148,12 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
