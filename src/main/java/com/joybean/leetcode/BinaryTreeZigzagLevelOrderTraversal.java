@@ -128,10 +128,6 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         return ans;
     }
 
-    public static void main(String[] args) {
-        zigzagLevelOrder3(new TreeNode(3, new TreeNode(9), new TreeNode(20)));
-    }
-
     /**
      * DFS
      * TODO
