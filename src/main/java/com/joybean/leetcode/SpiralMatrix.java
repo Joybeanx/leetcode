@@ -11,7 +11,8 @@ import java.util.List;
 public class SpiralMatrix {
     /*
     //Time Limit Exceeded, dead loop occurs due to traverse num multiple times
-    //case: [[1,2,3,4],[5,6,7,8],[9,10,11,12]], will add duplicate 6 at "ans.add(matrix[bottom][j])"
+    //case: [[1,2,3,4],[5,6,7,8],[9,10,11,12]], will add duplicate 6 at "ans.add(matrix[bottom][j])" because it break
+    //the constraint: startRow <= endRow && startCol <= endCol
     public static List<Integer> spiralOrder1(int[][] matrix) {
          int m = matrix.length;
         int n = matrix[0].length;
