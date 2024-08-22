@@ -43,13 +43,15 @@ public class NextPermutation {
      * @param nums
      */
     public static void nextPermutation2(int[] nums) {
-        //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
+        //case: [2,4,3,1]
+        //1. Find the largest index i such that nums[i] < nums[i + 1].
         int j = nums.length - 1;
         int i = j - 1;
         while (i >= 0 && nums[i] >= nums[j]) {
             j--;
             i--;
         }
+        //nums is in none increasing order, reverse whole array, case: [3,2,1]
         if (i == -1) {
             reverse(nums, 0);
             return;
@@ -58,9 +60,9 @@ public class NextPermutation {
         while (j + 1 < nums.length && nums[i] < nums[j + 1]) {
             j++;
         }
-        //3. Swap nums[i] and nums[j]
-        swap(nums,i, j);
-        //4. Reverse the sub-array nums[i + 1:]
+        //3. Swap nums[i] and nums[j]: [2,4,3,1] -> [3,4,2,1]
+        swap(nums, i, j);
+        //4. Reverse the sub-array nums[i + 1:]: [3,4,2,1] -> [3,1,2,4]
         reverse(nums, i + 1);
     }
 
@@ -70,13 +72,15 @@ public class NextPermutation {
      * @param nums
      */
     public static void nextPermutation3(int[] nums) {
-        //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
+        //case: [2,4,3,1]
+        //1. Find the largest index i such that nums[i] < nums[i + 1].
         int n = nums.length;
         int i = n - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
-        if (i == -1) {
+        //nums is in none increasing order, reverse whole array, case: [3,2,1]
+        if (i < 0) {
             reverse(nums, 0);
             return;
         }
@@ -85,14 +89,15 @@ public class NextPermutation {
         while (j + 1 < n && nums[i] < nums[j + 1]) {
             j++;
         }
-        //3. Swap nums[i] and nums[j]
+        //3. Swap nums[i] and nums[j]: [2,4,3,1] -> [3,4,2,1]
         swap(nums, i, j);
-        //4. Reverse the sub-array nums[i + 1:]
+        //4. Reverse the sub-array nums[i + 1:]: [3,4,2,1] -> [3,1,2,4]
         reverse(nums, i + 1);
     }
 
     /**
      * Two pointers
+     *
      * @param nums
      */
     public void nextPermutation4(int[] nums) {
@@ -131,6 +136,5 @@ public class NextPermutation {
             swap(a, i++, j--);
         }
     }
-
 
 }
