@@ -27,13 +27,12 @@ public class LongestIncreasingSubsequence {
             ans = Math.max(ans, dp[i]);
         }
         return ans;
-}
+    }
 
 
     /**
-     * Binary search
+     * <a href="https://leetcode.com/problems/longest-increasing-subsequence/solutions/74824/java-python-binary-search-o-nlogn-time-with-explanation/">Patience sorting(by Sithis)</a>
      * TODO
-     *
      * @param nums
      * @return
      */
