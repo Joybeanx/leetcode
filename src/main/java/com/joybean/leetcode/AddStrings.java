@@ -1,7 +1,5 @@
 package com.joybean.leetcode;
 
-import java.util.List;
-
 /**
  * <a href="https://leetcode.com/problems/add-strings/">Add Strings</a>
  *
