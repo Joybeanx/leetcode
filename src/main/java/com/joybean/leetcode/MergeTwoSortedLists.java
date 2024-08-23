@@ -15,20 +15,20 @@ public class MergeTwoSortedLists {
      */
     public static ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0);
-        ListNode p1 = l1;
-        ListNode p2 = l2;
-        ListNode tail = dummy;
-        while (p1 != null && p2 != null) {
-            if (p1.val < p2.val) {
-                tail.next = p1;
-                p1 = p1.next;
+        ListNode cur1 = l1;
+        ListNode cur2 = l2;
+        ListNode cur = dummy;
+        while (cur1 != null && cur2 != null) {
+            if (cur1.val < cur2.val) {
+                cur.next = cur1;
+                cur1 = cur1.next;
             } else {
-                tail.next = p2;
-                p2 = p2.next;
+                cur.next = cur2;
+                cur2 = cur2.next;
             }
-            tail = tail.next;
+            cur = cur.next;
         }
-        tail.next = p1 != null ? p1 : p2;
+        cur.next = cur1 != null ? cur1 : cur2;
         return dummy.next;
     }
 
@@ -59,9 +59,12 @@ public class MergeTwoSortedLists {
         int val;
         ListNode next;
 
-        ListNode() {}
+        ListNode() {
+        }
 
-        ListNode(int val) { this.val = val; }
+        ListNode(int val) {
+            this.val = val;
+        }
 
         ListNode(int val, ListNode next) {
             this.val = val;
