@@ -87,7 +87,6 @@ public class BinaryTreeRightSideView {
         if (cur == null) {
             return;
         }
-
         if (!rightMostNodeFoundLevels.contains(level)) {
             rightMostNodeFoundLevels.add(level);
             ans.add(cur.val);
@@ -104,21 +103,21 @@ public class BinaryTreeRightSideView {
      * @return
      */
     public static List<Integer> rightSideView4(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        rightView(root, result, 0);
-        return result;
+        List<Integer> ans = new ArrayList<>();
+        rightView(root, 0, ans);
+        return ans;
     }
 
-    public static void rightView(TreeNode curr, List<Integer> result, int currDepth) {
+    public static void rightView(TreeNode curr, int level, List<Integer> ans) {
         if (curr == null) {
             return;
         }
-        //Make sure the right most element of that level will be added the result list
-        if (currDepth == result.size()) {
-            result.add(curr.val);
+        //Make sure the right most element of that level will be added the ans
+        if (level == ans.size()) {
+            ans.add(curr.val);
         }
-        rightView(curr.right, result, currDepth + 1);
-        rightView(curr.left, result, currDepth + 1);
+        rightView(curr.right, level + 1, ans);
+        rightView(curr.left, level + 1, ans);
     }
 
     public static class TreeNode {
@@ -139,4 +138,5 @@ public class BinaryTreeRightSideView {
             this.right = right;
         }
     }
+
 }
