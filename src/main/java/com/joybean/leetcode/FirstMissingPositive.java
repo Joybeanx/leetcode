@@ -54,10 +54,12 @@ public class FirstMissingPositive {
     public static int firstMissingPositive3(int[] nums) {
         int n = nums.length;
         for (int i = 0; i < n; i++) {
-            //unnecessary
+            //unnecessary because we don't swap when nums[i] != nums[nums[i] - 1]
             //if (nums[i] == i + 1) {
             //    continue;
             //}
+
+            //use nums[i] != nums[nums[i] - 1] to avoid dead loop, case: [1,1]
             while (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
                 swap(nums, nums[i] - 1, i);
             }

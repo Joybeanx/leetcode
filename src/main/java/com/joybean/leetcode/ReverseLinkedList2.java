@@ -15,30 +15,26 @@ public class ReverseLinkedList2 {
      * @return
      */
     public static ListNode reverseBetween1(ListNode head, int left, int right) {
-        int curPos = 1;
-        ListNode reversedTail = head;
-        ListNode predecessor = null;
-        while (curPos < left) {
-            predecessor = reversedTail;
-            reversedTail = reversedTail.next;
-            curPos++;
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = dummy;
+        int i = 1;
+        while (i < left) {
+            cur = cur.next;
+            i++;
         }
-        ListNode cur = reversedTail;
-        ListNode reversedHead = null;
-        ListNode suffix = reversedTail.next;
-        while (curPos <= right) {
-            suffix = cur.next;
-            cur.next = reversedHead;
-            reversedHead = cur;
-            cur = suffix;
-            curPos++;
+        ListNode pred = cur;
+        cur = cur.next;
+        ListNode reversedTail = cur;
+        while (cur != null && i <= right) {
+            ListNode tmp = cur.next;
+            cur.next = pred.next;
+            pred.next = cur;
+            cur = tmp;
         }
-        reversedTail.next = suffix;
-        if (predecessor == null) {
-            return reversedHead;
+        if (reversedTail != null) {
+            reversedTail.next = cur;
         }
-        predecessor.next = reversedHead;
-        return head;
+        return dummy.next;
     }
 
     /**
@@ -102,7 +98,6 @@ public class ReverseLinkedList2 {
         head.next = unchanged;
         return newHead;
     }
-
     public static class ListNode {
         int val;
         ListNode next;
