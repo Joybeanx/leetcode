@@ -99,7 +99,7 @@ public class EditDistance {
      * @param word2
      * @return
      */
-    public static int minDistance(String word1, String word2) {
+    public static int minDistance3(String word1, String word2) {
         int m = word1.length();
         int n = word2.length();
         int dp[][] = new int[m + 1][n + 1];
