@@ -1,9 +1,6 @@
 package com.joybean.leetcode;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/merge-intervals/">Merge Intervals</a>
@@ -39,13 +36,42 @@ public class MergeIntervals {
         return merged.toArray(new int[merged.size()][]);
     }
 
+
+    /**
+     * Add interval first and then merge
+     *
+     * @param intervals
+     * @return
+     */
+    public int[][] merge2(int[][] intervals) {
+        LinkedList<int[]> list = new LinkedList<>();
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        for (int i = 0; i < intervals.length; i++) {
+            int[] cur = intervals[i];
+            if (list.isEmpty() || !isOverlapping(list.getLast(), cur)) {
+                list.add(cur);
+                continue;
+            }
+            list.getLast()[1] = Math.max(cur[1], list.getLast()[1]);
+        }
+        int[][] ans = new int[list.size()][2];
+        for (int i = 0; i < list.size(); i++) {
+            ans[i] = list.get(i);
+        }
+        return list.toArray(new int[list.size()][2]);
+    }
+
+    private boolean isOverlapping(int[] a, int[] b) {
+        return a[0] <= b[1] && b[0] <= a[1];
+    }
+
     /**
      * <a href="https://leetcode.com/problems/merge-intervals/solutions/127480/merge-intervals/?orderBy=most_votes">Add interval first and then merge</a>
      *
      * @param intervals
      * @return
      */
-    public static int[][] merge2(int[][] intervals) {
+    public static int[][] merge3(int[][] intervals) {
         Arrays.sort(intervals, Comparator.comparing(a -> a[0]));
         LinkedList<int[]> merged = new LinkedList<>();
         merged.add(intervals[0]);
@@ -68,7 +94,9 @@ public class MergeIntervals {
      * @param intervals
      * @return
      */
-    public int[][] merge(int[][] intervals) {
+    public int[][] merge4(int[][] intervals) {
         return null;
     }
+
+
 }
