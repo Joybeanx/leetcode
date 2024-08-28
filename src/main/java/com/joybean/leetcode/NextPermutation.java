@@ -67,7 +67,7 @@ public class NextPermutation {
     }
 
     /**
-     * Two pointers
+     * Two pointers using next lexicographical permutation algorithm
      *
      * @param nums
      */
@@ -96,14 +96,14 @@ public class NextPermutation {
     }
 
     /**
-     * Two pointers
+     * Two pointers using next lexicographical permutation algorithm
      *
      * @param nums
      */
     public void nextPermutation4(int[] nums) {
         //1. Find the largest index i such that nums[i] < nums[i + 1]. If no such index , just reverse
         int i = nums.length - 2;
-        while (i >= 0 && nums[i + 1] <= nums[i]) {
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
         if (i == -1) {
