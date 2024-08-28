@@ -53,32 +53,31 @@ public class CompareVersionNumbers {
     }
 
     /**
-     * <a href="https://leetcode.com/problems/compare-version-numbers/solutions/50788/my-java-solution-without-split/">char to int</a>
+     * <a href="https://leetcode.com/problems/compare-version-numbers/solutions/50788/my-java-solution-without-split/">Convert revision to number</a>
      *
      * @param version1
      * @param version2
      * @return
      */
     public static int compareVersion2(String version1, String version2) {
+        int m = version1.length();
+        int n = version2.length();
         int i = 0;
         int j = 0;
-        while (i < version1.length() || j < version2.length()) {
-            int rversion1 = 0;
-            int rversion2 = 0;
-            while (i < version1.length() && version1.charAt(i) != '.') {
-                rversion1 = rversion1 * 10 + version1.charAt(i++) - '0';
+        while (i < m || j < n) {
+            Integer revision1 = 0;
+            Integer revision2 = 0;
+            while (i < m && version1.charAt(i) != '.') {
+                revision1 = revision1 * 10 + (version1.charAt(i++) - '0');
             }
-            while (j < version2.length() && version2.charAt(j) != '.') {
-                rversion2 = rversion2 * 10 + version2.charAt(j++) - '0';
+            while (j < n && version2.charAt(j) != '.') {
+                revision2 = revision2 * 10 + (version2.charAt(j++) - '0');
             }
-            if (rversion1 < rversion2) {
-                return -1;
-            } else if (rversion1 > rversion2) {
-                return 1;
-            } else {
-                i++;
-                j++;
+            if (revision1 != revision2) {
+                return revision1.compareTo(revision2);
             }
+            i++;
+            j++;
         }
         return 0;
     }
