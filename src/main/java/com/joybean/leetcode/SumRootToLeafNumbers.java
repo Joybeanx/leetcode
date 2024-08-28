@@ -11,7 +11,7 @@ public class SumRootToLeafNumbers {
     }
 
     /*
-    //wrong solution, root-to-leaf numbers will sum twice
+    //wrong solution, root-to-leaf numbers will add multiple times
     public static int sumNumbers(TreeNode curNode, int curNum) {
         if (curNode == null) {
             return curNum;
@@ -31,8 +31,7 @@ public class SumRootToLeafNumbers {
         if (curNode == null) {
             return 0;
         }
-        int val = curNode.val;
-        curNum = curNum * 10 + val;
+        curNum = curNum * 10 + curNode.val;
         if (curNode.left == null && curNode.right == null) {
             return curNum;
         }
