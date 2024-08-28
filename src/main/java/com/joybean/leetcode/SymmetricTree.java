@@ -87,7 +87,7 @@ public class SymmetricTree {
     }
 
     /**
-     * Iterative solution
+     * <a href="https://leetcode.com/problems/symmetric-tree/solutions/33054/recursive-and-non-recursive-solutions-in-java/">Iterative solution with stack</a>
      * TODO
      *
      * @param root
