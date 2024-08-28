@@ -96,7 +96,7 @@ public class SortList {
         if (head == null || head.next == null) {
             return head;
         }
-        // step 1. cut the list to two halves
+        // step 1. cut the list into two halves
         ListNode slow = head;
         ListNode fast = head;
         ListNode prev = null;
@@ -128,12 +128,7 @@ public class SortList {
             }
             cur = cur.next;
         }
-        if (list1 == null) {
-            cur.next = list2;
-        }
-        if (list2 == null) {
-            cur.next = list1;
-        }
+        cur.next = list1 == null ? list2 : list1;
         return dummy.next;
     }
 
@@ -141,9 +136,12 @@ public class SortList {
         int val;
         ListNode next;
 
-        ListNode() {}
+        ListNode() {
+        }
 
-        ListNode(int val) {this.val = val;}
+        ListNode(int val) {
+            this.val = val;
+        }
 
         ListNode(int val, ListNode next) {
             this.val = val;
