@@ -115,7 +115,12 @@ public class RestoreIPAddresses {
     }
 
     private static void dfs3(String curPath, int startIdx, String s, List<String> ans) {
-        if (curPath.length() - s.length() == 4) {
+        int restoredParts = curPath.length() - s.length();
+        //pruning: check whether left section is too lengthy to be valid
+        if (s.length() - startIdx > 3 * (4 - restoredParts)) {
+            return;
+        }
+        if (restoredParts == 4) {
             if (startIdx == s.length()) {
                 ans.add(curPath.substring(0, curPath.length() - 1));
             }
