@@ -72,16 +72,52 @@ public class RestoreIPAddresses {
      * @param s
      * @return
      */
-    public static List<String> restoreIpAddresses2(String s) {
+    public List<String> restoreIpAddresses2(String s) {
         List<String> ans = new ArrayList<>();
-        dfs2(s, 0, 4, "", ans);
+        dfs2("", 0, s, ans);
         return ans;
     }
 
-    private static void dfs2(String s, int startIdx, int remainingParts, String restored, List<String> ans) {
-        if (remainingParts == 0) {
+    private void dfs2(String curPath, int startIdx, String s, List<String> ans) {
+        if (startIdx == s.length()) {
+            if (curPath.length() - s.length() == 4) {
+                ans.add(curPath.substring(0, curPath.length() - 1));
+                return;
+            }
+            return;
+        }
+        if (startIdx + 1 <= s.length()) {
+            dfs2(curPath + s.charAt(startIdx) + ".", startIdx + 1, s, ans);
+        }
+        if (s.charAt(startIdx) != '0') {
+            if (startIdx + 2 <= s.length()) {
+                dfs2(curPath + s.substring(startIdx, startIdx + 2) + ".", startIdx + 2, s, ans);
+            }
+            if (startIdx + 3 <= s.length()) {
+                int part = Integer.parseInt(s.substring(startIdx, startIdx + 3));
+                if (part < 256) {
+                    dfs2(curPath + s.substring(startIdx, startIdx + 3) + ".", startIdx + 3, s, ans);
+                }
+            }
+        }
+    }
+
+    /**
+     * DFS
+     *
+     * @param s
+     * @return
+     */
+    public static List<String> restoreIpAddresses3(String s) {
+        List<String> ans = new ArrayList<>();
+        dfs3("", 0, s, ans);
+        return ans;
+    }
+
+    private static void dfs3(String curPath, int startIdx, String s, List<String> ans) {
+        if (curPath.length() - s.length() == 4) {
             if (startIdx == s.length()) {
-                ans.add(restored.substring(0, restored.length() - 1));
+                ans.add(curPath.substring(0, curPath.length() - 1));
             }
             return;
         }
@@ -93,7 +129,7 @@ public class RestoreIPAddresses {
             if ((part.length() > 1 && part.startsWith("0")) || (part.length() == 3 && part.compareTo("255") > 0)) {
                 continue;
             }
-            dfs2(s, startIdx + i, remainingParts - 1, restored + part + ".", ans);
+            dfs3(curPath + part + ".", startIdx + i, s, ans);
         }
     }
 
@@ -103,7 +139,9 @@ public class RestoreIPAddresses {
      * @param s
      * @return TODO
      */
-    public static List<String> restoreIpAddresses3(String s) {
+    public static List<String> restoreIpAddresses4(String s) {
         return null;
     }
+
+
 }
