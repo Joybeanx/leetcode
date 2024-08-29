@@ -40,6 +40,7 @@ public class ImplementRand10UsingRand7 {
      * <a href="https://leetcode.cn/problems/implement-rand10-using-rand7/solutions/167850/cong-zui-ji-chu-de-jiang-qi-ru-he-zuo-dao-jun-yun-/">Optimized rejection sampling: rand7 -> rand49 -> rand40 -> rand10</a>
      *
      * @return
+     * @see <a href="https://leetcode.com/problems/implement-rand10-using-rand7/solutions/150301/three-line-java-solution-the-idea-can-be-generalized-to-implement-randm-using-randn/">Rejection sampling correctness</a>
      */
     public static int rand10c() {
         int rand40 = 0;
