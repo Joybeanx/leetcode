@@ -28,19 +28,8 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
         return buildTree(inorderMap, postorder, 0, inorder.length - 1);
     }
 
-    /**
-     * Iterative solution
-     * TODO
-     * @param inorder
-     * @param postorder
-     * @return
-     */
-    public static TreeNode buildTree2(int[] inorder, int[] postorder) {
-        return null;
-    }
-
     private static TreeNode buildTree(Map<Integer, Integer> inorderMap, int[] postorder, int inorderFrom,
-        int inorderTo) {
+                                      int inorderTo) {
         if (inorderFrom > inorderTo) {
             return null;
         }
@@ -52,14 +41,29 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
         return parent;
     }
 
+    /**
+     * Iterative solution
+     * TODO
+     *
+     * @param inorder
+     * @param postorder
+     * @return
+     */
+    public static TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return null;
+    }
+
     public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
+        TreeNode() {
+        }
 
-        TreeNode(int val) { this.val = val; }
+        TreeNode(int val) {
+            this.val = val;
+        }
 
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
