@@ -147,7 +147,7 @@ public class MinimumWindowSubstring {
     }
 
     /**
-     * Sliding window: keep track of number of characters found in t
+     * Sliding window using Map: keep track of number of characters found in t
      *
      * @param s
      * @param t
@@ -187,6 +187,49 @@ public class MinimumWindowSubstring {
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
     }
 
+    /**
+     * Sliding window using array: keep track of number of characters found in t
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public static String minWindow5(String s, String t) {
+        int[] requiredCounter = new int[128];
+        for (char c : t.toCharArray()) {
+            requiredCounter[c - 'A']++;
+        }
+
+        int left = 0;
+        int right = 0;
+        int minLeft = 0;
+        int minLength = Integer.MAX_VALUE;
+        //number of characters found in t
+        int matched = 0;
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            requiredCounter[c - 'A']--;
+            //should not change matched if character is not in t
+            if (requiredCounter[c - 'A'] >= 0) {
+                matched++;
+            }
+            while (matched == t.length()) {
+                char lc = s.charAt(left);
+                requiredCounter[lc - 'A']++;
+                if (requiredCounter[lc - 'A'] > 0) {
+                    if (right - left + 1 < minLength) {
+                        minLeft = left;
+                        minLength = right - left + 1;
+                    }
+                    matched--;
+                }
+                left++;
+            }
+            right++;
+        }
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLength);
+    }
+
 
     /**
      * <a href="https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that
@@ -196,7 +239,7 @@ public class MinimumWindowSubstring {
      * @param t
      * @return
      */
-    public static String minWindow5(String s, String t) {
+    public static String minWindow6(String s, String t) {
         int[] requiredCounter = new int[128];
         for (char c : t.toCharArray()) {
             requiredCounter[c]++;
@@ -204,25 +247,26 @@ public class MinimumWindowSubstring {
         int left = 0;
         int minLeft = 0;
         int minLen = Integer.MAX_VALUE;
-        //number of characters of t to be found in s.
+        //number of characters of t to be found in s
         int remainingChars = t.length();
         for (int right = 0; right < s.length(); right++) {
             char rc = s.charAt(right);
             requiredCounter[rc]--;
-            //filter out characters that are not in t
+            //should not change remainingChars if character is not in t
             if (requiredCounter[rc] >= 0) {
                 remainingChars--;
             }
             while (remainingChars == 0) {
-                if (minLen > right - left + 1) {
-                    minLen = right - left + 1;
-                    minLeft = left;
-                }
-                char lc = s.charAt(left++);
+                char lc = s.charAt(left);
                 requiredCounter[lc]++;
                 if (requiredCounter[lc] > 0) {
                     remainingChars++;
+                    if (right - left + 1 < minLen) {
+                        minLen = right - left + 1;
+                        minLeft = left;
+                    }
                 }
+                left++;
             }
         }
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minLeft, minLeft + minLen);
